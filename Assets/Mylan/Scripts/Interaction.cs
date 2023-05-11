@@ -9,19 +9,24 @@ public class Interaction : MonoBehaviour
 {
     public Transform InteractionSource;
     public float InteractRange;
+    public GameObject InteractionText;
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E))
+        Ray r = new Ray(InteractionSource.position, InteractionSource.forward);
+        Debug.DrawRay(r.origin, r.direction * InteractRange, Color.red);
+        if(Physics.Raycast(r, out RaycastHit hitInfo, InteractRange))
         {
-            Ray r = new Ray(InteractionSource.position, InteractionSource.forward);
-            if(Physics.Raycast(r, out RaycastHit hitInfo, InteractRange))
+            if(hitInfo.collider.gameObject.TryGetComponent(out IInteractable interactObj))
             {
-                if(hitInfo.collider.gameObject.TryGetComponent(out IInteractable interactObj))
-                {
+                InteractionText.SetActive(true);
+                if(Input.GetKeyDown(KeyCode.E))
                     interactObj.Interact();
-                }
             }
+            else
+                InteractionText.SetActive(false);
         }
+        else
+            InteractionText.SetActive(false);
     }
 }
