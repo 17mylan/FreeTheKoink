@@ -34,32 +34,35 @@ public class CameraRotation : MonoBehaviour
     }
 
     private void WallCheck()
+{
+    Vector3 raycastOrigin = cameraObject.transform.position - cameraObject.transform.up;
+
+    RaycastHit hit;
+    Debug.DrawRay(raycastOrigin, cameraObject.transform.forward * raycastDistance, Color.red);
+    if (Physics.Raycast(raycastOrigin, cameraObject.transform.forward, out hit))
     {
-        RaycastHit hit;
-        Debug.DrawRay(cameraObject.transform.position, cameraObject.transform.forward * raycastDistance, Color.red);
-        if (Physics.Raycast(cameraObject.transform.position, cameraObject.transform.forward, out hit))
+        GameObject hitObject = hit.collider.gameObject;
+        if (hitObject.layer == 3)
         {
-            GameObject hitObject = hit.collider.gameObject;
-            if (hitObject.layer == 3)
+            if (hitObject != lastHitObject)
             {
-                if (hitObject != lastHitObject)
+                if (lastHitObject != null)
                 {
-                    if (lastHitObject != null)
-                    {
-                        StartCoroutine(ReappearObject(lastHitObject));
-                    }
-                    MeshRenderer meshRenderer = hitObject.GetComponent<MeshRenderer>();
-                    if (meshRenderer != null)
-                    {
-                        meshRenderer.enabled = false;
-                        DisableChildrenRecursively(hitObject);
-                        lastHitObject = hitObject;
-                        hasHitObject = true;
-                    }
+                    StartCoroutine(ReappearObject(lastHitObject));
+                }
+                MeshRenderer meshRenderer = hitObject.GetComponent<MeshRenderer>();
+                if (meshRenderer != null)
+                {
+                    meshRenderer.enabled = false;
+                    DisableChildrenRecursively(hitObject);
+                    lastHitObject = hitObject;
+                    hasHitObject = true;
                 }
             }
         }
     }
+}
+
 
     private IEnumerator ReappearObject(GameObject obj)
     {
