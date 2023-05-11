@@ -74,18 +74,38 @@ public class CameraRotation : MonoBehaviour
 
     private void DisableChildrenRecursively(GameObject parentObject)
     {
+        Renderer parentRenderer = parentObject.GetComponent<Renderer>();
+        if (parentRenderer != null)
+        {
+            parentRenderer.enabled = false;
+        }
+
         foreach (Transform child in parentObject.transform)
         {
-            child.gameObject.SetActive(false);
+            Renderer childRenderer = child.GetComponent<Renderer>();
+            if (childRenderer != null)
+            {
+                childRenderer.enabled = false;
+            }
             DisableChildrenRecursively(child.gameObject);
         }
     }
 
     private void EnableChildrenRecursively(GameObject parentObject)
     {
+        Renderer parentRenderer = parentObject.GetComponent<Renderer>();
+        if (parentRenderer != null)
+        {
+            parentRenderer.enabled = true;
+        }
+
         foreach (Transform child in parentObject.transform)
         {
-            child.gameObject.SetActive(true);
+            Renderer childRenderer = child.GetComponent<Renderer>();
+            if (childRenderer != null)
+            {
+                childRenderer.enabled = true;
+            }
             EnableChildrenRecursively(child.gameObject);
         }
     }
