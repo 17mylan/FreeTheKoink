@@ -160,6 +160,7 @@ namespace KinematicCharacterController.Examples
                         // Move and look inputs
                         _moveInputVector = cameraPlanarRotation * moveInputVector;
 
+
                         switch (OrientationMethod)
                         {
                             case OrientationMethod.TowardsCamera:
@@ -173,6 +174,9 @@ namespace KinematicCharacterController.Examples
                         // Jumping input
                         if (inputs.JumpDown)
                         {
+
+                            print("Je saute !");
+
                             _timeSinceJumpRequested = 0f;
                             _jumpRequested = true;
                         }
@@ -180,13 +184,15 @@ namespace KinematicCharacterController.Examples
                         // Crouching input
                         if (inputs.CrouchDown)
                         {
+                            print("Je m'accroupi !");
+
                             _shouldBeCrouching = true;
 
                             if (!_isCrouching)
                             {
                                 _isCrouching = true;
                                 Motor.SetCapsuleDimensions(0.5f, CrouchedCapsuleHeight, CrouchedCapsuleHeight * 0.5f);
-                                MeshRoot.localScale = new Vector3(1f, 0.5f, 1f);
+                                MeshRoot.localScale = new Vector3(0.65f, 0.4f, 0.65f);
                             }
                         }
                         else if (inputs.CrouchUp)
@@ -301,6 +307,13 @@ namespace KinematicCharacterController.Examples
 
                             // Smooth movement Velocity
                             currentVelocity = Vector3.Lerp(currentVelocity, targetMovementVelocity, 1f - Mathf.Exp(-StableMovementSharpness * deltaTime));
+                            if (currentVelocity.magnitude > 0f)
+                            {
+                                // Print message when moving
+                                print("J'avance !");
+                            }
+                            else
+                                print("Je suis à l'arrêt !");
                         }
                         // Air movement
                         else
@@ -308,6 +321,7 @@ namespace KinematicCharacterController.Examples
                             // Add move input
                             if (_moveInputVector.sqrMagnitude > 0f)
                             {
+
                                 Vector3 addedVelocity = _moveInputVector * AirAccelerationSpeed * deltaTime;
 
                                 Vector3 currentVelocityOnInputsPlane = Vector3.ProjectOnPlane(currentVelocity, Motor.CharacterUp);
@@ -440,7 +454,7 @@ namespace KinematicCharacterController.Examples
                             else
                             {
                                 // If no obstructions, uncrouch
-                                MeshRoot.localScale = new Vector3(1f, 1f, 1f);
+                                MeshRoot.localScale = new Vector3(0.65f, 0.65f, 0.65f);
                                 _isCrouching = false;
                             }
                         }
