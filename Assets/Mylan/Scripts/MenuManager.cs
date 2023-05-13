@@ -5,12 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
-    public float playAnimationDelayTimer = 1f;
+    public float playAnimationDelayTimer = 2f;
     public GameObject fadeTransition, creditsPanel, settingsPanel;
     public string sceneToLoad;
     public Animator creditsPanelAnimator, settingsPanelAnimator;
     public bool isCreditsPanelAnimationPlaying = false, isSettingsPanelAnimationPlaying = false;
     public bool isSettingsPanelOpen = false, isCreditsPanelOpen = false;
+    public AudioSource audioSource;
+    public AudioClip duckSound;
     public void Play()
     {
         StartCoroutine(PlayAnimation());
@@ -82,6 +84,11 @@ public class MenuManager : MonoBehaviour
         settingsPanel.SetActive(false);
         isSettingsPanelAnimationPlaying = false;
         isSettingsPanelOpen = false;
+    }
+
+    public void PlayDuckSound()
+    {
+        audioSource.PlayOneShot(duckSound);
     }
     public void CloseGame()
     {
