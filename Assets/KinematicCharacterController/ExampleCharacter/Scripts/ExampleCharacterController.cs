@@ -307,13 +307,13 @@ namespace KinematicCharacterController.Examples
 
                             // Smooth movement Velocity
                             currentVelocity = Vector3.Lerp(currentVelocity, targetMovementVelocity, 1f - Mathf.Exp(-StableMovementSharpness * deltaTime));
-                            if (currentVelocity.magnitude > 0f)
+                            /*if (currentVelocity.magnitude > 0f)
                             {
                                 // Print message when moving
                                 print("J'avance !");
                             }
                             else
-                                print("Je suis à l'arrêt !");
+                                print("Je suis à l'arrêt !");*/
                         }
                         // Air movement
                         else

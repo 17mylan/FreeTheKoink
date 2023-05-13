@@ -6,13 +6,22 @@ using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour
 {
     public float playAnimationDelayTimer = 2f;
-    public GameObject fadeTransition, creditsPanel, settingsPanel;
+    public GameObject fadeTransition, fadeToWhiteTransition, creditsPanel, settingsPanel;
     public string sceneToLoad;
     public Animator creditsPanelAnimator, settingsPanelAnimator;
     public bool isCreditsPanelAnimationPlaying = false, isSettingsPanelAnimationPlaying = false;
     public bool isSettingsPanelOpen = false, isCreditsPanelOpen = false;
     public AudioSource audioSource;
     public AudioClip duckSound;
+
+    public void Start()
+    {
+        if(PlayerPrefs.GetString("PreviousScene") == "Playground")
+        {
+            fadeToWhiteTransition.SetActive(true);
+            PlayerPrefs.SetString("PreviousScene", "Menu");
+        }
+    }
     public void Play()
     {
         StartCoroutine(PlayAnimation());

@@ -17,6 +17,8 @@ namespace KinematicCharacterController.Examples
         private const string HorizontalInput = "Horizontal";
         private const string VerticalInput = "Vertical";
 
+        private PauseMenu pauseMenu;
+
         private void Start()
         {
             Cursor.lockState = CursorLockMode.Locked;
@@ -27,11 +29,13 @@ namespace KinematicCharacterController.Examples
             // Ignore the character's collider(s) for camera obstruction checks
             CharacterCamera.IgnoredColliders.Clear();
             CharacterCamera.IgnoredColliders.AddRange(Character.GetComponentsInChildren<Collider>());
+
+            pauseMenu = FindObjectOfType<PauseMenu>();
         }
 
         private void Update()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && !pauseMenu.gameIsPaused)
             {
                 Cursor.lockState = CursorLockMode.Locked;
             }
