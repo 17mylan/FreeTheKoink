@@ -7289,6 +7289,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5913387815442760237, guid: 9e4c3099db8ea5548bdfa7e7b8aada6c, type: 3}
+      propertyPath: m_text
+      value: Press [E] to interact.
+      objectReference: {fileID: 0}
     - target: {fileID: 7152643326668812902, guid: 9e4c3099db8ea5548bdfa7e7b8aada6c, type: 3}
       propertyPath: m_Enabled
       value: 0
