@@ -128,6 +128,7 @@ GameObject:
   - component: {fileID: 711319100271774227}
   - component: {fileID: 711319100271774226}
   - component: {fileID: 1685460833333512928}
+  - component: {fileID: 1758020786915428588}
   - component: {fileID: 595485401530094944}
   m_Layer: 9
   m_Name: Player
@@ -273,6 +274,22 @@ MonoBehaviour:
   canPauseMenu: 0
   gameIsPaused: 0
   pauseMenuUI: {fileID: 0}
+  fadeToBlack: {fileID: 0}
+--- !u!114 &1758020786915428588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 595485401530094945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b28b968d553b8c74ab9ecc22d314d503, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  glideSpeed: 5
+  maxGlideHeight: 10
+  glideDrag: 2
 --- !u!54 &595485401530094944
 Rigidbody:
   m_ObjectHideFlags: 0

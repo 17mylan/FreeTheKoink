@@ -69,7 +69,7 @@ namespace KinematicCharacterController.Examples
         public Vector3 Gravity = new Vector3(0, -30f, 0);
         public Transform MeshRoot;
         public Transform CameraFollowPoint;
-        public float CrouchedCapsuleHeight = 1f;
+        public float CrouchedCapsuleHeight = 1.3f;
 
         public CharacterState CurrentCharacterState { get; private set; }
 
@@ -80,6 +80,8 @@ namespace KinematicCharacterController.Examples
         private bool _jumpRequested = false;
         private bool _jumpConsumed = false;
         private bool _jumpedThisFrame = false;
+        private bool _isGliding = false;
+        private float glideForce = 20f;
         private float _timeSinceJumpRequested = Mathf.Infinity;
         private float _timeSinceLastAbleToJump = 0f;
         private Vector3 _internalVelocityAdd = Vector3.zero;
@@ -191,13 +193,21 @@ namespace KinematicCharacterController.Examples
                             if (!_isCrouching)
                             {
                                 _isCrouching = true;
-                                Motor.SetCapsuleDimensions(0.5f, CrouchedCapsuleHeight, CrouchedCapsuleHeight * 0.5f);
+                                Motor.SetCapsuleDimensions(0.3f, CrouchedCapsuleHeight, CrouchedCapsuleHeight * 0.5f);
                                 MeshRoot.localScale = new Vector3(0.65f, 0.4f, 0.65f);
                             }
                         }
                         else if (inputs.CrouchUp)
                         {
                             _shouldBeCrouching = false;
+                        }
+                        if (Input.GetKey(KeyCode.G))
+                        {
+                            _isGliding = true;
+                        }
+                        else
+                        {
+                            _isGliding = false;
                         }
 
                         break;
@@ -397,6 +407,10 @@ namespace KinematicCharacterController.Examples
                             currentVelocity += _internalVelocityAdd;
                             _internalVelocityAdd = Vector3.zero;
                         }
+                        if (_isGliding)
+                        {
+                            currentVelocity += (-Gravity.normalized * glideForce * deltaTime);
+                        }
                         break;
                     }
             }
@@ -449,7 +463,7 @@ namespace KinematicCharacterController.Examples
                                 QueryTriggerInteraction.Ignore) > 0)
                             {
                                 // If obstructions, just stick to crouching dimensions
-                                Motor.SetCapsuleDimensions(0.5f, CrouchedCapsuleHeight, CrouchedCapsuleHeight * 0.5f);
+                                Motor.SetCapsuleDimensions(0.3f, CrouchedCapsuleHeight, CrouchedCapsuleHeight * 0.5f);
                             }
                             else
                             {

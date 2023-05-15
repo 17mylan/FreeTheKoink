@@ -7074,6 +7074,22 @@ PrefabInstance:
       propertyPath: pauseMenuUI
       value: 
       objectReference: {fileID: 1420926611}
+    - target: {fileID: 1758020786915428588, guid: 9e4c3099db8ea5548bdfa7e7b8aada6c, type: 3}
+      propertyPath: glideDrag
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 1758020786915428588, guid: 9e4c3099db8ea5548bdfa7e7b8aada6c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1758020786915428588, guid: 9e4c3099db8ea5548bdfa7e7b8aada6c, type: 3}
+      propertyPath: glideSpeed
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 1758020786915428588, guid: 9e4c3099db8ea5548bdfa7e7b8aada6c, type: 3}
+      propertyPath: maxGlideHeight
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 2220471275700729390, guid: 9e4c3099db8ea5548bdfa7e7b8aada6c, type: 3}
       propertyPath: MaxDistance
       value: 4
