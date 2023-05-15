@@ -201,7 +201,7 @@ namespace KinematicCharacterController.Examples
                         {
                             _shouldBeCrouching = false;
                         }
-                        if (Input.GetKey(KeyCode.G))
+                        if (Input.GetKey(KeyCode.G) && !_jumpConsumed)
                         {
                             _isGliding = true;
                         }
@@ -209,7 +209,12 @@ namespace KinematicCharacterController.Examples
                         {
                             _isGliding = false;
                         }
-
+                        if(Input.GetKey(KeyCode.LeftShift))
+                        {
+                            MaxStableMoveSpeed = 10f;
+                        }
+                        else
+                            MaxStableMoveSpeed = 5f;
                         break;
                     }
             }
