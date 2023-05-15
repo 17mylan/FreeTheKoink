@@ -11,11 +11,18 @@ public class Interaction : MonoBehaviour
     public float InteractRange;
     public GameObject InteractionText;
 
+    private CatchObjects catchObjects;
+
+    public void Start()
+    {
+        catchObjects = FindObjectOfType<CatchObjects>();
+    }
+
     void Update()
     {
         Ray r = new Ray(InteractionSource.position, InteractionSource.forward);
         Debug.DrawRay(r.origin, r.direction * InteractRange, Color.red);
-        if(Physics.Raycast(r, out RaycastHit hitInfo, InteractRange))
+        if(Physics.Raycast(r, out RaycastHit hitInfo, InteractRange) && !catchObjects.isPickuping)
         {
             if(hitInfo.collider.gameObject.TryGetComponent(out IInteractable interactObj))
             {

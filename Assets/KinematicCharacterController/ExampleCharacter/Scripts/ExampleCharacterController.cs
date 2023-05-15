@@ -91,8 +91,11 @@ namespace KinematicCharacterController.Examples
         private Vector3 lastInnerNormal = Vector3.zero;
         private Vector3 lastOuterNormal = Vector3.zero;
 
+        private CatchObjects catchObjects;
+
         private void Awake()
         {
+            catchObjects = FindObjectOfType<CatchObjects>();
             // Handle initial state
             TransitionToState(CharacterState.Default);
 
@@ -189,6 +192,7 @@ namespace KinematicCharacterController.Examples
                             print("Je m'accroupi !");
 
                             _shouldBeCrouching = true;
+                            catchObjects.checkIsCrouching = false;
 
                             if (!_isCrouching)
                             {
@@ -200,8 +204,9 @@ namespace KinematicCharacterController.Examples
                         else if (inputs.CrouchUp)
                         {
                             _shouldBeCrouching = false;
+                            catchObjects.checkIsCrouching = false;
                         }
-                        if (Input.GetKey(KeyCode.G) && !_jumpConsumed)
+                        if (Input.GetKey(KeyCode.CapsLock) /*&& !_jumpConsumed*/)
                         {
                             _isGliding = true;
                         }
