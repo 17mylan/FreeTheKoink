@@ -1,13 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CatchObjects : MonoBehaviour
 {
-    private GameObject objectInHand;
-    private bool canPickup = true;
     public bool isPickuping = false;
     public bool checkIsCrouching = false;
+
+
+    private GameObject objectInHand;
+    private bool canPickup = true;
 
     private void Update()
     {
