@@ -10,6 +10,7 @@ public class InteractionSystem : MonoBehaviour, IInteractable
     public TextMeshProUGUI narrativeText;
     public GameObject narrativeTextObject;
     public float NarrativeWaitTimer = 10f;
+    public string NarrationText;
     public void Interact()
     {
         GetComponent<Renderer>().material = newMaterial;
@@ -21,11 +22,11 @@ public class InteractionSystem : MonoBehaviour, IInteractable
         StopAllCoroutines();
         if(gameObject.name == "Narrative-Chaise")
         {
-            StartCoroutine(NarrativeWaiter("Cette chaise est très belle."));
+            StartCoroutine(NarrativeWaiter(NarrationText));
         }
         else if(gameObject.name == "Narrative-Meuble")
         {
-            StartCoroutine(NarrativeWaiter("Cette meuble est moche."));
+            StartCoroutine(NarrativeWaiter(NarrationText));
         }
     }
 
