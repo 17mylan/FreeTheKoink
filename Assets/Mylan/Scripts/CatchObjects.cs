@@ -9,7 +9,7 @@ public class CatchObjects : MonoBehaviour
     public bool checkIsCrouching = false;
 
 
-    private GameObject objectInHand;
+    /*private GameObject objectInHand;
     private bool canPickup = true;
 
     private void Update()
@@ -56,5 +56,5 @@ public class CatchObjects : MonoBehaviour
         objectInHand.transform.SetParent(null);
         objectInHand = null;
         isPickuping = false;
-    }
+    }*/
 }
