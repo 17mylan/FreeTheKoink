@@ -9,7 +9,7 @@ public class InteractionSystem : MonoBehaviour, IInteractable
     public Material newMaterial;
     public TextMeshProUGUI narrativeText;
     public GameObject narrativeTextObject;
-    public float NarrativeWaitTimer = 5f;
+    public float NarrativeWaitTimer = 10f;
     public void Interact()
     {
         GetComponent<Renderer>().material = newMaterial;
