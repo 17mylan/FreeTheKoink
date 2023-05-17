@@ -187,7 +187,7 @@ namespace KinematicCharacterController.Examples
                         }
 
                         // Crouching input
-                        if (inputs.CrouchDown)
+                        if (inputs.CrouchDown && !catchObjects.isPickuping)
                         {
                             print("Je m'accroupi !");
 
