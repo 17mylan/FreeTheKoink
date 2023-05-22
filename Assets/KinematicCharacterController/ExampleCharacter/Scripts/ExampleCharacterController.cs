@@ -61,6 +61,7 @@ namespace KinematicCharacterController.Examples
         public float JumpScalableForwardSpeed = 10f;
         public float JumpPreGroundingGraceTime = 0f;
         public float JumpPostGroundingGraceTime = 0f;
+        public bool doubleJumpState = true;
 
         [Header("Misc")]
         public List<Collider> IgnoredColliders = new List<Collider>();
@@ -93,6 +94,8 @@ namespace KinematicCharacterController.Examples
 
         private CatchObjects catchObjects;
 
+        public Animator animator;
+
         private void Awake()
         {
             catchObjects = FindObjectOfType<CatchObjects>();
@@ -101,6 +104,7 @@ namespace KinematicCharacterController.Examples
 
             // Assign the characterController to the motor
             Motor.CharacterController = this;
+            animator = FindObjectOfType<Animator>();
         }
 
         /// <summary>
@@ -181,7 +185,7 @@ namespace KinematicCharacterController.Examples
                         {
 
                             print("Je saute !");
-
+                            animator.SetFloat("Speed", 0f);
                             _timeSinceJumpRequested = 0f;
                             _jumpRequested = true;
                         }
@@ -327,13 +331,15 @@ namespace KinematicCharacterController.Examples
 
                             // Smooth movement Velocity
                             currentVelocity = Vector3.Lerp(currentVelocity, targetMovementVelocity, 1f - Mathf.Exp(-StableMovementSharpness * deltaTime));
-                            /*if (currentVelocity.magnitude > 0f)
+                            if (currentVelocity.magnitude > 0f)
                             {
                                 // Print message when moving
-                                print("J'avance !");
+                                //print("J'avance !");
+                                animator.SetFloat("Speed", 1f);
                             }
                             else
-                                print("Je suis à l'arrêt !");*/
+                                //print("Je suis à l'arrêt !");
+                                animator.SetFloat("Speed", 0f);
                         }
                         // Air movement
                         else

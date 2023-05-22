@@ -14,6 +14,7 @@ public class Interaction : MonoBehaviour
     public GameObject InteractionText;
     public TextMeshProUGUI nameText;
     private CatchObjects catchObjects;
+    private GameObject lastInteractedObject;
 
     public void Start()
     {
@@ -34,6 +35,11 @@ public class Interaction : MonoBehaviour
                 {
                     nameText.text = "Press [E] to inspect";
                     InteractionText.SetActive(true);
+
+                    /*Outline outlineComponent = hitInfo.collider.gameObject.GetComponent<Outline>();
+                    if (outlineComponent != null)
+                        outlineComponent.enabled = true;*/
+
                     if(Input.GetKeyDown(KeyCode.E))
                         interactObj.Interact();
                 }
@@ -41,14 +47,37 @@ public class Interaction : MonoBehaviour
                 {
                     nameText.text = "Press [E] to interact";
                     InteractionText.SetActive(true);
+                    
+                    /*Outline outlineComponent = hitInfo.collider.gameObject.GetComponent<Outline>();
+                    if (outlineComponent != null)
+                        outlineComponent.enabled = true;*/
+
                     if(Input.GetKeyDown(KeyCode.E))
                         interactObj.Interact();
                 }
+                //lastInteractedObject = hitInfo.collider.gameObject;
             }
             else
+            {
                 InteractionText.SetActive(false);
+                //DisableOutline(lastInteractedObject);
+            }
         }
         else
+        {
             InteractionText.SetActive(false);
+            //DisableOutline(lastInteractedObject);
+        }
     }
+    /*void DisableOutline(GameObject obj)
+    {
+        if(obj != null)
+        {
+            Outline outlineComponent = obj.GetComponent<Outline>();
+            if (outlineComponent != null)
+            {
+                outlineComponent.enabled = false;
+            }
+        }
+    }*/
 }
