@@ -92,19 +92,15 @@ namespace KinematicCharacterController.Examples
         private Vector3 lastInnerNormal = Vector3.zero;
         private Vector3 lastOuterNormal = Vector3.zero;
 
-        private CatchObjects catchObjects;
-
         public Animator animator;
 
         private void Awake()
         {
-            catchObjects = FindObjectOfType<CatchObjects>();
             // Handle initial state
             TransitionToState(CharacterState.Default);
 
             // Assign the characterController to the motor
             Motor.CharacterController = this;
-            animator = FindObjectOfType<Animator>();
         }
 
         /// <summary>
@@ -185,18 +181,16 @@ namespace KinematicCharacterController.Examples
                         {
 
                             print("Je saute !");
-                            animator.SetFloat("Speed", 0f);
                             _timeSinceJumpRequested = 0f;
                             _jumpRequested = true;
                         }
 
                         // Crouching input
-                        if (inputs.CrouchDown && !catchObjects.isPickuping)
+                        if (inputs.CrouchDown)
                         {
                             print("Je m'accroupi !");
 
                             _shouldBeCrouching = true;
-                            catchObjects.checkIsCrouching = false;
 
                             if (!_isCrouching)
                             {
@@ -208,7 +202,6 @@ namespace KinematicCharacterController.Examples
                         else if (inputs.CrouchUp)
                         {
                             _shouldBeCrouching = false;
-                            catchObjects.checkIsCrouching = false;
                         }
                         if (Input.GetKey(KeyCode.CapsLock) /*&& !_jumpConsumed*/)
                         {
@@ -333,13 +326,14 @@ namespace KinematicCharacterController.Examples
                             currentVelocity = Vector3.Lerp(currentVelocity, targetMovementVelocity, 1f - Mathf.Exp(-StableMovementSharpness * deltaTime));
                             if (currentVelocity.magnitude > 0f)
                             {
-                                // Print message when moving
                                 //print("J'avance !");
                                 animator.SetFloat("Speed", 1f);
                             }
                             else
-                                //print("Je suis à l'arrêt !");
+                            {
                                 animator.SetFloat("Speed", 0f);
+                                //print("Je suis à l'arrêt !");
+                            }
                         }
                         // Air movement
                         else
