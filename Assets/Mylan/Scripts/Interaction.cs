@@ -13,19 +13,14 @@ public class Interaction : MonoBehaviour
     public float InteractRange;
     public GameObject InteractionText;
     public TextMeshProUGUI nameText;
-    private CatchObjects catchObjects;
     private GameObject lastInteractedObject;
-
-    public void Start()
-    {
-        catchObjects = FindObjectOfType<CatchObjects>();
-    }
+    private InteractionSystem interactionSystem;
 
     void Update()
     {
         Ray r = new Ray(InteractionSource.position, InteractionSource.forward);
         Debug.DrawRay(r.origin, r.direction * InteractRange, Color.red);
-        if(Physics.Raycast(r, out RaycastHit hitInfo, InteractRange) && !catchObjects.isPickuping)
+        if(Physics.Raycast(r, out RaycastHit hitInfo, InteractRange))
         {
             if(hitInfo.collider.gameObject.TryGetComponent(out IInteractable interactObj))
             {
@@ -49,7 +44,7 @@ public class Interaction : MonoBehaviour
                 }
                 else if(objectName.StartsWith("Door"))
                 {
-                    nameText.text = "Door";
+                    nameText.text = "Press [E] to interact";
                     if(Input.GetKeyDown(KeyCode.E))
                         interactObj.Interact();
                 }

@@ -11,7 +11,8 @@ public class InteractionSystem : MonoBehaviour, IInteractable
     public GameObject narrativeTextObject;
     public float NarrativeWaitTimer = 10f;
     public string NarrationText;
-    private Animator anim;
+    public Animator doorAnimator;
+    public bool isDoorOpen = false;
 
     public void Interact()
     {
@@ -19,25 +20,38 @@ public class InteractionSystem : MonoBehaviour, IInteractable
 
         if (gameObject.tag == "Door")
         {
-            print("J'interagis avec une porte.");
-            anim = GetComponentInParent<Animator>();
-            anim.Play("DoorOpen");
-            // Appeler la fonction OpenDoor pour ouvrir ou fermer la porte
-            OpenDoor();
+            if (isDoorOpen)
+                DoorClose();
+            else
+                DoorOpen();
         }
 
 
         // NARRATIVE 
 
-        StopAllCoroutines();
         if (gameObject.name == "Narrative-Chaise")
         {
             StartCoroutine(NarrativeWaiter(NarrationText));
+            StopAllCoroutines();
         }
         else if (gameObject.name == "Narrative-Meuble")
         {
             StartCoroutine(NarrativeWaiter(NarrationText));
+            StopAllCoroutines();
         }
+    }
+
+    public void DoorOpen()
+    {
+        doorAnimator.SetBool("open", true);
+        doorAnimator.SetBool("closed", false);
+        isDoorOpen = true;
+    }
+    public void DoorClose()
+    {
+        doorAnimator.SetBool("open", false);
+        doorAnimator.SetBool("closed", true);
+        isDoorOpen = false;
     }
 
     IEnumerator NarrativeWaiter(string narrationText)
@@ -46,18 +60,5 @@ public class InteractionSystem : MonoBehaviour, IInteractable
         narrativeTextObject.SetActive(true);
         yield return new WaitForSeconds(NarrativeWaitTimer);
         narrativeTextObject.SetActive(false);
-    }
-
-    private void OpenDoor()
-    {
-        anim = GetComponentInParent<Animator>();
-        // Vérifier l'état actuel de la porte
-        bool isOpen = anim.GetBool("isOpen");
-
-        // Inverser l'état de la porte
-        isOpen = !isOpen;
-
-        // Mettre à jour le paramètre "isOpen" de l'Animator
-        anim.SetBool("isOpen", isOpen);
     }
 }
