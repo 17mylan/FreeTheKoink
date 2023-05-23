@@ -8,6 +8,7 @@ TagManager:
   - Ground
   - Interaction
   - Pickupable
+  - Door
   layers:
   - Default
   - TransparentFX

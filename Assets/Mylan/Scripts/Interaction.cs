@@ -47,6 +47,12 @@ public class Interaction : MonoBehaviour
                     if(Input.GetKeyDown(KeyCode.E))
                         interactObj.Interact();
                 }
+                else if(objectName.StartsWith("Door"))
+                {
+                    nameText.text = "Door";
+                    if(Input.GetKeyDown(KeyCode.E))
+                        interactObj.Interact();
+                }
                 lastInteractedObject = hitInfo.collider.gameObject;
             }
             else

@@ -11,20 +11,30 @@ public class InteractionSystem : MonoBehaviour, IInteractable
     public GameObject narrativeTextObject;
     public float NarrativeWaitTimer = 10f;
     public string NarrationText;
+    private Animator anim;
+
     public void Interact()
     {
-        GetComponent<Renderer>().material = newMaterial;
         // INTERACTIVE
+
+        if (gameObject.tag == "Door")
+        {
+            print("J'interagis avec une porte.");
+            anim = GetComponentInParent<Animator>();
+            anim.Play("DoorOpen");
+            // Appeler la fonction OpenDoor pour ouvrir ou fermer la porte
+            OpenDoor();
+        }
 
 
         // NARRATIVE 
-        
+
         StopAllCoroutines();
-        if(gameObject.name == "Narrative-Chaise")
+        if (gameObject.name == "Narrative-Chaise")
         {
             StartCoroutine(NarrativeWaiter(NarrationText));
         }
-        else if(gameObject.name == "Narrative-Meuble")
+        else if (gameObject.name == "Narrative-Meuble")
         {
             StartCoroutine(NarrativeWaiter(NarrationText));
         }
@@ -37,5 +47,17 @@ public class InteractionSystem : MonoBehaviour, IInteractable
         yield return new WaitForSeconds(NarrativeWaitTimer);
         narrativeTextObject.SetActive(false);
     }
-}
 
+    private void OpenDoor()
+    {
+        anim = GetComponentInParent<Animator>();
+        // Vérifier l'état actuel de la porte
+        bool isOpen = anim.GetBool("isOpen");
+
+        // Inverser l'état de la porte
+        isOpen = !isOpen;
+
+        // Mettre à jour le paramètre "isOpen" de l'Animator
+        anim.SetBool("isOpen", isOpen);
+    }
+}
