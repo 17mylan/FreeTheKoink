@@ -2578,6 +2578,7 @@ GameObject:
   - component: {fileID: 805487831}
   - component: {fileID: 805487830}
   - component: {fileID: 805487833}
+  - component: {fileID: 805487834}
   m_Layer: 0
   m_Name: Narrative-Meuble
   m_TagString: Untagged
@@ -2681,6 +2682,24 @@ MonoBehaviour:
   NarrativeWaitTimer: 5
   NarrationText: Salut je suis MR le meuble et en vrai a part rien faire je sers
     a faire joli
+--- !u!114 &805487834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 805487828}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &818719391
 GameObject:
   m_ObjectHideFlags: 0
@@ -5117,6 +5136,7 @@ GameObject:
   - component: {fileID: 1536554374}
   - component: {fileID: 1536554373}
   - component: {fileID: 1536554376}
+  - component: {fileID: 1536554377}
   m_Layer: 0
   m_Name: Narrative-Chaise
   m_TagString: Untagged
@@ -5219,6 +5239,24 @@ MonoBehaviour:
   narrativeTextObject: {fileID: 980095379}
   NarrativeWaitTimer: 5
   NarrationText: "Bonjour je suis une chaise et enfaite je sers de d\xE9coration"
+--- !u!114 &1536554377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1536554371}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &1552697340
 GameObject:
   m_ObjectHideFlags: 0
@@ -7111,6 +7149,7 @@ GameObject:
   - component: {fileID: 2107092549}
   - component: {fileID: 2107092548}
   - component: {fileID: 2107092547}
+  - component: {fileID: 2107092551}
   m_Layer: 0
   m_Name: Interactive-Chaise
   m_TagString: Untagged
@@ -7213,6 +7252,24 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2107092545}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2107092551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107092545}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1001 &5913387814972862957
 PrefabInstance:
   m_ObjectHideFlags: 0

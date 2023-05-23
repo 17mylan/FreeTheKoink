@@ -30,46 +30,38 @@ public class Interaction : MonoBehaviour
             if(hitInfo.collider.gameObject.TryGetComponent(out IInteractable interactObj))
             {
                 string objectName = hitInfo.collider.gameObject.name;
+                InteractionText.SetActive(true);
+                Outline outlineComponent = hitInfo.collider.gameObject.GetComponent<Outline>();
+                if (outlineComponent != null)
+                    outlineComponent.enabled = true;
 
                 if(objectName.StartsWith("Narrative-"))
                 {
                     nameText.text = "Press [E] to inspect";
-                    InteractionText.SetActive(true);
-
-                    /*Outline outlineComponent = hitInfo.collider.gameObject.GetComponent<Outline>();
-                    if (outlineComponent != null)
-                        outlineComponent.enabled = true;*/
-
                     if(Input.GetKeyDown(KeyCode.E))
                         interactObj.Interact();
                 }
                 else if(objectName.StartsWith("Interactive-"))
                 {
                     nameText.text = "Press [E] to interact";
-                    InteractionText.SetActive(true);
-                    
-                    /*Outline outlineComponent = hitInfo.collider.gameObject.GetComponent<Outline>();
-                    if (outlineComponent != null)
-                        outlineComponent.enabled = true;*/
-
                     if(Input.GetKeyDown(KeyCode.E))
                         interactObj.Interact();
                 }
-                //lastInteractedObject = hitInfo.collider.gameObject;
+                lastInteractedObject = hitInfo.collider.gameObject;
             }
             else
             {
                 InteractionText.SetActive(false);
-                //DisableOutline(lastInteractedObject);
+                DisableOutline(lastInteractedObject);
             }
         }
         else
         {
             InteractionText.SetActive(false);
-            //DisableOutline(lastInteractedObject);
+            DisableOutline(lastInteractedObject);
         }
     }
-    /*void DisableOutline(GameObject obj)
+    void DisableOutline(GameObject obj)
     {
         if(obj != null)
         {
@@ -79,5 +71,5 @@ public class Interaction : MonoBehaviour
                 outlineComponent.enabled = false;
             }
         }
-    }*/
+    }
 }
