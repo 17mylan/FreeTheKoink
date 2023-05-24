@@ -28,16 +28,14 @@ public class InteractionSystem : MonoBehaviour, IInteractable
 
 
         // NARRATIVE 
-
+        StopCoroutine(NarrativeWaiter(NarrationText));
         if (gameObject.name == "Narrative-Chaise")
         {
             StartCoroutine(NarrativeWaiter(NarrationText));
-            StopAllCoroutines();
         }
         else if (gameObject.name == "Narrative-Meuble")
         {
             StartCoroutine(NarrativeWaiter(NarrationText));
-            StopAllCoroutines();
         }
     }
 

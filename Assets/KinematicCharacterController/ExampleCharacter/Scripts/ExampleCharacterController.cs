@@ -70,7 +70,7 @@ namespace KinematicCharacterController.Examples
         public Vector3 Gravity = new Vector3(0, -30f, 0);
         public Transform MeshRoot;
         public Transform CameraFollowPoint;
-        public float CrouchedCapsuleHeight = 1.3f;
+        public float CrouchedCapsuleHeight = 2f;
 
         public CharacterState CurrentCharacterState { get; private set; }
 
@@ -184,7 +184,7 @@ namespace KinematicCharacterController.Examples
                         if (inputs.JumpDown)
                         {
 
-                            print("Je saute !");
+                            //print("Je saute !");
                             _timeSinceJumpRequested = 0f;
                             _jumpRequested = true;
                         }
@@ -192,7 +192,7 @@ namespace KinematicCharacterController.Examples
                         // Crouching input
                         if (inputs.CrouchDown)
                         {
-                            print("Je m'accroupi !");
+                            //print("Je m'accroupi !");
 
                             _shouldBeCrouching = true;
 
@@ -200,7 +200,7 @@ namespace KinematicCharacterController.Examples
                             {
                                 _isCrouching = true;
                                 Motor.SetCapsuleDimensions(0.3f, CrouchedCapsuleHeight, CrouchedCapsuleHeight * 0.5f);
-                                MeshRoot.localScale = new Vector3(0.65f, 0.4f, 0.65f);
+                                MeshRoot.localScale = new Vector3(0.38f, 0.38f, 0.38f);
                             }
                         }
                         else if (inputs.CrouchUp)
@@ -217,13 +217,15 @@ namespace KinematicCharacterController.Examples
                         }
                         if(Input.GetKey(KeyCode.LeftShift))
                         {
-                            MaxStableMoveSpeed = 10f;
-                            duckWalkSound.cooldown = 0.23f;
+                            MaxStableMoveSpeed = 7.8f;
+                            duckWalkSound.cooldown = 0.26f;
+                            animator.speed = 1.6f;
                         }
                         else
                         {
-                            MaxStableMoveSpeed = 5f;
+                            MaxStableMoveSpeed = 3.8f;
                             duckWalkSound.cooldown = 0.37f;
+                            animator.speed = 1f;
                         }
                         break;
                     }
@@ -407,6 +409,8 @@ namespace KinematicCharacterController.Examples
                                     jumpDirection = Motor.GroundingStatus.GroundNormal;
                                 }
 
+                                animator.SetFloat("Jump", 1f);
+
                                 // Makes the character skip ground probing/snapping on its next update. 
                                 // If this line weren't here, the character would remain snapped to the ground when trying to jump. Try commenting this line out and see.
                                 Motor.ForceUnground();
@@ -459,6 +463,7 @@ namespace KinematicCharacterController.Examples
                                 if (!_jumpedThisFrame)
                                 {
                                     _jumpConsumed = false;
+                                    animator.SetFloat("Jump", 0f);
                                 }
                                 _timeSinceLastAbleToJump = 0f;
                             }
@@ -473,7 +478,7 @@ namespace KinematicCharacterController.Examples
                         if (_isCrouching && !_shouldBeCrouching)
                         {
                             // Do an overlap test with the character's standing height to see if there are any obstructions
-                            Motor.SetCapsuleDimensions(0.5f, 2f, 1f);
+                            Motor.SetCapsuleDimensions(0.5f, 1.28f, 0.58f);
                             if (Motor.CharacterOverlap(
                                 Motor.TransientPosition,
                                 Motor.TransientRotation,
@@ -487,7 +492,7 @@ namespace KinematicCharacterController.Examples
                             else
                             {
                                 // If no obstructions, uncrouch
-                                MeshRoot.localScale = new Vector3(0.65f, 0.65f, 0.65f);
+                                MeshRoot.localScale = new Vector3(0.59f, 0.59f, 0.59f);
                                 _isCrouching = false;
                             }
                         }

@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: 6c5e744a3b2e84248b9e7fb51db7cc85
   - enabled: 1
-    path: Assets/Mylan/Playground.unity
-    guid: 0b3455edbcfa8d540a489a6b6f560041
+    path: Assets/Scenes/Game.unity
+    guid: 6f4a8d3649bce4a43b0fd03057893d7b
   m_configObjects: {}
