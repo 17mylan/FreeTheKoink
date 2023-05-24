@@ -15,6 +15,8 @@ public class Interaction : MonoBehaviour
     public TextMeshProUGUI nameText;
     private GameObject lastInteractedObject;
     private InteractionSystem interactionSystem;
+    public AudioSource audioSource;
+    public AudioClip doorSound;
 
     void Update()
     {
@@ -46,7 +48,10 @@ public class Interaction : MonoBehaviour
                 {
                     nameText.text = "Press [E] to interact";
                     if(Input.GetKeyDown(KeyCode.E))
+                    {
                         interactObj.Interact();
+                        audioSource.PlayOneShot(doorSound);
+                    }
                 }
                 lastInteractedObject = hitInfo.collider.gameObject;
             }

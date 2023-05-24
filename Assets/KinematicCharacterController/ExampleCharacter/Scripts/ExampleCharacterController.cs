@@ -94,6 +94,8 @@ namespace KinematicCharacterController.Examples
 
         public Animator animator;
 
+        private DuckWalkSound duckWalkSound;
+
         private void Awake()
         {
             // Handle initial state
@@ -101,6 +103,8 @@ namespace KinematicCharacterController.Examples
 
             // Assign the characterController to the motor
             Motor.CharacterController = this;
+
+            duckWalkSound = FindObjectOfType<DuckWalkSound>();
         }
 
         /// <summary>
@@ -214,9 +218,13 @@ namespace KinematicCharacterController.Examples
                         if(Input.GetKey(KeyCode.LeftShift))
                         {
                             MaxStableMoveSpeed = 10f;
+                            duckWalkSound.cooldown = 0.23f;
                         }
                         else
+                        {
                             MaxStableMoveSpeed = 5f;
+                            duckWalkSound.cooldown = 0.37f;
+                        }
                         break;
                     }
             }
@@ -328,6 +336,7 @@ namespace KinematicCharacterController.Examples
                             {
                                 //print("J'avance !");
                                 animator.SetFloat("Speed", 1f);
+                                duckWalkSound.OnCharacterMove();
                             }
                             else
                             {
