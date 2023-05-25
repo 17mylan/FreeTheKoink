@@ -23,8 +23,8 @@ namespace KinematicCharacterController.Examples
         public float MoveAxisRight;
         public Quaternion CameraRotation;
         public bool JumpDown;
-        public bool CrouchDown;
-        public bool CrouchUp;
+        //public bool CrouchDown;
+        //public bool CrouchUp;
     }
 
     public struct AICharacterInputs
@@ -190,7 +190,7 @@ namespace KinematicCharacterController.Examples
                         }
 
                         // Crouching input
-                        if (inputs.CrouchDown)
+                        /*if (inputs.CrouchDown)
                         {
                             //print("Je m'accroupi !");
 
@@ -206,7 +206,7 @@ namespace KinematicCharacterController.Examples
                         else if (inputs.CrouchUp)
                         {
                             _shouldBeCrouching = false;
-                        }
+                        }*/
                         if (Input.GetKey(KeyCode.CapsLock) /*&& !_jumpConsumed*/)
                         {
                             _isGliding = true;
