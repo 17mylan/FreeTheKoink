@@ -1,9 +1,54 @@
 fileFormatVersion: 2
-guid: 0de0de8fa1feaff4591c865cb59042c8
+guid: ad2f596a8a046a741acbf3cc7142f2a2
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: a6231e6ebcef4a742bacd4a5883b1847, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: d576ad16325b3d24bb939baf255712e1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.002
+    second: {fileID: 2100000, guid: b5c3e80532ccbb44ca93072e021d02ba, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.003
+    second: {fileID: 2100000, guid: 4142e5c370dcaf44981327dd5c2c5db7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.004
+    second: {fileID: 2100000, guid: 0e366a28ff8ebf441992ef07c44d68cf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.005
+    second: {fileID: 2100000, guid: 6b65f09348255db49a4e61bfc34d3b98, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.006
+    second: {fileID: 2100000, guid: edf62a25456adb44ea24f6bca714805b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.007
+    second: {fileID: 2100000, guid: 26af310ce8bb67949a38d7dae15b1487, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.008
+    second: {fileID: 2100000, guid: d6b21b85c82b47a4ebdd49fbeb7fd7db, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -33,9 +78,9 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: DuckIdle
+      name: Duck-Idle
       takeName: Armature|ArmatureAction
-      internalID: 4781951162920444690
+      internalID: 3696890337287820257
       firstFrame: 0
       lastFrame: 40
       wrapMode: 0
@@ -62,7 +107,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: DuckCaquete
+      name: Duck-Caquete
       takeName: Armature|ArmatureAction
       internalID: -1246731831762816583
       firstFrame: 60
@@ -73,7 +118,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -91,7 +136,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: DuckWalk
+      name: Duck-Walk
       takeName: Armature|ArmatureAction
       internalID: 4594303134292970328
       firstFrame: 80
@@ -120,47 +165,18 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: DuckCrouch
+      name: Duck-Jump
       takeName: Armature|ArmatureAction
       internalID: 3696890337287820257
-      firstFrame: 130
-      lastFrame: 175
+      firstFrame: 215
+      lastFrame: 260
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: DuckGlide
-      takeName: Armature|ArmatureAction
-      internalID: 5401091116426756364
-      firstFrame: 184
-      lastFrame: 205
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -180,7 +196,7 @@ ModelImporter:
     - serializedVersion: 16
       name: DuckJump
       takeName: Armature|ArmatureAction
-      internalID: -6363362177140661055
+      internalID: 5401091116426756364
       firstFrame: 215
       lastFrame: 260
       wrapMode: 0

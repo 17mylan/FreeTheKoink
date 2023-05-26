@@ -45,7 +45,7 @@ namespace KinematicCharacterController.Examples
         public KinematicCharacterMotor Motor;
 
         [Header("Stable Movement")]
-        public float MaxStableMoveSpeed = 10f;
+        public float MaxStableMoveSpeed = 3.8f;
         public float StableMovementSharpness = 15f;
         public float OrientationSharpness = 10f;
         public OrientationMethod OrientationMethod = OrientationMethod.TowardsCamera;
@@ -207,7 +207,7 @@ namespace KinematicCharacterController.Examples
                         {
                             _shouldBeCrouching = false;
                         }*/
-                        if (Input.GetKey(KeyCode.CapsLock) /*&& !_jumpConsumed*/)
+                        if (Input.GetKey(KeyCode.CapsLock) || Input.GetKey(KeyCode.LeftControl) /*&& !_jumpConsumed*/)
                         {
                             _isGliding = true;
                         }
@@ -217,7 +217,7 @@ namespace KinematicCharacterController.Examples
                         }
                         if(Input.GetKey(KeyCode.LeftShift))
                         {
-                            MaxStableMoveSpeed = 7.8f;
+                            MaxStableMoveSpeed = 6.8f;
                             duckWalkSound.cooldown = 0.26f;
                             animator.speed = 1.6f;
                         }
