@@ -307,6 +307,7 @@ GameObject:
   - component: {fileID: 1092088249217810111}
   - component: {fileID: 9161988963130931916}
   - component: {fileID: 6276289469307968297}
+  - component: {fileID: 1009195919662121102}
   m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
@@ -456,7 +457,7 @@ MonoBehaviour:
   InteractionText: {fileID: 5913387815442760275}
   nameText: {fileID: 5913387815442760237}
   audioSource: {fileID: 9161988963130931916}
-  doorSound: {fileID: 8300000, guid: e7e356f513be07d41825fe138c3bd410, type: 3}
+  doorSound: {fileID: 8300000, guid: 5bab9758467cc0548b214a46e8c3a493, type: 3}
 --- !u!114 &1685460833333512928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -602,6 +603,18 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 433935b398f34bf439c8b305a3fc29c1, type: 3}
   audioSource: {fileID: 9161988963130931916}
   cooldown: 0.37
+--- !u!114 &1009195919662121102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 595485401530094945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1b565498a91f634b9338bcfe88e2c62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &595512470812172759
 GameObject:
   m_ObjectHideFlags: 0
