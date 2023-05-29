@@ -4,13 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-interface IInteractable{
-    public void Interact();
+interface IInteractable
+{
+    void Interact();
 }
+
 public class Interaction : MonoBehaviour
 {
     public Transform InteractionSource;
     public float InteractRange;
+    public float RaycastHeight = 3f; // Hauteur du raycast
+    public float RaycastHorizontalOffset = 0f; // Offset horizontal du raycast
     public GameObject InteractionText;
     public TextMeshProUGUI nameText;
     private GameObject lastInteractedObject;
@@ -20,11 +24,13 @@ public class Interaction : MonoBehaviour
 
     void Update()
     {
-        Ray r = new Ray(InteractionSource.position, InteractionSource.forward);
+        Vector3 raycastOrigin = InteractionSource.position + Vector3.up * RaycastHeight + InteractionSource.right * RaycastHorizontalOffset; // Utilise la hauteur et l'offset horizontal du raycast
+        Ray r = new Ray(raycastOrigin, InteractionSource.forward);
         Debug.DrawRay(r.origin, r.direction * InteractRange, Color.red);
-        if(Physics.Raycast(r, out RaycastHit hitInfo, InteractRange))
+        
+        if (Physics.Raycast(r, out RaycastHit hitInfo, InteractRange, ~LayerMask.GetMask("Ignore Raycast")))
         {
-            if(hitInfo.collider.gameObject.TryGetComponent(out IInteractable interactObj))
+            if (hitInfo.collider.gameObject.TryGetComponent(out IInteractable interactObj))
             {
                 string objectName = hitInfo.collider.gameObject.name;
                 InteractionText.SetActive(true);
@@ -32,22 +38,22 @@ public class Interaction : MonoBehaviour
                 if (outlineComponent != null)
                     outlineComponent.enabled = true;
 
-                if(objectName.StartsWith("Narrative-"))
+                if (objectName.StartsWith("Narrative-"))
                 {
                     nameText.text = "Press [E] to inspect";
-                    if(Input.GetKeyDown(KeyCode.E))
+                    if (Input.GetKeyDown(KeyCode.E))
                         interactObj.Interact();
                 }
-                else if(objectName.StartsWith("Interactive-"))
+                else if (objectName.StartsWith("Interactive-"))
                 {
                     nameText.text = "Press [E] to interact";
-                    if(Input.GetKeyDown(KeyCode.E))
+                    if (Input.GetKeyDown(KeyCode.E))
                         interactObj.Interact();
                 }
-                else if(objectName.StartsWith("Door"))
+                else if (objectName.StartsWith("Door"))
                 {
                     nameText.text = "Press [E] to interact";
-                    if(Input.GetKeyDown(KeyCode.E))
+                    if (Input.GetKeyDown(KeyCode.E))
                     {
                         interactObj.Interact();
                         audioSource.PlayOneShot(doorSound);
@@ -67,9 +73,10 @@ public class Interaction : MonoBehaviour
             DisableOutline(lastInteractedObject);
         }
     }
+
     void DisableOutline(GameObject obj)
     {
-        if(obj != null)
+        if (obj != null)
         {
             Outline outlineComponent = obj.GetComponent<Outline>();
             if (outlineComponent != null)
