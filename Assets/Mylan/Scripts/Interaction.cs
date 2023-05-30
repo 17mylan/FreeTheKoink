@@ -28,6 +28,9 @@ public class Interaction : MonoBehaviour
     public bool hasCageDoorOpen = false;
     public bool hasCameraKey = false;
     public bool hasCageDisjoncteurOpen = false;
+    public bool hasPassCaveDoor = false;
+    public bool hasOpenCaveDoor = false;
+
 
     void Update()
     {
@@ -57,6 +60,20 @@ public class Interaction : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.E))
                         interactObj.Interact();
                 }
+                else if (objectName.StartsWith("CaveDoorClose"))
+                {
+                    if(hasPassCaveDoor)
+                        nameText.text = "Press [E] to open";
+                        if (Input.GetKeyDown(KeyCode.E))
+                        {
+                            interactObj.Interact();
+                            audioSource.PlayOneShot(doorSound);
+                        }
+                    else if(!hasPassCaveDoor)
+                        nameText.text = "Door is closed";
+                    else if(hasPassCaveDoor && hasOpenCaveDoor)
+                        nameText.text = "Door is open";
+                }
                 else if (objectName.StartsWith("Door"))
                 {
                     nameText.text = "Press [E] to interact";
@@ -70,7 +87,7 @@ public class Interaction : MonoBehaviour
                 {
                     if(!hasCageKey)
                     {
-                        nameText.text = "Door is close";
+                        nameText.text = "Door is closed";
                     }
                     else if(hasCageKey)
                     {
@@ -122,6 +139,22 @@ public class Interaction : MonoBehaviour
                         }
                     else if (hasCameraKey && hasCageDisjoncteurOpen)
                         nameText.text = "Camera is disconnected";
+                }
+                else if(objectName.StartsWith("Pass Porte"))
+                {
+                    nameText.text = "Press [E] to take Door Pass";
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        interactObj.Interact();
+                    }
+                }
+                else if(objectName.StartsWith("TirroirBloqué"))
+                {
+                    nameText.text = "Press [E] to inspect";
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        interactObj.Interact();
+                    }
                 }
                 lastInteractedObject = hitInfo.collider.gameObject;
             }

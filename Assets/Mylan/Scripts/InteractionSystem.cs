@@ -58,6 +58,18 @@ public class InteractionSystem : MonoBehaviour, IInteractable
             Destroy(CameraCollider);
             interaction.hasCageDisjoncteurOpen = true;
         }
+        else if(gameObject.name == "Pass Porte")
+        {
+            Destroy(gameObject);
+            interaction.hasPassCaveDoor = true;
+        }
+        else if(gameObject.name == "CaveDoorClose" && interaction.hasPassCaveDoor)
+        {
+            if (isDoorOpen)
+                DoorClose();
+            else
+                DoorOpen();
+        }
 
 
         // NARRATIVE 
@@ -67,6 +79,10 @@ public class InteractionSystem : MonoBehaviour, IInteractable
             StartCoroutine(NarrativeWaiter(NarrationText));
         }
         else if (gameObject.name == "Narrative-Meuble")
+        {
+            StartCoroutine(NarrativeWaiter(NarrationText));
+        }
+        else if (gameObject.name == "TirroirBloqué")
         {
             StartCoroutine(NarrativeWaiter(NarrationText));
         }
