@@ -14,6 +14,7 @@ public class InteractionSystem : MonoBehaviour, IInteractable
     public Animator doorAnimator;
     public Animator cageDoorAnimator;
     public bool isDoorOpen = false;
+    public GameObject CameraCollider;
 
     private Interaction interaction;
 
@@ -46,6 +47,16 @@ public class InteractionSystem : MonoBehaviour, IInteractable
         {
             Destroy(gameObject);
             interaction.hasCageKey = true;
+        }
+        else if(gameObject.name == "Clé Camera")
+        {
+            Destroy(gameObject);
+            interaction.hasCameraKey = true;
+        }
+        else if(gameObject.name == "Disjoncteur")
+        {
+            Destroy(CameraCollider);
+            interaction.hasCageDisjoncteurOpen = true;
         }
 
 

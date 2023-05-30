@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class OtherPlayerScript : MonoBehaviour
 {
@@ -21,5 +22,14 @@ public class OtherPlayerScript : MonoBehaviour
         animator.SetFloat("Caquete", 1f);
         yield return new WaitForSeconds(0.3f);
         animator.SetFloat("Caquete", 0f);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Camera"))
+        {
+            SceneManager.LoadScene("Game");
+            Debug.Log("Spot par la camera !");
+        }
     }
 }

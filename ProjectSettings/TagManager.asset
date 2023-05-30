@@ -9,6 +9,7 @@ TagManager:
   - Interaction
   - Pickupable
   - Door
+  - Camera
   layers:
   - Default
   - TransparentFX

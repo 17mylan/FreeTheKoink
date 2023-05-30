@@ -26,6 +26,8 @@ public class Interaction : MonoBehaviour
 
     public bool hasCageKey = false;
     public bool hasCageDoorOpen = false;
+    public bool hasCameraKey = false;
+    public bool hasCageDisjoncteurOpen = false;
 
     void Update()
     {
@@ -68,7 +70,7 @@ public class Interaction : MonoBehaviour
                 {
                     if(!hasCageKey)
                     {
-                        nameText.text = "Press [E] to try open";
+                        nameText.text = "Door is close";
                     }
                     else if(hasCageKey)
                     {
@@ -80,6 +82,8 @@ public class Interaction : MonoBehaviour
                             hasCageDoorOpen = true;
                         }
                     }
+                    else if (hasCageKey && hasCageDoorOpen)
+                        nameText.text = "Door is open";
                 }
                 else if (objectName.StartsWith("CartonCage"))
                 {
@@ -97,6 +101,27 @@ public class Interaction : MonoBehaviour
                         interactObj.Interact();
                         audioSource.PlayOneShot(getKeyCageSound);
                     }
+                }
+                else if (objectName.StartsWith("Clé Camera"))
+                {
+                    nameText.text = "Press [E] to take key";
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        interactObj.Interact();
+                    }
+                }
+                else if (objectName.StartsWith("Disjoncteur"))
+                {
+                    if(!hasCameraKey)
+                        nameText.text = "The circuit breaker's door is closed";
+                    else if(hasCameraKey)
+                        nameText.text = "Press [E] to shut down camera";
+                        if (Input.GetKeyDown(KeyCode.E))
+                        {
+                            interactObj.Interact();
+                        }
+                    else if (hasCameraKey && hasCageDisjoncteurOpen)
+                        nameText.text = "Camera is disconnected";
                 }
                 lastInteractedObject = hitInfo.collider.gameObject;
             }
