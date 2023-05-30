@@ -12,7 +12,15 @@ public class InteractionSystem : MonoBehaviour, IInteractable
     public float NarrativeWaitTimer = 10f;
     public string NarrationText;
     public Animator doorAnimator;
+    public Animator cageDoorAnimator;
     public bool isDoorOpen = false;
+
+    private Interaction interaction;
+
+    private void Start()
+    {
+        interaction = FindObjectOfType<Interaction>();
+    }
 
     public void Interact()
     {
@@ -24,6 +32,20 @@ public class InteractionSystem : MonoBehaviour, IInteractable
                 DoorClose();
             else
                 DoorOpen();
+        }
+        else if(gameObject.name == "I-PorteCage")
+        {
+            if(interaction.hasCageKey)
+                cageDoorAnimator.SetBool("doorCageAnimationOpen", true);
+        }
+        else if(gameObject.name == "CartonCage")
+        {
+            Destroy(gameObject);
+        }
+        else if(gameObject.name == "Clé Cage")
+        {
+            Destroy(gameObject);
+            interaction.hasCageKey = true;
         }
 
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Teleportation : MonoBehaviour
 {
-    private GameManager gameManager;
+    /*private GameManager gameManager;
 
     public void Start()
     {
@@ -13,5 +13,5 @@ public class Teleportation : MonoBehaviour
     public void TeleportSystem()
     {
         transform.position = gameManager.NativeDuckPosition.position;
-    }
+    }*/
 }

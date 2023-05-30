@@ -7,7 +7,7 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public float RunTimer = 10f;
+    /*public float RunTimer = 10f;
     public Transform NativeDuckPosition;
     public GameObject PlayerObject;
     public int CurrentIndexOfRun = 1;
@@ -36,5 +36,5 @@ public class GameManager : MonoBehaviour
             print("Game has finished!");
         }
         PlayerObject.SetActive(true);
-    }
+    }*/
 }

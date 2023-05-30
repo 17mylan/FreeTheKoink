@@ -340,6 +340,10 @@ MonoBehaviour:
   nameText: {fileID: 5913387815442760237}
   audioSource: {fileID: 9161988963130931916}
   doorSound: {fileID: 8300000, guid: 5bab9758467cc0548b214a46e8c3a493, type: 3}
+  cageDoorSound: {fileID: 8300000, guid: 4270b6f5917785740ad330bd098ae581, type: 3}
+  getKeyCageSound: {fileID: 8300000, guid: 06b9c881ea9f87f44938c988fce40217, type: 3}
+  hasCageKey: 0
+  hasCageDoorOpen: 0
 --- !u!114 &1685460833333512928
 MonoBehaviour:
   m_ObjectHideFlags: 0

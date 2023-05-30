@@ -21,6 +21,11 @@ public class Interaction : MonoBehaviour
     private InteractionSystem interactionSystem;
     public AudioSource audioSource;
     public AudioClip doorSound;
+    public AudioClip cageDoorSound;
+    public AudioClip getKeyCageSound;
+
+    public bool hasCageKey = false;
+    public bool hasCageDoorOpen = false;
 
     void Update()
     {
@@ -57,6 +62,40 @@ public class Interaction : MonoBehaviour
                     {
                         interactObj.Interact();
                         audioSource.PlayOneShot(doorSound);
+                    }
+                }
+                else if (objectName.StartsWith("I-PorteCage"))
+                {
+                    if(!hasCageKey)
+                    {
+                        nameText.text = "Press [E] to try open";
+                    }
+                    else if(hasCageKey)
+                    {
+                        nameText.text = "Press [E] to open";
+                        if (Input.GetKeyDown(KeyCode.E))
+                        {
+                            interactObj.Interact();
+                            audioSource.PlayOneShot(cageDoorSound);
+                            hasCageDoorOpen = true;
+                        }
+                    }
+                }
+                else if (objectName.StartsWith("CartonCage"))
+                {
+                    nameText.text = "Press [E] to move the box";
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        interactObj.Interact();
+                    }
+                }
+                else if (objectName.StartsWith("Clé Cage"))
+                {
+                    nameText.text = "Press [E] to take key";
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        interactObj.Interact();
+                        audioSource.PlayOneShot(getKeyCageSound);
                     }
                 }
                 lastInteractedObject = hitInfo.collider.gameObject;

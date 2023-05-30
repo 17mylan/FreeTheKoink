@@ -10,6 +10,7 @@ namespace KinematicCharacterController.Walkthrough.ChargingState
     {
         Default,
         Charging,
+        Teleport,
     }
 
     public struct PlayerCharacterInputs
