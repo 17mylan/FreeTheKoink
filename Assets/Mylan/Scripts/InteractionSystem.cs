@@ -73,11 +73,11 @@ public class InteractionSystem : MonoBehaviour, IInteractable
         else if(gameObject.name == "DetecteurCavePorte" && interaction.hasPassCaveDoor && !interaction.hasGivePassDoor)
         {
             interaction.hasGivePassDoor = true;
-            print("J'ai donné le pass");
         }
         else if(gameObject.name == "CaveDoorClose" && interaction.hasPassCaveDoor && interaction.hasGivePassDoor && interaction.hasCaqueteToOpenDoor)
         {
             interaction.imagePassDoor.SetActive(false);
+            interaction.hasOpenCaveDoor = true;
             if (isDoorOpen)
             {
                 DoorClose();
@@ -88,28 +88,24 @@ public class InteractionSystem : MonoBehaviour, IInteractable
         else if(gameObject.name == "FrigoPortePrincipale")
         {
             Destroy(gameObject);
-            print("Porte du frigo");
             // faire animation d'ouverture de la porte
 
         }
         else if(gameObject.name == "PorteBacAGlacon")
         {
             Destroy(gameObject);
-            print("Bac a glacon");
             // faire animation d'ouverture de la porte
 
         }
         else if(gameObject.name == "Glacon")
         {
             Destroy(gameObject);
-            print("J'ai le glacon");
             interaction.hasIcedGlace = true;
         }
         else if(gameObject.name == "Four")
         {
             if(interaction.hasIcedGlace && !interaction.hasStartedFire)
             {
-                print("J'ai allumé le feu");
                 interaction.hasStartedFire = true;
             }
         }
@@ -117,7 +113,6 @@ public class InteractionSystem : MonoBehaviour, IInteractable
         {
             if(interaction.hasStartedFire && !interaction.hasFireCaqueteFireOne && !interaction.hasFireCaqueteFireTwo)
             {
-                print("j'ai posé le glacon dans la cheminée");
                 if(!interaction.hasStartedIcedInFireForFirstTime)
                 {
                     interaction.hasPutIcedInFire = true;
@@ -145,8 +140,10 @@ public class InteractionSystem : MonoBehaviour, IInteractable
     }
     IEnumerator IcedInFire()
     {
+        interaction.isWaitingForIceInFire = true;
         yield return new WaitForSeconds(3f);
         print("Le glacon a fondu");
+        interaction.isWaitingForIceInFire = false;
         interaction.hasIcedFinishFired = true;
     }
     public void DoorOpen()

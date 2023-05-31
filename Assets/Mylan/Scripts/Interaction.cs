@@ -24,16 +24,29 @@ public class Interaction : MonoBehaviour
     public AudioClip cageDoorSound;
     public AudioClip getKeyCageSound;
 
+    public GameObject imageKeyCageAsset, imageKeyDisjoncteur, imagePassDoor;
+
+    [Header("Key Counts")]
+
+    public bool hasKitchenKey = false;
+    public bool hasBedroomKey = false;
+    public bool hasCaveKey = false;
+
+    [Header("Mission Sortir du nid")]
     public bool hasCageKey = false;
     public bool hasCageDoorOpen = false;
+    
+    [Header("Mission Eteindre les caméras")]
     public bool hasCameraKey = false;
     public bool hasCageDisjoncteurOpen = false;
     
+    [Header("Mission Prendre le badge")]
     public bool hasPassCaveDoor = false;
     public bool hasGivePassDoor = false;
     public bool hasCaqueteToOpenDoor = false;
     public bool hasOpenCaveDoor = false;
 
+    [Header("Mission Cuisine")]
     public bool hasIcedGlace = false;
     public bool hasStartedFire = false;
     public bool hasPutIcedInFire = false;
@@ -41,8 +54,7 @@ public class Interaction : MonoBehaviour
     public bool hasStartedIcedInFireForFirstTime = false;
     public bool hasFireCaqueteFireOne = false;
     public bool hasFireCaqueteFireTwo = false;
-
-    public GameObject imageKeyCageAsset, imageKeyDisjoncteur, imagePassDoor;
+    public bool isWaitingForIceInFire = false;
 
 
     void Update()
@@ -219,20 +231,45 @@ public class Interaction : MonoBehaviour
                             interactObj.Interact();
                         }
                     else if(!hasIcedGlace)
-                        nameText.text = "Find something before";
+                        nameText.text = "Find the ice";
                     else if(hasStartedFire)
                         nameText.text = "Fire is on";
                 }
                 else if(objectName.StartsWith("Cheminée"))
                 {
-                    if(hasStartedFire)
-                        nameText.text = "Press [E] to put the iced glace";
-                        if(Input.GetKeyDown(KeyCode.E))
-                        {
-                            interactObj.Interact();
-                        }
-                    else if(!hasStartedFire)
+                    if(!hasStartedFire)
                         nameText.text = "Start fire before";
+                    if(hasFireCaqueteFireOne)
+                        {
+                            nameText.text = "Press [A] to refroidir la clé";
+                            if(Input.GetKeyDown(KeyCode.A))
+                            {
+                                hasFireCaqueteFireTwo = true;
+                                hasKitchenKey = true;
+                            }   
+                        }
+                    if(hasFireCaqueteFireTwo)
+                        nameText.text = "Tu as récupéré la clé";
+                    if(hasStartedFire)
+                        if(isWaitingForIceInFire)
+                            nameText.text = "Wait for ice to fondre";
+                        else if(!isWaitingForIceInFire && !hasIcedFinishFired)
+                        {
+                            nameText.text = "Press [E] to put the iced glace";
+                            if(Input.GetKeyDown(KeyCode.E))
+                            {
+                                interactObj.Interact();
+                            }
+                        }
+                        else if(!isWaitingForIceInFire && hasIcedFinishFired)
+                        {
+                            nameText.text = "Press [A] to caquete and stop fire";
+                            if(Input.GetKeyDown(KeyCode.A))
+                            {
+                                hasStartedFire = false;
+                                hasFireCaqueteFireOne = true;
+                            }
+                        }
                 }
                 lastInteractedObject = hitInfo.collider.gameObject;
             }
