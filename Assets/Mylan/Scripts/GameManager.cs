@@ -7,11 +7,15 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public float RunTimer = 10f;
+    [Header("Teleportation")]
     public Transform NativeDuckPosition;
+    public Teleportation teleportation;
+    
+    [Header("Run Manager")]
+    public float RunTimer = 10f;
     public int CurrentIndexOfRun = 1, maxRun = 10;
-    private Teleportation teleportation;
 
+    [Header("Player")]
     public bool canWalk = true;
 
     public void Start()
