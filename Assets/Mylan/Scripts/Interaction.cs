@@ -56,8 +56,15 @@ public class Interaction : MonoBehaviour
     public bool hasFireCaqueteFireOne = false;
     public bool hasFireCaqueteFireTwo = false;
     public bool isWaitingForIceInFire = false;
+
+    [Header("Mission Chambre")]
+    public bool hasCheckedPillow = false;
+    public bool hasCrackedMirror = false;
+    public bool hasKeepUpCrackedMirror = false;
+    public bool hasCrackedPillow = false;
     public GameObject GlaconPrefab;
     public GameObject KeyPrefab;
+    public GameObject MirorGlass;
 
 
     void Update()
@@ -275,6 +282,61 @@ public class Interaction : MonoBehaviour
                                 hasFireCaqueteFireOne = true;
                             }
                         }
+                }
+                else if(objectName.StartsWith("N-Miroir"))
+                {
+                    nameText.text = "Appuyer sur [E] pour inspecter";
+                    if(Input.GetKeyDown(KeyCode.E))
+                    {
+                        interactObj.Interact();
+                    }
+                }
+                else if(objectName.StartsWith("Miroir"))
+                {
+                    if(!hasCrackedMirror)
+                        nameText.text = "Appuyer sur [A] pour caqueter et casser le miroir";
+                        if(Input.GetKeyDown(KeyCode.A))
+                        {
+                            hasCrackedMirror = true;
+                            MirorGlass.SetActive(true);
+                        }
+                    if(hasCrackedMirror)
+                    {
+                        nameText.text = "Le miroir est cassé";
+                    }
+                }
+                else if(objectName.StartsWith("BouDeMiroir"))
+                {
+                    nameText.text = "Appuyer sur [E] pour récuperer le bou du miroir";
+                    if(Input.GetKeyDown(KeyCode.E))
+                    {
+                        interactObj.Interact();
+                    }
+                }
+                else if(objectName.StartsWith("N-Oreiller"))
+                {
+                    nameText.text = "Appuyer sur [E] pour inspecter";
+                    if(Input.GetKeyDown(KeyCode.E))
+                    {
+                        interactObj.Interact();
+                    }
+                }
+                else if(objectName.StartsWith("Oreiller"))
+                {
+                    if(hasBedroomKey)
+                        nameText.text = "Une clé a été récupérée";
+                    else if(hasCrackedMirror)
+                    {
+                        nameText.text = "Appuyer sur [E] pour couper l'oreiller";
+                        if(Input.GetKeyDown(KeyCode.E))
+                        {
+                            interactObj.Interact();
+                        }
+                    }
+                    else if(!hasCrackedMirror)
+                    {
+                        nameText.text = "Un objet coupant doit être trouvé";
+                    }
                 }
                 lastInteractedObject = hitInfo.collider.gameObject;
             }

@@ -16,6 +16,8 @@ public class InteractionSystem : MonoBehaviour, IInteractable
     public bool isDoorOpen = false;
     public GameObject CameraCollider;
     private Interaction interaction;
+    public BoxCollider mirroirNarrativeBeforeInteraction;
+    public BoxCollider pillowNarrativeBeforeInteraction;
 
     private void Start()
     {
@@ -123,6 +125,16 @@ public class InteractionSystem : MonoBehaviour, IInteractable
                 }
             }
         }
+        else if(gameObject.name == "BouDeMiroir")
+        {
+            interaction.MirorGlass.SetActive(false);
+            interaction.hasKeepUpCrackedMirror = true;
+        }
+        else if(gameObject.name == "Oreiller")
+        {
+            interaction.hasCrackedPillow = true;
+            interaction.hasBedroomKey = true;
+        }
 
 
         // NARRATIVE 
@@ -138,6 +150,19 @@ public class InteractionSystem : MonoBehaviour, IInteractable
         else if (gameObject.name == "TirroirBloqué")
         {
             StartCoroutine(NarrativeWaiter(NarrationText));
+        }
+        else if(gameObject.name == "N-Miroir")
+        {
+            if(!interaction.hasCheckedPillow)
+                StartCoroutine(NarrativeWaiter("Je devrais faire attention à ne pas le casser, Je pourrais casser ce miroir pour récupérer un bout de verre pour ouvrir l’oreiller"));
+            else if(interaction.hasCheckedPillow)
+                StartCoroutine(NarrativeWaiter("Je devrais faire attention à ne pas le casser"));
+            mirroirNarrativeBeforeInteraction.enabled = false;
+        }
+        else if(gameObject.name == "N-Oreiller")
+        {
+            StartCoroutine(NarrativeWaiter(NarrationText));
+            pillowNarrativeBeforeInteraction.enabled = false;
         }
     }
     IEnumerator IcedInFire()
