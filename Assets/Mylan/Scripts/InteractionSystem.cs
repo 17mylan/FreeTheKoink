@@ -70,7 +70,12 @@ public class InteractionSystem : MonoBehaviour, IInteractable
             interaction.hasPassCaveDoor = true;
             interaction.imagePassDoor.SetActive(true);
         }
-        else if(gameObject.name == "CaveDoorClose" && interaction.hasPassCaveDoor)
+        else if(gameObject.name == "DetecteurCavePorte" && interaction.hasPassCaveDoor && !interaction.hasGivePassDoor)
+        {
+            interaction.hasGivePassDoor = true;
+            print("J'ai donné le pass");
+        }
+        else if(gameObject.name == "CaveDoorClose" && interaction.hasPassCaveDoor && interaction.hasGivePassDoor && interaction.hasCaqueteToOpenDoor)
         {
             interaction.imagePassDoor.SetActive(false);
             if (isDoorOpen)
