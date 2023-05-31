@@ -24,16 +24,30 @@ public class Interaction : MonoBehaviour
     public AudioClip cageDoorSound;
     public AudioClip getKeyCageSound;
 
+    public GameObject imageKeyCageAsset, imageKeyDisjoncteur, imagePassDoor, FXFirePrefab;
+    public ParticleSystem FXFire;
+
+    [Header("Key Counts")]
+
+    public bool hasKitchenKey = false;
+    public bool hasBedroomKey = false;
+    public bool hasCaveKey = false;
+
+    [Header("Mission Sortir du nid")]
     public bool hasCageKey = false;
     public bool hasCageDoorOpen = false;
+    
+    [Header("Mission Eteindre les caméras")]
     public bool hasCameraKey = false;
     public bool hasCageDisjoncteurOpen = false;
     
+    [Header("Mission Prendre le badge")]
     public bool hasPassCaveDoor = false;
     public bool hasGivePassDoor = false;
     public bool hasCaqueteToOpenDoor = false;
     public bool hasOpenCaveDoor = false;
 
+    [Header("Mission Cuisine")]
     public bool hasIcedGlace = false;
     public bool hasStartedFire = false;
     public bool hasPutIcedInFire = false;
@@ -41,8 +55,9 @@ public class Interaction : MonoBehaviour
     public bool hasStartedIcedInFireForFirstTime = false;
     public bool hasFireCaqueteFireOne = false;
     public bool hasFireCaqueteFireTwo = false;
-
-    public GameObject imageKeyCageAsset, imageKeyDisjoncteur, imagePassDoor;
+    public bool isWaitingForIceInFire = false;
+    public GameObject GlaconPrefab;
+    public GameObject KeyPrefab;
 
 
     void Update()
@@ -63,29 +78,29 @@ public class Interaction : MonoBehaviour
 
                 if (objectName.StartsWith("Narrative-"))
                 {
-                    nameText.text = "Press [E] to inspect";
+                    nameText.text = "Appuyer sur [E] pour inspecter";
                     if (Input.GetKeyDown(KeyCode.E))
                         interactObj.Interact();
                 }
                 else if (objectName.StartsWith("Interactive-"))
                 {
-                    nameText.text = "Press [E] to interact";
+                    nameText.text = "Appuyer sur [E] pour intéragir";
                     if (Input.GetKeyDown(KeyCode.E))
                         interactObj.Interact();
                 }
                 else if (objectName.StartsWith("CaveDoorClose"))
                 {
                     if(hasPassCaveDoor && hasGivePassDoor && hasCaqueteToOpenDoor)
-                        nameText.text = "Press [E] to open";
+                        nameText.text = "Appuyer sur [E] pour ouvrir";
                         if (Input.GetKeyDown(KeyCode.E))
                         {
                             interactObj.Interact();
                             audioSource.PlayOneShot(doorSound);
                         }
                     else if(!hasPassCaveDoor || !hasGivePassDoor)
-                        nameText.text = "Door is closed";
+                        nameText.text = "La porte est fermée";
                     else if(hasGivePassDoor && hasPassCaveDoor && !hasCaqueteToOpenDoor)
-                        nameText.text = "Press [A] to caquete";
+                        nameText.text = "Appuyer sur [A] pour caqueter";
                         if(Input.GetKeyDown(KeyCode.A))
                         {
                             hasCaqueteToOpenDoor = true;
@@ -93,7 +108,7 @@ public class Interaction : MonoBehaviour
                 }
                 else if (objectName.StartsWith("Door"))
                 {
-                    nameText.text = "Press [E] to interact";
+                    nameText.text = "Appuyer sur [E] pour intéragir";
                     if (Input.GetKeyDown(KeyCode.E))
                     {
                         interactObj.Interact();
@@ -104,11 +119,11 @@ public class Interaction : MonoBehaviour
                 {
                     if(!hasCageKey)
                     {
-                        nameText.text = "Door is closed";
+                        nameText.text = "La porte est fermée";
                     }
                     else if(hasCageKey)
                     {
-                        nameText.text = "Press [E] to open";
+                        nameText.text = "Appuyer sur [E] pour ouvrir";
                         if (Input.GetKeyDown(KeyCode.E))
                         {
                             interactObj.Interact();
@@ -117,11 +132,11 @@ public class Interaction : MonoBehaviour
                         }
                     }
                     else if (hasCageKey && hasCageDoorOpen)
-                        nameText.text = "Door is open";
+                        nameText.text = "La porte est ouverte";
                 }
                 else if (objectName.StartsWith("CartonCage"))
                 {
-                    nameText.text = "Press [E] to move the box";
+                    nameText.text = "Appuyer sur [E] pour bouger la boite";
                     if (Input.GetKeyDown(KeyCode.E))
                     {
                         interactObj.Interact();
@@ -129,7 +144,7 @@ public class Interaction : MonoBehaviour
                 }
                 else if (objectName.StartsWith("Clé Cage"))
                 {
-                    nameText.text = "Press [E] to take key";
+                    nameText.text = "Appuyer sur [E] pour prendre la clé";
                     if (Input.GetKeyDown(KeyCode.E))
                     {
                         interactObj.Interact();
@@ -138,7 +153,7 @@ public class Interaction : MonoBehaviour
                 }
                 else if (objectName.StartsWith("Clé Camera"))
                 {
-                    nameText.text = "Press [E] to take key";
+                    nameText.text = "Appuyer sur [E] pour prendre la clé";
                     if (Input.GetKeyDown(KeyCode.E))
                     {
                         interactObj.Interact();
@@ -147,19 +162,19 @@ public class Interaction : MonoBehaviour
                 else if (objectName.StartsWith("Disjoncteur"))
                 {
                     if(!hasCameraKey)
-                        nameText.text = "The circuit breaker's door is closed";
+                        nameText.text = "La porte du disjoncteur est fermée";
                     else if(hasCameraKey)
-                        nameText.text = "Press [E] to shut down camera";
+                        nameText.text = "Appuyer sur [E] pour eteindre la caméra";
                         if (Input.GetKeyDown(KeyCode.E))
                         {
                             interactObj.Interact();
                         }
                     else if (hasCameraKey && hasCageDisjoncteurOpen)
-                        nameText.text = "Camera is disconnected";
+                        nameText.text = "La caméra est éteinte";
                 }
                 else if(objectName.StartsWith("Pass Porte"))
                 {
-                    nameText.text = "Press [E] to take pass door";
+                    nameText.text = "Appuyer sur [E] pour prendre le pass de la porte";
                     if (Input.GetKeyDown(KeyCode.E))
                     {
                         interactObj.Interact();
@@ -167,7 +182,7 @@ public class Interaction : MonoBehaviour
                 }
                 else if(objectName.StartsWith("TirroirBloqué"))
                 {
-                    nameText.text = "Press [E] to inspect";
+                    nameText.text = "Appuyer sur [E] pour inspecter";
                     if (Input.GetKeyDown(KeyCode.E))
                     {
                         interactObj.Interact();
@@ -176,19 +191,19 @@ public class Interaction : MonoBehaviour
                 else if(objectName.StartsWith("DetecteurCavePorte"))
                 {
                     if(!hasPassCaveDoor)
-                        nameText.text = "You need pass card";
+                        nameText.text = "Le pass doit être inséré";
                     else if(hasPassCaveDoor)
-                        nameText.text = "Press [E] to pass card";
+                        nameText.text = "Appuyer sur [E] pour donner le pass";
                         if (Input.GetKeyDown(KeyCode.E))
                         {
                             interactObj.Interact();
                         }
                     else if(hasPassCaveDoor && hasGivePassDoor)
-                        nameText.text = "Pass Door is set";
+                        nameText.text = "Le pass à été donné";
                 }
                 else if(objectName.StartsWith("Frigo"))
                 {
-                    nameText.text = "Press [E] to open fridge";
+                    nameText.text = "Appuyer sur [E] pour ouvrir le frigo";
                     if(Input.GetKeyDown(KeyCode.E))
                     {
                         interactObj.Interact();
@@ -196,7 +211,7 @@ public class Interaction : MonoBehaviour
                 }
                 else if(objectName.StartsWith("PorteBacAGlacon"))
                 {
-                    nameText.text = "Press [E] to open fridge bac";
+                    nameText.text = "Appuyer sur [E] pour ouvrir le bac a glacons";
                     if(Input.GetKeyDown(KeyCode.E))
                     {
                         interactObj.Interact();
@@ -204,7 +219,7 @@ public class Interaction : MonoBehaviour
                 }
                 else if(objectName.StartsWith("Glacon"))
                 {
-                    nameText.text = "Press [E] to take ice glace";
+                    nameText.text = "Appuyer sur [E] pour prendre le glacon";
                     if(Input.GetKeyDown(KeyCode.E))
                     {
                         interactObj.Interact();
@@ -213,26 +228,53 @@ public class Interaction : MonoBehaviour
                 else if(objectName.StartsWith("Four"))
                 {
                     if(hasIcedGlace)
-                        nameText.text = "Press [E] to start fire";
+                        nameText.text = "Appuyer sur [E] pour lancer le feu";
                         if(Input.GetKeyDown(KeyCode.E))
                         {
                             interactObj.Interact();
                         }
                     else if(!hasIcedGlace)
-                        nameText.text = "Find something before";
+                        nameText.text = "Le glacon doit être trouvé";
                     else if(hasStartedFire)
-                        nameText.text = "Fire is on";
+                        nameText.text = "Le feu est allumé";
                 }
                 else if(objectName.StartsWith("Cheminée"))
                 {
-                    if(hasStartedFire)
-                        nameText.text = "Press [E] to put the iced glace";
-                        if(Input.GetKeyDown(KeyCode.E))
+                    if(!hasStartedFire)
+                        nameText.text = "Le feu doit être allumé avant";
+                    if(hasFireCaqueteFireOne)
                         {
-                            interactObj.Interact();
+                            nameText.text = "Appuyer sur [A] pour refroidir la clé et la prendre";
+                            if(Input.GetKeyDown(KeyCode.A))
+                            {
+                                hasFireCaqueteFireTwo = true;
+                                hasKitchenKey = true;
+                                KeyPrefab.SetActive(false);
+                            }   
                         }
-                    else if(!hasStartedFire)
-                        nameText.text = "Start fire before";
+                    if(hasFireCaqueteFireTwo)
+                        nameText.text = "La clé à été récupérée";
+                    if(hasStartedFire)
+                        if(isWaitingForIceInFire)
+                            nameText.text = "Le glacon est en train fondre";
+                        else if(!isWaitingForIceInFire && !hasIcedFinishFired)
+                        {
+                            nameText.text = "Appuyer sur [E] pour mettre le glacon";
+                            if(Input.GetKeyDown(KeyCode.E))
+                            {
+                                interactObj.Interact();
+                            }
+                        }
+                        else if(!isWaitingForIceInFire && hasIcedFinishFired)
+                        {
+                            nameText.text = "Appuyer sur [A] pour caqueter et arreter le feu";
+                            if(Input.GetKeyDown(KeyCode.A))
+                            {
+                                hasStartedFire = false;
+                                FXFire.Stop();
+                                hasFireCaqueteFireOne = true;
+                            }
+                        }
                 }
                 lastInteractedObject = hitInfo.collider.gameObject;
             }
