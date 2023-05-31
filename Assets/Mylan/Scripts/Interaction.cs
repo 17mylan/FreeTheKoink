@@ -28,7 +28,10 @@ public class Interaction : MonoBehaviour
     public bool hasCageDoorOpen = false;
     public bool hasCameraKey = false;
     public bool hasCageDisjoncteurOpen = false;
+    
     public bool hasPassCaveDoor = false;
+    public bool hasGivePassDoor = false;
+    public bool hasCaqueteToOpenDoor = false;
     public bool hasOpenCaveDoor = false;
 
     public GameObject imageKeyCageAsset, imageKeyDisjoncteur, imagePassDoor;
@@ -64,17 +67,21 @@ public class Interaction : MonoBehaviour
                 }
                 else if (objectName.StartsWith("CaveDoorClose"))
                 {
-                    if(hasPassCaveDoor)
+                    if(hasPassCaveDoor && hasGivePassDoor && hasCaqueteToOpenDoor)
                         nameText.text = "Press [E] to open";
                         if (Input.GetKeyDown(KeyCode.E))
                         {
                             interactObj.Interact();
                             audioSource.PlayOneShot(doorSound);
                         }
-                    else if(!hasPassCaveDoor)
+                    else if(!hasPassCaveDoor || !hasGivePassDoor)
                         nameText.text = "Door is closed";
-                    else if(hasPassCaveDoor && hasOpenCaveDoor)
-                        nameText.text = "Door is open";
+                    else if(hasGivePassDoor && hasPassCaveDoor && !hasCaqueteToOpenDoor)
+                        nameText.text = "Press [A] to caquete";
+                        if(Input.GetKeyDown(KeyCode.A))
+                        {
+                            hasCaqueteToOpenDoor = true;
+                        }
                 }
                 else if (objectName.StartsWith("Door"))
                 {
@@ -144,7 +151,7 @@ public class Interaction : MonoBehaviour
                 }
                 else if(objectName.StartsWith("Pass Porte"))
                 {
-                    nameText.text = "Press [E] to take Door Pass";
+                    nameText.text = "Press [E] to take pass door";
                     if (Input.GetKeyDown(KeyCode.E))
                     {
                         interactObj.Interact();
@@ -157,6 +164,19 @@ public class Interaction : MonoBehaviour
                     {
                         interactObj.Interact();
                     }
+                }
+                else if(objectName.StartsWith("DetecteurCavePorte"))
+                {
+                    if(!hasPassCaveDoor)
+                        nameText.text = "You need pass card";
+                    else if(hasPassCaveDoor)
+                        nameText.text = "Press [E] to pass card";
+                        if (Input.GetKeyDown(KeyCode.E))
+                        {
+                            interactObj.Interact();
+                        }
+                    else if(hasPassCaveDoor && hasGivePassDoor)
+                        nameText.text = "Pass Door is set";
                 }
                 lastInteractedObject = hitInfo.collider.gameObject;
             }

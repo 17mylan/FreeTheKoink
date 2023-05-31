@@ -347,6 +347,8 @@ MonoBehaviour:
   hasCameraKey: 0
   hasCageDisjoncteurOpen: 0
   hasPassCaveDoor: 0
+  hasGivePassDoor: 0
+  hasCaqueteToOpenDoor: 0
   hasOpenCaveDoor: 0
   imageKeyCageAsset: {fileID: 9187753791938501015}
   imageKeyDisjoncteur: {fileID: 6288688804604711597}
@@ -382,7 +384,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 9161988963130931916}
   caqueteSound: {fileID: 8300000, guid: 6d60d645116b1964f874ad5fc7edd32e, type: 3}
-  animator: {fileID: 0}
+  animator: {fileID: 6178689913090870626}
 --- !u!82 &9161988963130931916
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1409,6 +1411,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d663996cd818654419920bddda6f5996, type: 3}
+--- !u!95 &6178689913090870626 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9208381578334764204, guid: d663996cd818654419920bddda6f5996, type: 3}
+  m_PrefabInstance: {fileID: 3059531826809205198}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7175308210798783415 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5325070266410998393, guid: d663996cd818654419920bddda6f5996, type: 3}
