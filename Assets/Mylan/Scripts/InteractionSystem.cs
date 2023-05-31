@@ -15,7 +15,6 @@ public class InteractionSystem : MonoBehaviour, IInteractable
     public Animator cageDoorAnimator;
     public bool isDoorOpen = false;
     public GameObject CameraCollider;
-
     private Interaction interaction;
 
     private void Start()
@@ -107,6 +106,8 @@ public class InteractionSystem : MonoBehaviour, IInteractable
             if(interaction.hasIcedGlace && !interaction.hasStartedFire)
             {
                 interaction.hasStartedFire = true;
+                interaction.FXFirePrefab.SetActive(true);
+                interaction.FXFire.Play();
             }
         }
         else if(gameObject.name == "Cheminée")
@@ -116,6 +117,7 @@ public class InteractionSystem : MonoBehaviour, IInteractable
                 if(!interaction.hasStartedIcedInFireForFirstTime)
                 {
                     interaction.hasPutIcedInFire = true;
+                    interaction.GlaconPrefab.SetActive(true);
                     StartCoroutine(IcedInFire());
                     interaction.hasStartedIcedInFireForFirstTime = true;
                 }
@@ -145,6 +147,8 @@ public class InteractionSystem : MonoBehaviour, IInteractable
         print("Le glacon a fondu");
         interaction.isWaitingForIceInFire = false;
         interaction.hasIcedFinishFired = true;
+        interaction.GlaconPrefab.SetActive(false);
+        interaction.KeyPrefab.SetActive(true);
     }
     public void DoorOpen()
     {
