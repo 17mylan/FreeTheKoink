@@ -31,6 +31,8 @@ public class Interaction : MonoBehaviour
     public bool hasPassCaveDoor = false;
     public bool hasOpenCaveDoor = false;
 
+    public GameObject imageKeyCageAsset, imageKeyDisjoncteur, imagePassDoor;
+
 
     void Update()
     {

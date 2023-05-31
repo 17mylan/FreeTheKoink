@@ -4585,11 +4585,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e04363b3f70df684d996c3628e94e90a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RunTimer: 10
   NativeDuckPosition: {fileID: 1135073489}
-  PlayerObject: {fileID: 1071237775}
-  testObject: {fileID: 0}
+  teleportation: {fileID: 0}
+  RunTimer: 180
   CurrentIndexOfRun: 1
+  maxRun: 10
   canWalk: 1
 --- !u!43 &65277430
 Mesh:
@@ -54520,11 +54520,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!1 &1071237775 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5913387814600488863, guid: 9e4c3099db8ea5548bdfa7e7b8aada6c, type: 3}
-  m_PrefabInstance: {fileID: 1542970336}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1077901491
 GameObject:
   m_ObjectHideFlags: 0
@@ -60881,8 +60876,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.109771, y: 1.0798616, z: 0.9462558}
-  m_Center: {x: 0.054885816, y: -0.03993038, z: 0.13087001}
+  m_Size: {x: 1.109771, y: 1.0798616, z: 0.9634978}
+  m_Center: {x: 0.054885816, y: -0.03993038, z: 0.12225019}
 --- !u!1 &1207407277
 GameObject:
   m_ObjectHideFlags: 0

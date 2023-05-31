@@ -37,7 +37,10 @@ public class InteractionSystem : MonoBehaviour, IInteractable
         else if(gameObject.name == "I-PorteCage")
         {
             if(interaction.hasCageKey)
+            {
                 cageDoorAnimator.SetBool("doorCageAnimationOpen", true);
+                interaction.imageKeyCageAsset.SetActive(false);
+            }
         }
         else if(gameObject.name == "CartonCage")
         {
@@ -47,26 +50,33 @@ public class InteractionSystem : MonoBehaviour, IInteractable
         {
             Destroy(gameObject);
             interaction.hasCageKey = true;
+            interaction.imageKeyCageAsset.SetActive(true);
         }
         else if(gameObject.name == "Clé Camera")
         {
             Destroy(gameObject);
             interaction.hasCameraKey = true;
+            interaction.imageKeyDisjoncteur.SetActive(true);
         }
         else if(gameObject.name == "Disjoncteur")
         {
             Destroy(CameraCollider);
             interaction.hasCageDisjoncteurOpen = true;
+            interaction.imageKeyDisjoncteur.SetActive(false);
         }
         else if(gameObject.name == "Pass Porte")
         {
             Destroy(gameObject);
             interaction.hasPassCaveDoor = true;
+            interaction.imagePassDoor.SetActive(true);
         }
         else if(gameObject.name == "CaveDoorClose" && interaction.hasPassCaveDoor)
         {
+            interaction.imagePassDoor.SetActive(false);
             if (isDoorOpen)
+            {
                 DoorClose();
+            }
             else
                 DoorOpen();
         }
