@@ -9,8 +9,7 @@ public class GameManager : MonoBehaviour
 {
     public float RunTimer = 10f;
     public Transform NativeDuckPosition;
-    public GameObject PlayerObject, testObject;
-    public int CurrentIndexOfRun = 1;
+    public int CurrentIndexOfRun = 1, maxRun = 10;
     private Teleportation teleportation;
 
     public bool canWalk = true;
@@ -18,7 +17,6 @@ public class GameManager : MonoBehaviour
     public void Start()
     {
         teleportation = FindObjectOfType<Teleportation>();
-
         Debug.Log("Game has started!");
         StartCoroutine(RunTimerClock());
     }
@@ -29,10 +27,13 @@ public class GameManager : MonoBehaviour
         CurrentIndexOfRun++;
         teleportation.TeleportSystem();
         Debug.Log("New run incoming: " + CurrentIndexOfRun);
-        StartCoroutine(RunTimerClock());
-        if(CurrentIndexOfRun >= 3)
+        if(CurrentIndexOfRun >= maxRun)
         {
             print("Game has finished!");
+        }
+        else
+        {
+            StartCoroutine(RunTimerClock());
         }
     }
 

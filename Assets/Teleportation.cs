@@ -20,8 +20,11 @@ public class Teleportation : MonoBehaviour
     IEnumerator tpSys()
     {
         DisableAllScripts();
+        gameManager.canWalk = false;
         Vector3 teleportPosition = gameManager.NativeDuckPosition.position;
-        kinematicMotor.MoveCharacter(teleportPosition);
+        //kinematicMotor.MoveCharacter(teleportPosition);
+        kinematicMotor.SetPosition(teleportPosition);
+        //this.transform.position = teleportPosition; Téléporte le joueur mais revient sur son acienne position
         yield return new WaitForSeconds(0.5f);
         EnableAddScripts();
         gameManager.canWalk = true;
@@ -32,9 +35,9 @@ public class Teleportation : MonoBehaviour
 
         foreach (MonoBehaviour script in scripts)
         {
-            if (script != this) // Vérifie si le script est différent du script Teleportation lui-même
+            if (script != this)
             {
-                script.enabled = false; // Désactive le script
+                script.enabled = false;
             }
         }
     }
@@ -44,9 +47,9 @@ public class Teleportation : MonoBehaviour
 
         foreach (MonoBehaviour script in scripts)
         {
-            if (script != this) // Vérifie si le script est différent du script Teleportation lui-même
+            if (script != this)
             {
-                script.enabled = true; // Désactive le script
+                script.enabled = true;
             }
         }
     }
