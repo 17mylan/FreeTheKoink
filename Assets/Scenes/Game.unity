@@ -4585,6 +4585,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e04363b3f70df684d996c3628e94e90a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RunTimer: 10
+  NativeDuckPosition: {fileID: 1135073489}
+  PlayerObject: {fileID: 1071237775}
+  testObject: {fileID: 0}
+  CurrentIndexOfRun: 1
+  canWalk: 1
 --- !u!43 &65277430
 Mesh:
   m_ObjectHideFlags: 0
@@ -54514,6 +54520,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &1071237775 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5913387814600488863, guid: 9e4c3099db8ea5548bdfa7e7b8aada6c, type: 3}
+  m_PrefabInstance: {fileID: 1542970336}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1077901491
 GameObject:
   m_ObjectHideFlags: 0
@@ -56249,7 +56260,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1135073485}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.74, y: 3.8603454, z: 0.68}
+  m_LocalPosition: {x: -6.12, y: 0.812, z: 0.761}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -117,6 +117,11 @@ namespace KinematicCharacterController.Examples
             CurrentCharacterState = newState;
             OnStateEnter(newState, tmpInitialState);
         }
+        private GameManager gameManager;
+        private void Start()
+        {
+            gameManager = FindObjectOfType<GameManager>();
+        }
 
         /// <summary>
         /// Event when entering a state
@@ -215,7 +220,7 @@ namespace KinematicCharacterController.Examples
                         {
                             _isGliding = false;
                         }
-                        if(Input.GetKey(KeyCode.LeftShift))
+                        if(Input.GetKey(KeyCode.LeftShift) && gameManager.canWalk)
                         {
                             MaxStableMoveSpeed = 6.8f;
                             duckWalkSound.cooldown = 0.26f;
@@ -337,8 +342,11 @@ namespace KinematicCharacterController.Examples
                             if (currentVelocity.magnitude > 0f)
                             {
                                 //print("J'avance !");
-                                animator.SetFloat("Speed", 1f);
-                                duckWalkSound.OnCharacterMove();
+                                if(gameManager.canWalk)
+                                {
+                                    animator.SetFloat("Speed", 1f);
+                                    duckWalkSound.OnCharacterMove();
+                                }
                             }
                             else
                             {
@@ -408,8 +416,8 @@ namespace KinematicCharacterController.Examples
                                 {
                                     jumpDirection = Motor.GroundingStatus.GroundNormal;
                                 }
-
-                                animator.SetFloat("Jump", 1f);
+                                if(gameManager.canWalk)
+                                    animator.SetFloat("Jump", 1f);
 
                                 // Makes the character skip ground probing/snapping on its next update. 
                                 // If this line weren't here, the character would remain snapped to the ground when trying to jump. Try commenting this line out and see.
@@ -460,7 +468,7 @@ namespace KinematicCharacterController.Examples
                             if (AllowJumpingWhenSliding ? Motor.GroundingStatus.FoundAnyGround : Motor.GroundingStatus.IsStableOnGround)
                             {
                                 // If we're on a ground surface, reset jumping values
-                                if (!_jumpedThisFrame)
+                                if (!_jumpedThisFrame && gameManager.canWalk)
                                 {
                                     _jumpConsumed = false;
                                     animator.SetFloat("Jump", 0f);
