@@ -85,6 +85,47 @@ public class InteractionSystem : MonoBehaviour, IInteractable
             else
                 DoorOpen();
         }
+        else if(gameObject.name == "FrigoPortePrincipale")
+        {
+            Destroy(gameObject);
+            print("Porte du frigo");
+            // faire animation d'ouverture de la porte
+
+        }
+        else if(gameObject.name == "PorteBacAGlacon")
+        {
+            Destroy(gameObject);
+            print("Bac a glacon");
+            // faire animation d'ouverture de la porte
+
+        }
+        else if(gameObject.name == "Glacon")
+        {
+            Destroy(gameObject);
+            print("J'ai le glacon");
+            interaction.hasIcedGlace = true;
+        }
+        else if(gameObject.name == "Four")
+        {
+            if(interaction.hasIcedGlace && !interaction.hasStartedFire)
+            {
+                print("J'ai allumé le feu");
+                interaction.hasStartedFire = true;
+            }
+        }
+        else if(gameObject.name == "Cheminée")
+        {
+            if(interaction.hasStartedFire && !interaction.hasFireCaqueteFireOne && !interaction.hasFireCaqueteFireTwo)
+            {
+                print("j'ai posé le glacon dans la cheminée");
+                if(!interaction.hasStartedIcedInFireForFirstTime)
+                {
+                    interaction.hasPutIcedInFire = true;
+                    StartCoroutine(IcedInFire());
+                    interaction.hasStartedIcedInFireForFirstTime = true;
+                }
+            }
+        }
 
 
         // NARRATIVE 
@@ -102,7 +143,12 @@ public class InteractionSystem : MonoBehaviour, IInteractable
             StartCoroutine(NarrativeWaiter(NarrationText));
         }
     }
-
+    IEnumerator IcedInFire()
+    {
+        yield return new WaitForSeconds(3f);
+        print("Le glacon a fondu");
+        interaction.hasIcedFinishFired = true;
+    }
     public void DoorOpen()
     {
         doorAnimator.SetBool("open", true);

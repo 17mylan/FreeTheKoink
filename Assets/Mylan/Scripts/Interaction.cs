@@ -34,6 +34,14 @@ public class Interaction : MonoBehaviour
     public bool hasCaqueteToOpenDoor = false;
     public bool hasOpenCaveDoor = false;
 
+    public bool hasIcedGlace = false;
+    public bool hasStartedFire = false;
+    public bool hasPutIcedInFire = false;
+    public bool hasIcedFinishFired = false;
+    public bool hasStartedIcedInFireForFirstTime = false;
+    public bool hasFireCaqueteFireOne = false;
+    public bool hasFireCaqueteFireTwo = false;
+
     public GameObject imageKeyCageAsset, imageKeyDisjoncteur, imagePassDoor;
 
 
@@ -177,6 +185,54 @@ public class Interaction : MonoBehaviour
                         }
                     else if(hasPassCaveDoor && hasGivePassDoor)
                         nameText.text = "Pass Door is set";
+                }
+                else if(objectName.StartsWith("Frigo"))
+                {
+                    nameText.text = "Press [E] to open fridge";
+                    if(Input.GetKeyDown(KeyCode.E))
+                    {
+                        interactObj.Interact();
+                    }
+                }
+                else if(objectName.StartsWith("PorteBacAGlacon"))
+                {
+                    nameText.text = "Press [E] to open fridge bac";
+                    if(Input.GetKeyDown(KeyCode.E))
+                    {
+                        interactObj.Interact();
+                    }
+                }
+                else if(objectName.StartsWith("Glacon"))
+                {
+                    nameText.text = "Press [E] to take ice glace";
+                    if(Input.GetKeyDown(KeyCode.E))
+                    {
+                        interactObj.Interact();
+                    }
+                }
+                else if(objectName.StartsWith("Four"))
+                {
+                    if(hasIcedGlace)
+                        nameText.text = "Press [E] to start fire";
+                        if(Input.GetKeyDown(KeyCode.E))
+                        {
+                            interactObj.Interact();
+                        }
+                    else if(!hasIcedGlace)
+                        nameText.text = "Find something before";
+                    else if(hasStartedFire)
+                        nameText.text = "Fire is on";
+                }
+                else if(objectName.StartsWith("Cheminée"))
+                {
+                    if(hasStartedFire)
+                        nameText.text = "Press [E] to put the iced glace";
+                        if(Input.GetKeyDown(KeyCode.E))
+                        {
+                            interactObj.Interact();
+                        }
+                    else if(!hasStartedFire)
+                        nameText.text = "Start fire before";
                 }
                 lastInteractedObject = hitInfo.collider.gameObject;
             }
