@@ -5,13 +5,14 @@ using UnityEngine;
 public class Teleportation : MonoBehaviour
 {
     private GameManager gameManager;
+    private Timer timer;
     private KinematicCharacterController.KinematicCharacterMotor kinematicMotor;
 
     public void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
+        timer = FindObjectOfType<Timer>();
         kinematicMotor = transform.GetComponent<KinematicCharacterController.KinematicCharacterMotor>();
-        print("Bien instancié");
     }
     public void TeleportSystem()
     {
@@ -19,38 +20,11 @@ public class Teleportation : MonoBehaviour
     }
     IEnumerator tpSys()
     {
-        DisableAllScripts();
         gameManager.canWalk = false;
+        yield return new WaitForSeconds(1.2f);
         Vector3 teleportPosition = gameManager.NativeDuckPosition.position;
-        //kinematicMotor.MoveCharacter(teleportPosition);
         kinematicMotor.SetPosition(teleportPosition);
-        //this.transform.position = teleportPosition; Téléporte le joueur mais revient sur son acienne position
         yield return new WaitForSeconds(0.5f);
-        EnableAddScripts();
         gameManager.canWalk = true;
-    }
-    private void DisableAllScripts()
-    {
-        MonoBehaviour[] scripts = GetComponents<MonoBehaviour>();
-
-        foreach (MonoBehaviour script in scripts)
-        {
-            if (script != this)
-            {
-                script.enabled = false;
-            }
-        }
-    }
-    private void EnableAddScripts()
-    {
-        MonoBehaviour[] scripts = GetComponents<MonoBehaviour>();
-
-        foreach (MonoBehaviour script in scripts)
-        {
-            if (script != this)
-            {
-                script.enabled = true;
-            }
-        }
     }
 }
