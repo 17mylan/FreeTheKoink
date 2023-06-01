@@ -10,9 +10,12 @@ public class GameManager : MonoBehaviour
     [Header("Teleportation")]
     public Transform NativeDuckPosition;
     public Teleportation teleportation;
+    public Interaction interaction;
     public Timer timer;
     public float TransitionBetweenRunTimer = 7f;
     public GameObject TransitionObject;
+    public TextMeshProUGUI numberOfKeysText;
+    public int numberOfKey = 0;
 
     
     [Header("Run Manager")]
@@ -28,6 +31,7 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
+        interaction = FindObjectOfType<Interaction>();
         teleportation = FindObjectOfType<Teleportation>();
         timer = FindObjectOfType<Timer>();
         Debug.Log("Game has started!");
@@ -56,6 +60,18 @@ public class GameManager : MonoBehaviour
             // Fait dans l'animator
         }
     }
+
+    public void UpdateKeyNumberInUI()
+    {
+        /*if(interaction.hasBedroomKey)
+            numberOfKey = numberOfKey + 1;
+        if(interaction.hasCaveKey)
+            numberOfKey = numberOfKey + 1;
+        if(interaction.hasKitchenKey)
+            numberOfKey = numberOfKey + 1;*/
+        numberOfKeysText.text = numberOfKey.ToString() + " / 3"; 
+    }
+
     private KinematicCharacterController.KinematicCharacterMotor kinematicMotor;
 
     public void Update()

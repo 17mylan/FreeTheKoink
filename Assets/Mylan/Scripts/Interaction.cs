@@ -26,6 +26,7 @@ public class Interaction : MonoBehaviour
 
     public GameObject imageKeyCageAsset, imageKeyDisjoncteur, imagePassDoor, FXFirePrefab;
     public ParticleSystem FXFire;
+    private GameManager gameManager;
 
     [Header("Key Counts")]
 
@@ -65,7 +66,13 @@ public class Interaction : MonoBehaviour
     public GameObject GlaconPrefab;
     public GameObject KeyPrefab;
     public GameObject MirorGlass;
+    public GameObject GlaconPrefabUI;
+    public GameObject VerreMiroir;
 
+    private void Start()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+    }
 
     void Update()
     {
@@ -169,7 +176,7 @@ public class Interaction : MonoBehaviour
                 else if (objectName.StartsWith("Disjoncteur"))
                 {
                     if(!hasCameraKey)
-                        nameText.text = "La porte du disjoncteur est fermée";
+                        nameText.text = "La porte d'éléctricité des caméras est fermée";
                     else if(hasCameraKey)
                         nameText.text = "Appuyer sur [E] pour eteindre la caméra";
                         if (Input.GetKeyDown(KeyCode.E))
@@ -256,6 +263,8 @@ public class Interaction : MonoBehaviour
                             {
                                 hasFireCaqueteFireTwo = true;
                                 hasKitchenKey = true;
+                                gameManager.numberOfKey = gameManager.numberOfKey + 1;
+                                gameManager.UpdateKeyNumberInUI();
                                 KeyPrefab.SetActive(false);
                             }   
                         }

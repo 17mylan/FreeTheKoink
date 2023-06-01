@@ -12,7 +12,6 @@ public class Timer : MonoBehaviour
     private void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
-        isRunning = false;
         currentTimerValue = timerDuration;
         UpdateTimerText();
     }

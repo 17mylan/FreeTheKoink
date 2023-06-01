@@ -18,10 +18,12 @@ public class InteractionSystem : MonoBehaviour, IInteractable
     private Interaction interaction;
     public BoxCollider mirroirNarrativeBeforeInteraction;
     public BoxCollider pillowNarrativeBeforeInteraction;
+    private GameManager gameManager;
 
     private void Start()
     {
         interaction = FindObjectOfType<Interaction>();
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     public void Interact()
@@ -102,6 +104,7 @@ public class InteractionSystem : MonoBehaviour, IInteractable
         {
             Destroy(gameObject);
             interaction.hasIcedGlace = true;
+            interaction.GlaconPrefabUI.SetActive(true);
         }
         else if(gameObject.name == "Four")
         {
@@ -120,6 +123,7 @@ public class InteractionSystem : MonoBehaviour, IInteractable
                 {
                     interaction.hasPutIcedInFire = true;
                     interaction.GlaconPrefab.SetActive(true);
+                    interaction.GlaconPrefabUI.SetActive(false);
                     StartCoroutine(IcedInFire());
                     interaction.hasStartedIcedInFireForFirstTime = true;
                 }
@@ -129,11 +133,15 @@ public class InteractionSystem : MonoBehaviour, IInteractable
         {
             interaction.MirorGlass.SetActive(false);
             interaction.hasKeepUpCrackedMirror = true;
+            interaction.VerreMiroir.SetActive(true);
         }
         else if(gameObject.name == "Oreiller")
         {
             interaction.hasCrackedPillow = true;
             interaction.hasBedroomKey = true;
+            gameManager.numberOfKey = gameManager.numberOfKey + 1;
+            gameManager.UpdateKeyNumberInUI();
+            interaction.VerreMiroir.SetActive(false);
         }
 
 

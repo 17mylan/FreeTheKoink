@@ -316,6 +316,7 @@ namespace KinematicCharacterController.Examples
         /// This is where you tell your character what its velocity should be right now. 
         /// This is the ONLY place where you can set the character's velocity
         /// </summary>
+        public GameObject particlesLeg1, particlesLeg2;
         public void UpdateVelocity(ref Vector3 currentVelocity, float deltaTime)
         {
             switch (CurrentCharacterState)
@@ -344,6 +345,8 @@ namespace KinematicCharacterController.Examples
                                 //print("J'avance !");
                                 if(gameManager.canWalk)
                                 {
+                                    particlesLeg1.SetActive(true);
+                                    particlesLeg2.SetActive(true);
                                     animator.SetFloat("Speed", 1f);
                                     duckWalkSound.OnCharacterMove();
                                 }
@@ -351,6 +354,8 @@ namespace KinematicCharacterController.Examples
                             else
                             {
                                 animator.SetFloat("Speed", 0f);
+                                particlesLeg1.SetActive(false);
+                                particlesLeg2.SetActive(false);
                                 //print("Je suis à l'arrêt !");
                             }
                         }
