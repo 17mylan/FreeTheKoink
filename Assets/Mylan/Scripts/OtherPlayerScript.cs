@@ -28,8 +28,7 @@ public class OtherPlayerScript : MonoBehaviour
     {
         if (other.CompareTag("Camera"))
         {
-            SceneManager.LoadScene("Game");
-            Debug.Log("Spot par la camera !");
+            SceneManager.LoadScene("GO-Camera");
         }
     }
 }
