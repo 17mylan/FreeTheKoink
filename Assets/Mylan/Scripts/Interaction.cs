@@ -26,6 +26,7 @@ public class Interaction : MonoBehaviour
 
     public GameObject imageKeyCageAsset, imageKeyDisjoncteur, imagePassDoor, FXFirePrefab;
     public ParticleSystem FXFire;
+    private GameManager gameManager;
 
     [Header("Key Counts")]
 
@@ -56,9 +57,22 @@ public class Interaction : MonoBehaviour
     public bool hasFireCaqueteFireOne = false;
     public bool hasFireCaqueteFireTwo = false;
     public bool isWaitingForIceInFire = false;
+
+    [Header("Mission Chambre")]
+    public bool hasCheckedPillow = false;
+    public bool hasCrackedMirror = false;
+    public bool hasKeepUpCrackedMirror = false;
+    public bool hasCrackedPillow = false;
     public GameObject GlaconPrefab;
     public GameObject KeyPrefab;
+    public GameObject MirorGlass;
+    public GameObject GlaconPrefabUI;
+    public GameObject VerreMiroir;
 
+    private void Start()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+    }
 
     void Update()
     {
@@ -162,7 +176,7 @@ public class Interaction : MonoBehaviour
                 else if (objectName.StartsWith("Disjoncteur"))
                 {
                     if(!hasCameraKey)
-                        nameText.text = "La porte du disjoncteur est fermée";
+                        nameText.text = "La porte d'éléctricité des caméras est fermée";
                     else if(hasCameraKey)
                         nameText.text = "Appuyer sur [E] pour eteindre la caméra";
                         if (Input.GetKeyDown(KeyCode.E))
@@ -249,6 +263,8 @@ public class Interaction : MonoBehaviour
                             {
                                 hasFireCaqueteFireTwo = true;
                                 hasKitchenKey = true;
+                                gameManager.numberOfKey = gameManager.numberOfKey + 1;
+                                gameManager.UpdateKeyNumberInUI();
                                 KeyPrefab.SetActive(false);
                             }   
                         }
@@ -275,6 +291,61 @@ public class Interaction : MonoBehaviour
                                 hasFireCaqueteFireOne = true;
                             }
                         }
+                }
+                else if(objectName.StartsWith("N-Miroir"))
+                {
+                    nameText.text = "Appuyer sur [E] pour inspecter";
+                    if(Input.GetKeyDown(KeyCode.E))
+                    {
+                        interactObj.Interact();
+                    }
+                }
+                else if(objectName.StartsWith("Miroir"))
+                {
+                    if(!hasCrackedMirror)
+                        nameText.text = "Appuyer sur [A] pour caqueter et casser le miroir";
+                        if(Input.GetKeyDown(KeyCode.A))
+                        {
+                            hasCrackedMirror = true;
+                            MirorGlass.SetActive(true);
+                        }
+                    if(hasCrackedMirror)
+                    {
+                        nameText.text = "Le miroir est cassé";
+                    }
+                }
+                else if(objectName.StartsWith("BouDeMiroir"))
+                {
+                    nameText.text = "Appuyer sur [E] pour récuperer le bou du miroir";
+                    if(Input.GetKeyDown(KeyCode.E))
+                    {
+                        interactObj.Interact();
+                    }
+                }
+                else if(objectName.StartsWith("N-Oreiller"))
+                {
+                    nameText.text = "Appuyer sur [E] pour inspecter";
+                    if(Input.GetKeyDown(KeyCode.E))
+                    {
+                        interactObj.Interact();
+                    }
+                }
+                else if(objectName.StartsWith("Oreiller"))
+                {
+                    if(hasBedroomKey)
+                        nameText.text = "Une clé a été récupérée";
+                    else if(hasCrackedMirror)
+                    {
+                        nameText.text = "Appuyer sur [E] pour couper l'oreiller";
+                        if(Input.GetKeyDown(KeyCode.E))
+                        {
+                            interactObj.Interact();
+                        }
+                    }
+                    else if(!hasCrackedMirror)
+                    {
+                        nameText.text = "Un objet coupant doit être trouvé";
+                    }
                 }
                 lastInteractedObject = hitInfo.collider.gameObject;
             }

@@ -16,10 +16,14 @@ public class InteractionSystem : MonoBehaviour, IInteractable
     public bool isDoorOpen = false;
     public GameObject CameraCollider;
     private Interaction interaction;
+    public BoxCollider mirroirNarrativeBeforeInteraction;
+    public BoxCollider pillowNarrativeBeforeInteraction;
+    private GameManager gameManager;
 
     private void Start()
     {
         interaction = FindObjectOfType<Interaction>();
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     public void Interact()
@@ -100,6 +104,7 @@ public class InteractionSystem : MonoBehaviour, IInteractable
         {
             Destroy(gameObject);
             interaction.hasIcedGlace = true;
+            interaction.GlaconPrefabUI.SetActive(true);
         }
         else if(gameObject.name == "Four")
         {
@@ -118,10 +123,25 @@ public class InteractionSystem : MonoBehaviour, IInteractable
                 {
                     interaction.hasPutIcedInFire = true;
                     interaction.GlaconPrefab.SetActive(true);
+                    interaction.GlaconPrefabUI.SetActive(false);
                     StartCoroutine(IcedInFire());
                     interaction.hasStartedIcedInFireForFirstTime = true;
                 }
             }
+        }
+        else if(gameObject.name == "BouDeMiroir")
+        {
+            interaction.MirorGlass.SetActive(false);
+            interaction.hasKeepUpCrackedMirror = true;
+            interaction.VerreMiroir.SetActive(true);
+        }
+        else if(gameObject.name == "Oreiller")
+        {
+            interaction.hasCrackedPillow = true;
+            interaction.hasBedroomKey = true;
+            gameManager.numberOfKey = gameManager.numberOfKey + 1;
+            gameManager.UpdateKeyNumberInUI();
+            interaction.VerreMiroir.SetActive(false);
         }
 
 
@@ -138,6 +158,19 @@ public class InteractionSystem : MonoBehaviour, IInteractable
         else if (gameObject.name == "TirroirBloqué")
         {
             StartCoroutine(NarrativeWaiter(NarrationText));
+        }
+        else if(gameObject.name == "N-Miroir")
+        {
+            if(!interaction.hasCheckedPillow)
+                StartCoroutine(NarrativeWaiter("Je devrais faire attention à ne pas le casser, Je pourrais casser ce miroir pour récupérer un bout de verre pour ouvrir l’oreiller"));
+            else if(interaction.hasCheckedPillow)
+                StartCoroutine(NarrativeWaiter("Je devrais faire attention à ne pas le casser"));
+            mirroirNarrativeBeforeInteraction.enabled = false;
+        }
+        else if(gameObject.name == "N-Oreiller")
+        {
+            StartCoroutine(NarrativeWaiter(NarrationText));
+            pillowNarrativeBeforeInteraction.enabled = false;
         }
     }
     IEnumerator IcedInFire()
