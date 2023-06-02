@@ -66,11 +66,20 @@ public class Interaction : MonoBehaviour
     public bool hasCrackedMirror = false;
     public bool hasKeepUpCrackedMirror = false;
     public bool hasCrackedPillow = false;
+
+    [Header("Mission Fin Chopper")]
+    public bool hasCleanTraces = false;
+    public bool hasBreakClock = false;
+    public bool hasThrowClockInBin = false;
+    public bool hasFinishChopperMission = false;
+
     public GameObject GlaconPrefab;
     public GameObject KeyPrefab;
     public GameObject MirorGlass;
     public GameObject GlaconPrefabUI;
     public GameObject VerreMiroir;
+    public GameObject TracesDePasObject;
+    public GameObject ReveilPrefab;
     public GameObject narrativeTextObject;
     public TextMeshProUGUI narrativeText;
     private void Start()
@@ -205,11 +214,7 @@ public class Interaction : MonoBehaviour
                 }
                 else if(objectName.StartsWith("TirroirBloqué"))
                 {
-                    nameText.text = "Appuyer sur [E] pour inspecter";
-                    if (Input.GetKeyDown(KeyCode.E))
-                    {
-                        interactObj.Interact();
-                    }
+                    nameText.text = "Humm c’est verouille, le proprio doit avoir cache la cle quelque part dans la maison, peut-etre meme dans cette piece.";
                 }
                 else if(objectName.StartsWith("DetecteurCavePorte"))
                 {
@@ -278,6 +283,7 @@ public class Interaction : MonoBehaviour
                                 audioSource.PlayOneShot(zipSound);
                                 gameManager.UpdateKeyNumberInUI();
                                 KeyPrefab.SetActive(false);
+                                TracesDePasObject.SetActive(true);
                             }   
                         }
                     if(hasFireCaqueteFireTwo)
@@ -371,6 +377,35 @@ public class Interaction : MonoBehaviour
                     else
                     {
                         nameText.text = "Il vous faut 3 clés pour sortir (" + gameManager.numberOfKey.ToString() + " / 3)";
+                    }
+                }
+                else if(objectName.StartsWith("TracesDePas"))
+                {
+                    nameText.text = "Appuyez sur [E] pour nettoyez les traces pour ne pas se faire reperer";
+                    if(Input.GetKeyDown(KeyCode.E))
+                    {
+                        interactObj.Interact();
+                    }
+                }
+                else if(objectName.StartsWith("Poubelle"))
+                {
+                    if(!hasBreakClock)
+                        nameText.text = "Le reveil doit être mit dans la poubelle";
+                    else if(hasBreakClock && !hasThrowClockInBin)
+                        nameText.text = "Appuyer sur [E] pour jeter le reveil";
+                        if(Input.GetKeyDown(KeyCode.E))
+                        {
+                            interactObj.Interact();
+                        }
+                    else if(hasBreakClock && hasThrowClockInBin)
+                        nameText.text = "Le reveil à été jeté";
+                }
+                else if(objectName.StartsWith("Reveil"))
+                {
+                    nameText.text = "Appuyer sur [E] pour casser le reveil et prendre les morceaux";
+                    if(Input.GetKeyDown(KeyCode.E))
+                    {
+                        interactObj.Interact();
                     }
                 }
                 lastInteractedObject = hitInfo.collider.gameObject;

@@ -154,6 +154,24 @@ public class InteractionSystem : MonoBehaviour, IInteractable
             gameManager.UpdateKeyNumberInUI();
             interaction.VerreMiroir.SetActive(false);
         }
+        else if(gameObject.name == "TracesDePas")
+        {
+            interaction.TracesDePasObject.SetActive(false);
+            interaction.hasCleanTraces = true;
+            if(interaction.hasThrowClockInBin)
+                interaction.hasFinishChopperMission = true;
+        }
+        else if(gameObject.name == "Reveil")
+        {
+            interaction.hasBreakClock = true;
+            interaction.ReveilPrefab.SetActive(false);
+        }
+        else if(gameObject.name == "Poubelle")
+        {
+            interaction.hasThrowClockInBin = true;
+            if(interaction.hasCleanTraces)
+                interaction.hasFinishChopperMission = true;
+        }
 
 
         // NARRATIVE 
@@ -166,10 +184,10 @@ public class InteractionSystem : MonoBehaviour, IInteractable
         {
             StartCoroutine(NarrativeWaiter(NarrationText));
         }
-        else if (gameObject.name == "TirroirBloqué")
+        /*else if (gameObject.name == "TirroirBloqué")
         {
             StartCoroutine(NarrativeWaiter(NarrationText));
-        }
+        }*/
         else if(gameObject.name == "N-Miroir")
         {
             if(!interaction.hasCheckedPillow)
