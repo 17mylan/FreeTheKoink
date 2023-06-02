@@ -197,6 +197,34 @@ public class InteractionSystem : MonoBehaviour, IInteractable
             if(interaction.hasPutMunitonsInToilets)
                 interaction.hasFinishShooterMission = true;
         }
+        else if(gameObject.name == "Clé Chambre")
+        {
+            Destroy(gameObject);
+            interaction.hasKeyToOpenBedroomDoor = true;
+        }
+        else if(gameObject.name == "PivotPorteChambre")
+        {
+            if (isDoorOpen)
+            {
+                DoorClose();
+            }
+            else
+                DoorOpen();
+        }
+        else if(gameObject.name == "Clé Bureau")
+        {
+            Destroy(gameObject);
+            interaction.hasKeyToOpenOfficeDoor = true;
+        }
+        else if(gameObject.name == "PivotPorteBureau")
+        {
+            if (isDoorOpen)
+            {
+                DoorClose();
+            }
+            else
+                DoorOpen();
+        }
 
         // NARRATIVE 
         StopCoroutine(NarrativeWaiter(NarrationText));

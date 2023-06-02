@@ -40,6 +40,10 @@ public class Interaction : MonoBehaviour
     public bool hasBedroomKey = false;
     public bool hasCaveKey = false;
 
+    [Header("Key To Open Doors")]
+    public bool hasKeyToOpenBedroomDoor = false;
+    public bool hasKeyToOpenOfficeDoor = false;
+
     [Header("Mission Sortir du nid")]
     public bool hasCageKey = false;
     public bool hasCageDoorOpen = false;
@@ -186,7 +190,7 @@ public class Interaction : MonoBehaviour
                 }
                 else if (objectName.StartsWith("Clé Cage"))
                 {
-                    nameText.text = "Appuyer sur [E] pour prendre la clé";
+                    nameText.text = "Appuyer sur [E] pour prendre la clé de la cage";
                     if (Input.GetKeyDown(KeyCode.E))
                     {
                         interactObj.Interact();
@@ -195,7 +199,7 @@ public class Interaction : MonoBehaviour
                 }
                 else if (objectName.StartsWith("Clé Camera"))
                 {
-                    nameText.text = "Appuyer sur [E] pour prendre la clé";
+                    nameText.text = "Appuyer sur [E] pour prendre la clé des caméras";
                     if (Input.GetKeyDown(KeyCode.E))
                     {
                         interactObj.Interact();
@@ -389,11 +393,11 @@ public class Interaction : MonoBehaviour
                 {
                     if(hasCameraKey && hasBedroomKey && hasCaveKey)
                     {
-                        nameText.text = "Appuyer sur [E] pour vous échapper";
+                        nameText.text = "Appuyer sur [E] pour tenter de vous échapper";
                     }
                     else
                     {
-                        nameText.text = "Il vous faut 3 clés pour sortir (" + gameManager.numberOfKey.ToString() + " / 3)";
+                        nameText.text = "Il vous faut 3 clés de mission pour sortir (" + gameManager.numberOfKey.ToString() + " / 3)";
                     }
                 }
                 else if(objectName.StartsWith("TracesDePas"))
@@ -467,6 +471,52 @@ public class Interaction : MonoBehaviour
                     }
                     else if(hasThrowGlassesInBin && hasTakenMirrorGlasses)
                         nameText.text = "Les bouts de verre ont été jetés dans la poubelle";
+                }
+                else if(objectName.StartsWith("Clé Chambre"))
+                {
+                    nameText.text = "Appuyer sur [E] pour récuperer la clé de la chambre";
+                    if(Input.GetKeyDown(KeyCode.E))
+                    {
+                        interactObj.Interact();
+                        audioSource.PlayOneShot(zipSound);
+                    }
+                }
+                else if(objectName.StartsWith("PivotPorteChambre"))
+                {
+                    if(!hasKeyToOpenBedroomDoor)
+                        nameText.text = "Chambre\nLa porte nécessite une clé";
+                    else if(hasKeyToOpenBedroomDoor)
+                    {
+                        nameText.text = "Chambre\nAppuyer sur [E] pour ouvrir";
+                        if (Input.GetKeyDown(KeyCode.E))
+                        {
+                            interactObj.Interact();
+                            audioSource.PlayOneShot(doorSound);
+                        }
+                    }
+                }
+                else if(objectName.StartsWith("Clé Bureau"))
+                {
+                    nameText.text = "Appuyer sur [E] pour récuperer la clé du bureau";
+                    if(Input.GetKeyDown(KeyCode.E))
+                    {
+                        interactObj.Interact();
+                        audioSource.PlayOneShot(zipSound);
+                    }
+                }
+                else if(objectName.StartsWith("PivotPorteBureau"))
+                {
+                    if(!hasKeyToOpenOfficeDoor)
+                        nameText.text = "Bureau\nLa porte nécessite une clé";
+                    else if(hasKeyToOpenOfficeDoor)
+                    {
+                        nameText.text = "Bureau\nAppuyer sur [E] pour ouvrir";
+                        if (Input.GetKeyDown(KeyCode.E))
+                        {
+                            interactObj.Interact();
+                            audioSource.PlayOneShot(doorSound);
+                        }
+                    }
                 }
                 lastInteractedObject = hitInfo.collider.gameObject;
             }
