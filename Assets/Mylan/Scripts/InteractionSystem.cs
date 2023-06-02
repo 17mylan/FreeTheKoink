@@ -145,14 +145,17 @@ public class InteractionSystem : MonoBehaviour, IInteractable
             interaction.MirorGlass.SetActive(false);
             interaction.hasKeepUpCrackedMirror = true;
             interaction.VerreMiroir.SetActive(true);
+            interaction.hasTakenMirrorGlasses = true;
         }
         else if(gameObject.name == "Oreiller")
         {
             interaction.hasCrackedPillow = true;
-            interaction.hasBedroomKey = true;
-            gameManager.numberOfKey = gameManager.numberOfKey + 1;
-            gameManager.UpdateKeyNumberInUI();
-            interaction.VerreMiroir.SetActive(false);
+            if(!interaction.hasBedroomKey)
+            {
+                interaction.hasBedroomKey = true;
+                gameManager.numberOfKey = gameManager.numberOfKey + 1;
+                gameManager.UpdateKeyNumberInUI();
+            }
         }
         else if(gameObject.name == "TracesDePas")
         {
@@ -165,14 +168,35 @@ public class InteractionSystem : MonoBehaviour, IInteractable
         {
             interaction.hasBreakClock = true;
             interaction.ReveilPrefab.SetActive(false);
+            interaction.ReveilPrefabUI.SetActive(true);
         }
-        else if(gameObject.name == "Poubelle")
+        else if(gameObject.name == "PoubelleChambre")
         {
             interaction.hasThrowClockInBin = true;
+            interaction.ReveilPrefabUI.SetActive(false);
             if(interaction.hasCleanTraces)
                 interaction.hasFinishChopperMission = true;
         }
-
+        else if(gameObject.name == "Munitions")
+        {
+            interaction.hasTakenMunitions = true;
+            interaction.ShotgunAmmoUI.SetActive(true);
+            Destroy(gameObject);
+        }
+        else if(gameObject.name == "Toilets")
+        {
+            interaction.hasPutMunitonsInToilets = true;
+            interaction.ShotgunAmmoUI.SetActive(false);
+            if(interaction.hasThrowGlassesInBin)
+                interaction.hasFinishShooterMission = true;
+        }
+        else if(gameObject.name == "PoubelleCuisine")
+        {
+            interaction.hasThrowGlassesInBin = true;
+            interaction.VerreMiroir.SetActive(false);
+            if(interaction.hasPutMunitonsInToilets)
+                interaction.hasFinishShooterMission = true;
+        }
 
         // NARRATIVE 
         StopCoroutine(NarrativeWaiter(NarrationText));

@@ -26,6 +26,9 @@ public class Interaction : MonoBehaviour
     public AudioClip passValid;
     public AudioClip zipSound;
     public AudioClip electricityShutDown;
+    public AudioClip breakSound;
+    public AudioClip binSound;
+    public AudioClip toiletSound;
     public AudioSource fireSound;
     public GameObject imageKeyCageAsset, imageKeyDisjoncteur, imagePassDoor, FXFirePrefab;
     public ParticleSystem FXFire;
@@ -73,6 +76,14 @@ public class Interaction : MonoBehaviour
     public bool hasThrowClockInBin = false;
     public bool hasFinishChopperMission = false;
 
+    [Header("Mission Fin Shooter")]
+    public bool hasTakenMunitions = false;
+    public bool hasPutMunitonsInToilets = false;
+    public bool hasTakenMirrorGlasses = false;
+    public bool hasThrowGlassesInBin = false;
+    public bool hasFinishShooterMission = false;
+    
+    [Header("Other")]
     public GameObject GlaconPrefab;
     public GameObject KeyPrefab;
     public GameObject MirorGlass;
@@ -80,6 +91,8 @@ public class Interaction : MonoBehaviour
     public GameObject VerreMiroir;
     public GameObject TracesDePasObject;
     public GameObject ReveilPrefab;
+    public GameObject ReveilPrefabUI;
+    public GameObject ShotgunAmmoUI;
     public GameObject narrativeTextObject;
     public TextMeshProUGUI narrativeText;
     private void Start()
@@ -278,12 +291,15 @@ public class Interaction : MonoBehaviour
                             if(Input.GetKeyDown(KeyCode.A))
                             {
                                 hasFireCaqueteFireTwo = true;
-                                hasKitchenKey = true;
-                                gameManager.numberOfKey = gameManager.numberOfKey + 1;
-                                audioSource.PlayOneShot(zipSound);
-                                gameManager.UpdateKeyNumberInUI();
-                                KeyPrefab.SetActive(false);
-                                TracesDePasObject.SetActive(true);
+                                if(!hasKitchenKey)
+                                {
+                                    hasKitchenKey = true;
+                                    gameManager.numberOfKey = gameManager.numberOfKey + 1;
+                                    audioSource.PlayOneShot(zipSound);
+                                    gameManager.UpdateKeyNumberInUI();
+                                    KeyPrefab.SetActive(false);
+                                    TracesDePasObject.SetActive(true);
+                                }
                             }   
                         }
                     if(hasFireCaqueteFireTwo)
@@ -327,6 +343,7 @@ public class Interaction : MonoBehaviour
                         {
                             hasCrackedMirror = true;
                             MirorGlass.SetActive(true);
+                            audioSource.PlayOneShot(breakSound);
                         }
                     if(hasCrackedMirror)
                     {
@@ -387,7 +404,7 @@ public class Interaction : MonoBehaviour
                         interactObj.Interact();
                     }
                 }
-                else if(objectName.StartsWith("Poubelle"))
+                else if(objectName.StartsWith("PoubelleChambre"))
                 {
                     if(!hasBreakClock)
                         nameText.text = "Le reveil doit être mit dans la poubelle";
@@ -396,6 +413,7 @@ public class Interaction : MonoBehaviour
                         if(Input.GetKeyDown(KeyCode.E))
                         {
                             interactObj.Interact();
+                            audioSource.PlayOneShot(binSound);
                         }
                     else if(hasBreakClock && hasThrowClockInBin)
                         nameText.text = "Le reveil à été jeté";
@@ -406,7 +424,49 @@ public class Interaction : MonoBehaviour
                     if(Input.GetKeyDown(KeyCode.E))
                     {
                         interactObj.Interact();
+                        audioSource.PlayOneShot(breakSound);
                     }
+                }
+                else if(objectName.StartsWith("Munitions"))
+                {
+                    nameText.text = "Appuyer sur [E] pour prendre les munitions";
+                    if(Input.GetKeyDown(KeyCode.E))
+                    {
+                        interactObj.Interact();
+                        audioSource.PlayOneShot(zipSound);
+                    }
+                }
+                else if(objectName.StartsWith("Toilets"))
+                {
+                    if(!hasTakenMunitions)
+                        nameText.text = "Des munitions doivent être jeté dans ces toilettes";
+                    else if(hasTakenMunitions && !hasPutMunitonsInToilets)
+                    {
+                        nameText.text = "Appuyer sur [E] pour jeter les munitions";
+                        if(Input.GetKeyDown(KeyCode.E))
+                        {
+                            interactObj.Interact();
+                            audioSource.PlayOneShot(toiletSound);
+                        }
+                    }
+                    else if(hasTakenMunitions && hasPutMunitonsInToilets)
+                        nameText.text = "Les munitions ont été jetées";
+                }
+                else if(objectName.StartsWith("PoubelleCuisine"))
+                {
+                    if(!hasTakenMirrorGlasses)
+                        nameText.text = "Les bouts de verre doivent être jetés dans cette poubelle";
+                    else if(hasTakenMirrorGlasses && !hasThrowGlassesInBin)
+                    {
+                        nameText.text = "Appuyer sur [E] pour jeter les bouts dans la poubelle";
+                        if(Input.GetKeyDown(KeyCode.E))
+                        {
+                            interactObj.Interact();
+                            audioSource.PlayOneShot(binSound);
+                        }
+                    }
+                    else if(hasThrowGlassesInBin && hasTakenMirrorGlasses)
+                        nameText.text = "Les bouts de verre ont été jetés dans la poubelle";
                 }
                 lastInteractedObject = hitInfo.collider.gameObject;
             }
