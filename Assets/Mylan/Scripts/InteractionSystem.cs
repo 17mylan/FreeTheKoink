@@ -43,6 +43,8 @@ public class InteractionSystem : MonoBehaviour, IInteractable
             {
                 cageDoorAnimator.SetBool("doorCageAnimationOpen", true);
                 interaction.imageKeyCageAsset.SetActive(false);
+                interaction.narrativeText.color = Color.green;
+                interaction.narrativeText.text = "Aide - Maintenant il faut que je désactive les caméras de la maison pour sortir sans me faire repérer, le disjoncteur doit se trouver sur le mur vers le bureau";           
             }
         }
         else if(gameObject.name == "CartonCage")
@@ -63,24 +65,33 @@ public class InteractionSystem : MonoBehaviour, IInteractable
         }
         else if(gameObject.name == "Disjoncteur")
         {
-            Destroy(CameraCollider);
-            interaction.hasCageDisjoncteurOpen = true;
-            interaction.imageKeyDisjoncteur.SetActive(false);
+            if(interaction.hasCameraKey)
+            {
+                Destroy(CameraCollider);
+                interaction.hasCageDisjoncteurOpen = true;
+                interaction.imageKeyDisjoncteur.SetActive(false);
+                interaction.narrativeText.text = "Aide - Vous pouvez faire des sauts propulsé en maintenant CTRL + Espace pour atteindre des espaces plus haut"; 
+            }
         }
         else if(gameObject.name == "Pass Porte")
         {
             Destroy(gameObject);
             interaction.hasPassCaveDoor = true;
             interaction.imagePassDoor.SetActive(true);
+            interaction.narrativeTextObject.SetActive(false);    
         }
         else if(gameObject.name == "DetecteurCavePorte" && interaction.hasPassCaveDoor && !interaction.hasGivePassDoor)
         {
             interaction.hasGivePassDoor = true;
+            interaction.narrativeTextObject.SetActive(true);
+            interaction.narrativeText.text = "Il manque une reconnaissance vocale. J'y pense, j'ai un super cri qui peut casser des choses, je devrais pouvoir m'en servir pour dérégler la sécurité";
+            interaction.narrativeText.color = Color.white;    
         }
         else if(gameObject.name == "CaveDoorClose" && interaction.hasPassCaveDoor && interaction.hasGivePassDoor && interaction.hasCaqueteToOpenDoor)
         {
             interaction.imagePassDoor.SetActive(false);
             interaction.hasOpenCaveDoor = true;
+            interaction.narrativeTextObject.SetActive(false);
             if (isDoorOpen)
             {
                 DoorClose();
@@ -196,7 +207,7 @@ public class InteractionSystem : MonoBehaviour, IInteractable
         isDoorOpen = false;
     }
 
-    IEnumerator NarrativeWaiter(string narrationText)
+    public IEnumerator NarrativeWaiter(string narrationText)
     {
         narrativeText.text = narrationText;
         narrativeTextObject.SetActive(true);

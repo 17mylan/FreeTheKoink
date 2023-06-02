@@ -23,7 +23,10 @@ public class Interaction : MonoBehaviour
     public AudioClip doorSound;
     public AudioClip cageDoorSound;
     public AudioClip getKeyCageSound;
-
+    public AudioClip passValid;
+    public AudioClip zipSound;
+    public AudioClip electricityShutDown;
+    public AudioSource fireSound;
     public GameObject imageKeyCageAsset, imageKeyDisjoncteur, imagePassDoor, FXFirePrefab;
     public ParticleSystem FXFire;
     private GameManager gameManager;
@@ -68,12 +71,15 @@ public class Interaction : MonoBehaviour
     public GameObject MirorGlass;
     public GameObject GlaconPrefabUI;
     public GameObject VerreMiroir;
-
+    public GameObject narrativeTextObject;
+    public TextMeshProUGUI narrativeText;
     private void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
+        narrativeText.text = "Il faut que je trouve un moyen de sortir d’ici ! Je crois que le propriétaire à laissé la clé de la cage sur les cartons à côté";
+        narrativeTextObject.SetActive(true);
+        narrativeText.color = Color.white;
     }
-
     void Update()
     {
         Vector3 raycastOrigin = InteractionSource.position + Vector3.up * RaycastHeight + InteractionSource.right * RaycastHorizontalOffset; // Utilise la hauteur et l'offset horizontal du raycast
@@ -171,17 +177,19 @@ public class Interaction : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.E))
                     {
                         interactObj.Interact();
+                        audioSource.PlayOneShot(getKeyCageSound);
                     }
                 }
                 else if (objectName.StartsWith("Disjoncteur"))
                 {
                     if(!hasCameraKey)
-                        nameText.text = "La porte d'éléctricité des caméras est fermée";
+                        nameText.text = "Le disjoncteur est cadenassé ! La clé ne devrait pas être loin";
                     else if(hasCameraKey)
                         nameText.text = "Appuyer sur [E] pour eteindre la caméra";
                         if (Input.GetKeyDown(KeyCode.E))
                         {
                             interactObj.Interact();
+                            audioSource.PlayOneShot(electricityShutDown);
                         }
                     else if (hasCameraKey && hasCageDisjoncteurOpen)
                         nameText.text = "La caméra est éteinte";
@@ -192,6 +200,7 @@ public class Interaction : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.E))
                     {
                         interactObj.Interact();
+                        audioSource.PlayOneShot(zipSound);
                     }
                 }
                 else if(objectName.StartsWith("TirroirBloqué"))
@@ -211,6 +220,7 @@ public class Interaction : MonoBehaviour
                         if (Input.GetKeyDown(KeyCode.E))
                         {
                             interactObj.Interact();
+                            audioSource.PlayOneShot(passValid);
                         }
                     else if(hasPassCaveDoor && hasGivePassDoor)
                         nameText.text = "Le pass à été donné";
@@ -237,6 +247,7 @@ public class Interaction : MonoBehaviour
                     if(Input.GetKeyDown(KeyCode.E))
                     {
                         interactObj.Interact();
+                        audioSource.PlayOneShot(zipSound);
                     }
                 }
                 else if(objectName.StartsWith("Four"))
@@ -264,6 +275,7 @@ public class Interaction : MonoBehaviour
                                 hasFireCaqueteFireTwo = true;
                                 hasKitchenKey = true;
                                 gameManager.numberOfKey = gameManager.numberOfKey + 1;
+                                audioSource.PlayOneShot(zipSound);
                                 gameManager.UpdateKeyNumberInUI();
                                 KeyPrefab.SetActive(false);
                             }   
@@ -288,6 +300,7 @@ public class Interaction : MonoBehaviour
                             {
                                 hasStartedFire = false;
                                 FXFire.Stop();
+                                fireSound.enabled = false;
                                 hasFireCaqueteFireOne = true;
                             }
                         }
@@ -320,6 +333,7 @@ public class Interaction : MonoBehaviour
                     if(Input.GetKeyDown(KeyCode.E))
                     {
                         interactObj.Interact();
+                        audioSource.PlayOneShot(zipSound);
                     }
                 }
                 else if(objectName.StartsWith("N-Oreiller"))
@@ -340,11 +354,23 @@ public class Interaction : MonoBehaviour
                         if(Input.GetKeyDown(KeyCode.E))
                         {
                             interactObj.Interact();
+                            audioSource.PlayOneShot(zipSound);
                         }
                     }
                     else if(!hasCrackedMirror)
                     {
                         nameText.text = "Un objet coupant doit être trouvé";
+                    }
+                }
+                else if(objectName.StartsWith("PivotPortePrincipale"))
+                {
+                    if(hasCameraKey && hasBedroomKey && hasCaveKey)
+                    {
+                        nameText.text = "Appuyer sur [E] pour vous échapper";
+                    }
+                    else
+                    {
+                        nameText.text = "Il vous faut 3 clés pour sortir (" + gameManager.numberOfKey.ToString() + " / 3)";
                     }
                 }
                 lastInteractedObject = hitInfo.collider.gameObject;
