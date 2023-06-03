@@ -220,7 +220,7 @@ namespace KinematicCharacterController.Examples
                         {
                             _isGliding = false;
                         }
-                        if(Input.GetKey(KeyCode.LeftShift) && gameManager.canWalk)
+                        if(Input.GetKey(KeyCode.LeftShift))// && gameManager.canWalk)
                         {
                             MaxStableMoveSpeed = 6.8f;
                             duckWalkSound.cooldown = 0.26f;
@@ -343,13 +343,13 @@ namespace KinematicCharacterController.Examples
                             if (currentVelocity.magnitude > 0f)
                             {
                                 //print("J'avance !");
-                                if(gameManager.canWalk)
-                                {
+                                //if(gameManager.canWalk)
+                                //{
                                     particlesLeg1.SetActive(true);
                                     particlesLeg2.SetActive(true);
                                     animator.SetFloat("Speed", 1f);
                                     duckWalkSound.OnCharacterMove();
-                                }
+                                //}
                             }
                             else
                             {
@@ -421,7 +421,7 @@ namespace KinematicCharacterController.Examples
                                 {
                                     jumpDirection = Motor.GroundingStatus.GroundNormal;
                                 }
-                                if(gameManager.canWalk)
+                                //if(gameManager.canWalk)
                                     animator.SetFloat("Jump", 1f);
 
                                 // Makes the character skip ground probing/snapping on its next update. 
@@ -473,7 +473,7 @@ namespace KinematicCharacterController.Examples
                             if (AllowJumpingWhenSliding ? Motor.GroundingStatus.FoundAnyGround : Motor.GroundingStatus.IsStableOnGround)
                             {
                                 // If we're on a ground surface, reset jumping values
-                                if (!_jumpedThisFrame && gameManager.canWalk)
+                                if (!_jumpedThisFrame) //&& gameManager.canWalk)
                                 {
                                     _jumpConsumed = false;
                                     animator.SetFloat("Jump", 0f);
