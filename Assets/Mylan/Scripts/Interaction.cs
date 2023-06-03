@@ -23,7 +23,13 @@ public class Interaction : MonoBehaviour
     public AudioClip doorSound;
     public AudioClip cageDoorSound;
     public AudioClip getKeyCageSound;
-
+    public AudioClip passValid;
+    public AudioClip zipSound;
+    public AudioClip electricityShutDown;
+    public AudioClip breakSound;
+    public AudioClip binSound;
+    public AudioClip toiletSound;
+    public AudioSource fireSound;
     public GameObject imageKeyCageAsset, imageKeyDisjoncteur, imagePassDoor, FXFirePrefab;
     public ParticleSystem FXFire;
     private GameManager gameManager;
@@ -33,6 +39,10 @@ public class Interaction : MonoBehaviour
     public bool hasKitchenKey = false;
     public bool hasBedroomKey = false;
     public bool hasCaveKey = false;
+
+    [Header("Key To Open Doors")]
+    public bool hasKeyToOpenBedroomDoor = false;
+    public bool hasKeyToOpenOfficeDoor = false;
 
     [Header("Mission Sortir du nid")]
     public bool hasCageKey = false;
@@ -63,17 +73,39 @@ public class Interaction : MonoBehaviour
     public bool hasCrackedMirror = false;
     public bool hasKeepUpCrackedMirror = false;
     public bool hasCrackedPillow = false;
+
+    [Header("Mission Fin Chopper")]
+    public bool hasCleanTraces = false;
+    public bool hasBreakClock = false;
+    public bool hasThrowClockInBin = false;
+    public bool hasFinishChopperMission = false;
+
+    [Header("Mission Fin Shooter")]
+    public bool hasTakenMunitions = false;
+    public bool hasPutMunitonsInToilets = false;
+    public bool hasTakenMirrorGlasses = false;
+    public bool hasThrowGlassesInBin = false;
+    public bool hasFinishShooterMission = false;
+    
+    [Header("Other")]
     public GameObject GlaconPrefab;
     public GameObject KeyPrefab;
     public GameObject MirorGlass;
     public GameObject GlaconPrefabUI;
     public GameObject VerreMiroir;
-
+    public GameObject TracesDePasObject;
+    public GameObject ReveilPrefab;
+    public GameObject ReveilPrefabUI;
+    public GameObject ShotgunAmmoUI;
+    public GameObject narrativeTextObject;
+    public TextMeshProUGUI narrativeText;
     private void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
+        narrativeText.text = "Il faut que je trouve un moyen de sortir d’ici ! Je crois que le propriétaire à laissé la clé de la cage sur les cartons à côté";
+        narrativeTextObject.SetActive(true);
+        narrativeText.color = Color.white;
     }
-
     void Update()
     {
         Vector3 raycastOrigin = InteractionSource.position + Vector3.up * RaycastHeight + InteractionSource.right * RaycastHorizontalOffset; // Utilise la hauteur et l'offset horizontal du raycast
@@ -158,7 +190,7 @@ public class Interaction : MonoBehaviour
                 }
                 else if (objectName.StartsWith("Clé Cage"))
                 {
-                    nameText.text = "Appuyer sur [E] pour prendre la clé";
+                    nameText.text = "Appuyer sur [E] pour prendre la clé de la cage";
                     if (Input.GetKeyDown(KeyCode.E))
                     {
                         interactObj.Interact();
@@ -167,21 +199,23 @@ public class Interaction : MonoBehaviour
                 }
                 else if (objectName.StartsWith("Clé Camera"))
                 {
-                    nameText.text = "Appuyer sur [E] pour prendre la clé";
+                    nameText.text = "Appuyer sur [E] pour prendre la clé des caméras";
                     if (Input.GetKeyDown(KeyCode.E))
                     {
                         interactObj.Interact();
+                        audioSource.PlayOneShot(getKeyCageSound);
                     }
                 }
                 else if (objectName.StartsWith("Disjoncteur"))
                 {
                     if(!hasCameraKey)
-                        nameText.text = "La porte d'éléctricité des caméras est fermée";
+                        nameText.text = "Le disjoncteur est cadenassé ! La clé ne devrait pas être loin";
                     else if(hasCameraKey)
                         nameText.text = "Appuyer sur [E] pour eteindre la caméra";
                         if (Input.GetKeyDown(KeyCode.E))
                         {
                             interactObj.Interact();
+                            audioSource.PlayOneShot(electricityShutDown);
                         }
                     else if (hasCameraKey && hasCageDisjoncteurOpen)
                         nameText.text = "La caméra est éteinte";
@@ -192,15 +226,12 @@ public class Interaction : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.E))
                     {
                         interactObj.Interact();
+                        audioSource.PlayOneShot(zipSound);
                     }
                 }
                 else if(objectName.StartsWith("TirroirBloqué"))
                 {
-                    nameText.text = "Appuyer sur [E] pour inspecter";
-                    if (Input.GetKeyDown(KeyCode.E))
-                    {
-                        interactObj.Interact();
-                    }
+                    nameText.text = "Humm c’est verouille, le proprio doit avoir cache la cle quelque part dans la maison, peut-etre meme dans cette piece.";
                 }
                 else if(objectName.StartsWith("DetecteurCavePorte"))
                 {
@@ -211,6 +242,7 @@ public class Interaction : MonoBehaviour
                         if (Input.GetKeyDown(KeyCode.E))
                         {
                             interactObj.Interact();
+                            audioSource.PlayOneShot(passValid);
                         }
                     else if(hasPassCaveDoor && hasGivePassDoor)
                         nameText.text = "Le pass à été donné";
@@ -237,6 +269,7 @@ public class Interaction : MonoBehaviour
                     if(Input.GetKeyDown(KeyCode.E))
                     {
                         interactObj.Interact();
+                        audioSource.PlayOneShot(zipSound);
                     }
                 }
                 else if(objectName.StartsWith("Four"))
@@ -262,10 +295,15 @@ public class Interaction : MonoBehaviour
                             if(Input.GetKeyDown(KeyCode.A))
                             {
                                 hasFireCaqueteFireTwo = true;
-                                hasKitchenKey = true;
-                                gameManager.numberOfKey = gameManager.numberOfKey + 1;
-                                gameManager.UpdateKeyNumberInUI();
-                                KeyPrefab.SetActive(false);
+                                if(!hasKitchenKey)
+                                {
+                                    hasKitchenKey = true;
+                                    gameManager.numberOfKey = gameManager.numberOfKey + 1;
+                                    audioSource.PlayOneShot(zipSound);
+                                    gameManager.UpdateKeyNumberInUI();
+                                    KeyPrefab.SetActive(false);
+                                    TracesDePasObject.SetActive(true);
+                                }
                             }   
                         }
                     if(hasFireCaqueteFireTwo)
@@ -288,6 +326,7 @@ public class Interaction : MonoBehaviour
                             {
                                 hasStartedFire = false;
                                 FXFire.Stop();
+                                fireSound.enabled = false;
                                 hasFireCaqueteFireOne = true;
                             }
                         }
@@ -308,6 +347,7 @@ public class Interaction : MonoBehaviour
                         {
                             hasCrackedMirror = true;
                             MirorGlass.SetActive(true);
+                            audioSource.PlayOneShot(breakSound);
                         }
                     if(hasCrackedMirror)
                     {
@@ -320,6 +360,7 @@ public class Interaction : MonoBehaviour
                     if(Input.GetKeyDown(KeyCode.E))
                     {
                         interactObj.Interact();
+                        audioSource.PlayOneShot(zipSound);
                     }
                 }
                 else if(objectName.StartsWith("N-Oreiller"))
@@ -340,11 +381,141 @@ public class Interaction : MonoBehaviour
                         if(Input.GetKeyDown(KeyCode.E))
                         {
                             interactObj.Interact();
+                            audioSource.PlayOneShot(zipSound);
                         }
                     }
                     else if(!hasCrackedMirror)
                     {
                         nameText.text = "Un objet coupant doit être trouvé";
+                    }
+                }
+                else if(objectName.StartsWith("PivotPortePrincipale"))
+                {
+                    if(hasCameraKey && hasBedroomKey && hasCaveKey)
+                    {
+                        nameText.text = "Appuyer sur [E] pour tenter de vous échapper";
+                    }
+                    else
+                    {
+                        nameText.text = "Il vous faut 3 clés de mission pour sortir (" + gameManager.numberOfKey.ToString() + " / 3)";
+                    }
+                }
+                else if(objectName.StartsWith("TracesDePas"))
+                {
+                    nameText.text = "Appuyez sur [E] pour nettoyez les traces pour ne pas se faire reperer";
+                    if(Input.GetKeyDown(KeyCode.E))
+                    {
+                        interactObj.Interact();
+                    }
+                }
+                else if(objectName.StartsWith("PoubelleChambre"))
+                {
+                    if(!hasBreakClock)
+                        nameText.text = "Le reveil doit être mit dans la poubelle";
+                    else if(hasBreakClock && !hasThrowClockInBin)
+                        nameText.text = "Appuyer sur [E] pour jeter le reveil";
+                        if(Input.GetKeyDown(KeyCode.E))
+                        {
+                            interactObj.Interact();
+                            audioSource.PlayOneShot(binSound);
+                        }
+                    else if(hasBreakClock && hasThrowClockInBin)
+                        nameText.text = "Le reveil à été jeté";
+                }
+                else if(objectName.StartsWith("Reveil"))
+                {
+                    nameText.text = "Appuyer sur [E] pour casser le reveil et prendre les morceaux";
+                    if(Input.GetKeyDown(KeyCode.E))
+                    {
+                        interactObj.Interact();
+                        audioSource.PlayOneShot(breakSound);
+                    }
+                }
+                else if(objectName.StartsWith("Munitions"))
+                {
+                    nameText.text = "Appuyer sur [E] pour prendre les munitions";
+                    if(Input.GetKeyDown(KeyCode.E))
+                    {
+                        interactObj.Interact();
+                        audioSource.PlayOneShot(zipSound);
+                    }
+                }
+                else if(objectName.StartsWith("Toilets"))
+                {
+                    if(!hasTakenMunitions)
+                        nameText.text = "Des munitions doivent être jeté dans ces toilettes";
+                    else if(hasTakenMunitions && !hasPutMunitonsInToilets)
+                    {
+                        nameText.text = "Appuyer sur [E] pour jeter les munitions";
+                        if(Input.GetKeyDown(KeyCode.E))
+                        {
+                            interactObj.Interact();
+                            audioSource.PlayOneShot(toiletSound);
+                        }
+                    }
+                    else if(hasTakenMunitions && hasPutMunitonsInToilets)
+                        nameText.text = "Les munitions ont été jetées";
+                }
+                else if(objectName.StartsWith("PoubelleCuisine"))
+                {
+                    if(!hasTakenMirrorGlasses)
+                        nameText.text = "Les bouts de verre doivent être jetés dans cette poubelle";
+                    else if(hasTakenMirrorGlasses && !hasThrowGlassesInBin)
+                    {
+                        nameText.text = "Appuyer sur [E] pour jeter les bouts dans la poubelle";
+                        if(Input.GetKeyDown(KeyCode.E))
+                        {
+                            interactObj.Interact();
+                            audioSource.PlayOneShot(binSound);
+                        }
+                    }
+                    else if(hasThrowGlassesInBin && hasTakenMirrorGlasses)
+                        nameText.text = "Les bouts de verre ont été jetés dans la poubelle";
+                }
+                else if(objectName.StartsWith("Clé Chambre"))
+                {
+                    nameText.text = "Appuyer sur [E] pour récuperer la clé de la chambre";
+                    if(Input.GetKeyDown(KeyCode.E))
+                    {
+                        interactObj.Interact();
+                        audioSource.PlayOneShot(zipSound);
+                    }
+                }
+                else if(objectName.StartsWith("PivotPorteChambre"))
+                {
+                    if(!hasKeyToOpenBedroomDoor)
+                        nameText.text = "Chambre\nLa porte nécessite une clé";
+                    else if(hasKeyToOpenBedroomDoor)
+                    {
+                        nameText.text = "Chambre\nAppuyer sur [E] pour ouvrir";
+                        if (Input.GetKeyDown(KeyCode.E))
+                        {
+                            interactObj.Interact();
+                            audioSource.PlayOneShot(doorSound);
+                        }
+                    }
+                }
+                else if(objectName.StartsWith("Clé Bureau"))
+                {
+                    nameText.text = "Appuyer sur [E] pour récuperer la clé du bureau";
+                    if(Input.GetKeyDown(KeyCode.E))
+                    {
+                        interactObj.Interact();
+                        audioSource.PlayOneShot(zipSound);
+                    }
+                }
+                else if(objectName.StartsWith("PivotPorteBureau"))
+                {
+                    if(!hasKeyToOpenOfficeDoor)
+                        nameText.text = "Bureau\nLa porte nécessite une clé";
+                    else if(hasKeyToOpenOfficeDoor)
+                    {
+                        nameText.text = "Bureau\nAppuyer sur [E] pour ouvrir";
+                        if (Input.GetKeyDown(KeyCode.E))
+                        {
+                            interactObj.Interact();
+                            audioSource.PlayOneShot(doorSound);
+                        }
                     }
                 }
                 lastInteractedObject = hitInfo.collider.gameObject;
