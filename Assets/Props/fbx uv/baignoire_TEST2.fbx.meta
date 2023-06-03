@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ece20a2b259d2444bb4094de30b93b56
+guid: 2ff042d239155ba4f8b7847c5960fae3
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -7,8 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: aiStandardSurface2
-    second: {fileID: 2100000, guid: 2c198e5ae2b19fe4eae46810df852f06, type: 2}
+      name: rose1
+    second: {fileID: 2100000, guid: e18017a4b145736478fd69410be68354, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: baignoire1
+    second: {fileID: 2800000, guid: ba84634de2711844fa2f906931eec9da, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
