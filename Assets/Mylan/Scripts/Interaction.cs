@@ -102,7 +102,7 @@ public class Interaction : MonoBehaviour
     private void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
-        narrativeText.text = "Il faut que je trouve un moyen de sortir d’ici ! Je crois que le propriétaire à laissé la clé de la cage sur les cartons à côté";
+        narrativeText.text = "Je dois trouver un moyen de m'échapper d'ici ! Je pense que le propriétaire a laissé la clé de la cage sur les cartons à côté.";
         narrativeTextObject.SetActive(true);
         narrativeText.color = Color.white;
     }
@@ -209,7 +209,7 @@ public class Interaction : MonoBehaviour
                 else if (objectName.StartsWith("Disjoncteur"))
                 {
                     if(!hasCameraKey)
-                        nameText.text = "Le disjoncteur nécessite une clé qui ne devrait pas être loin";
+                        nameText.text = "Le disjoncteur requiert une clé qui ne devrait pas être loin.";
                     else if(hasCameraKey)
                         nameText.text = "Appuyer sur [E] pour eteindre la caméra";
                         if (Input.GetKeyDown(KeyCode.E))
@@ -231,12 +231,12 @@ public class Interaction : MonoBehaviour
                 }
                 else if(objectName.StartsWith("TirroirBloqué"))
                 {
-                    nameText.text = "Humm c’est verouille, le proprio doit avoir cache la cle quelque part dans la maison, peut-etre meme dans cette piece.";
+                    nameText.text = "La porte est verrouillée, il est possible que le propriétaire ait caché la clé quelque part dans la maison, peut-être même dans cette pièce";
                 }
                 else if(objectName.StartsWith("DetecteurCavePorte"))
                 {
                     if(!hasPassCaveDoor)
-                        nameText.text = "Le pass doit être inséré";
+                        nameText.text = "Il est nécessaire d'insérer le pass.";
                     else if(hasPassCaveDoor)
                         nameText.text = "Appuyer sur [E] pour donner le pass";
                         if (Input.GetKeyDown(KeyCode.E))
@@ -245,7 +245,7 @@ public class Interaction : MonoBehaviour
                             audioSource.PlayOneShot(passValid);
                         }
                     else if(hasPassCaveDoor && hasGivePassDoor)
-                        nameText.text = "Le pass à été donné";
+                        nameText.text = "Le pass à été inséré";
                 }
                 else if(objectName.StartsWith("Frigo"))
                 {
@@ -281,14 +281,14 @@ public class Interaction : MonoBehaviour
                             interactObj.Interact();
                         }
                     else if(!hasIcedGlace)
-                        nameText.text = "Le glacon doit être trouvé";
+                        nameText.text = "Il faut trouver un glaçon";
                     else if(hasStartedFire)
                         nameText.text = "Le feu est allumé";
                 }
                 else if(objectName.StartsWith("Cheminée"))
                 {
                     if(!hasStartedFire)
-                        nameText.text = "Le feu doit être allumé avant";
+                        nameText.text = "Il est nécessaire d'allumer le feu préalablement";
                     if(hasFireCaqueteFireOne)
                         {
                             nameText.text = "Appuyer sur [A] pour refroidir la clé et la prendre";
@@ -351,12 +351,12 @@ public class Interaction : MonoBehaviour
                         }
                     if(hasCrackedMirror)
                     {
-                        nameText.text = "Le miroir est cassé";
+                        nameText.text = "Le miroir a été brisé";
                     }
                 }
                 else if(objectName.StartsWith("BouDeMiroir"))
                 {
-                    nameText.text = "Appuyer sur [E] pour récuperer le bou du miroir";
+                    nameText.text = "Appuyer sur [E] pour récuperer le fragment du miroir";
                     if(Input.GetKeyDown(KeyCode.E))
                     {
                         interactObj.Interact();
@@ -386,7 +386,7 @@ public class Interaction : MonoBehaviour
                     }
                     else if(!hasCrackedMirror)
                     {
-                        nameText.text = "Un objet coupant doit être trouvé";
+                        nameText.text = "Il est nécessaire de trouver un objet tranchant";
                     }
                 }
                 else if(objectName.StartsWith("PivotPortePrincipale"))
@@ -402,7 +402,7 @@ public class Interaction : MonoBehaviour
                 }
                 else if(objectName.StartsWith("TracesDePas"))
                 {
-                    nameText.text = "Appuyez sur [E] pour nettoyez les traces pour ne pas se faire reperer";
+                    nameText.text = "Veuillez appuyer sur [E] pour effacer les traces afin de ne pas être repéré";
                     if(Input.GetKeyDown(KeyCode.E))
                     {
                         interactObj.Interact();
@@ -411,7 +411,7 @@ public class Interaction : MonoBehaviour
                 else if(objectName.StartsWith("PoubelleChambre"))
                 {
                     if(!hasBreakClock)
-                        nameText.text = "Le reveil doit être mit dans la poubelle";
+                        nameText.text = "Le réveil doit être mis à la poubelle";
                     else if(hasBreakClock && !hasThrowClockInBin)
                         nameText.text = "Appuyer sur [E] pour jeter le reveil";
                         if(Input.GetKeyDown(KeyCode.E))
@@ -459,10 +459,10 @@ public class Interaction : MonoBehaviour
                 else if(objectName.StartsWith("PoubelleCuisine"))
                 {
                     if(!hasTakenMirrorGlasses)
-                        nameText.text = "Les bouts de verre doivent être jetés dans cette poubelle";
+                        nameText.text = "Des morceaux de verre doivent être jetés dans cette poubelle";
                     else if(hasTakenMirrorGlasses && !hasThrowGlassesInBin && hasCrackedPillow)
                     {
-                        nameText.text = "Appuyer sur [E] pour jeter les bouts dans la poubelle";
+                        nameText.text = "Appuyer sur [E] pour jeter les morceaux de verre dans la poubelle";
                         if(Input.GetKeyDown(KeyCode.E))
                         {
                             interactObj.Interact();
@@ -470,9 +470,9 @@ public class Interaction : MonoBehaviour
                         }
                     }
                     else if(hasTakenMirrorGlasses && !hasThrowGlassesInBin && !hasCrackedPillow)
-                        nameText.text = "Les bouts de verre doivent servir avant de le jeter";
+                        nameText.text = "Les morceaux de verre doivent servir avant de le jeter";
                     else if(hasThrowGlassesInBin && hasTakenMirrorGlasses)
-                        nameText.text = "Les bouts de verre ont été jetés dans la poubelle";
+                        nameText.text = "Les morceaux de verre ont été jetés dans la poubelle";
                 }
                 else if(objectName.StartsWith("Clé Chambre"))
                 {

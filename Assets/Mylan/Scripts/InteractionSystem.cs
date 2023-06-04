@@ -48,7 +48,7 @@ public class InteractionSystem : MonoBehaviour, IInteractable
                 cageDoorAnimator.SetBool("doorCageAnimationOpen", true);
                 interaction.imageKeyCageAsset.SetActive(false);
                 interaction.narrativeText.color = Color.green;
-                interaction.narrativeText.text = "Aide - Maintenant il faut que je désactive les caméras de la maison pour sortir sans me faire repérer, le disjoncteur doit se trouver sur le mur vers le bureau";           
+                interaction.narrativeText.text = "Aide - Maintenant, je dois désactiver les caméras de surveillance de la maison afin de sortir discrètement. Je pense que le disjoncteur est situé sur le mur près du bureau";           
             }
         }
         else if(gameObject.name == "CartonCage")
@@ -74,7 +74,7 @@ public class InteractionSystem : MonoBehaviour, IInteractable
                 Destroy(CameraCollider);
                 interaction.hasCageDisjoncteurOpen = true;
                 interaction.imageKeyDisjoncteur.SetActive(false);
-                interaction.narrativeText.text = "Aide - Vous pouvez faire des sauts propulsé en maintenant CTRL + Espace pour atteindre des espaces plus haut"; 
+                interaction.narrativeText.text = "Astuce - Vous pouvez effectuer des sauts propulsés en maintenant les touches CTRL + Espace pour atteindre des hauteurs supérieures"; 
                 disjoncteurAnimator.SetBool("open", true);
                 ElectricitySystem.Stop();
             }
@@ -90,7 +90,7 @@ public class InteractionSystem : MonoBehaviour, IInteractable
         {
             interaction.hasGivePassDoor = true;
             interaction.narrativeTextObject.SetActive(true);
-            interaction.narrativeText.text = "Il manque une reconnaissance vocale. J'y pense, j'ai un super cri qui peut casser des choses, je devrais pouvoir m'en servir pour dérégler la sécurité";
+            interaction.narrativeText.text = "Il manque la reconnaissance vocale, je réalise que mon cri puissant peut briser des objets. Je pourrais l'utiliser pour perturber les systèmes de sécurité.";
             interaction.narrativeText.color = Color.white;    
         }
         else if(gameObject.name == "CaveDoorClose" && interaction.hasPassCaveDoor && interaction.hasGivePassDoor && interaction.hasCaqueteToOpenDoor)
@@ -251,9 +251,9 @@ public class InteractionSystem : MonoBehaviour, IInteractable
         else if(gameObject.name == "N-Miroir")
         {
             if(!interaction.hasCheckedPillow)
-                StartCoroutine(NarrativeWaiter("Je devrais faire attention à ne pas le casser, Je pourrais casser ce miroir pour récupérer un bout de verre pour ouvrir l’oreiller"));
+                StartCoroutine(NarrativeWaiter("Je devrais faire attention à ne pas le briser. En revanche, je pourrais envisager de briser ce miroir afin d'obtenir un morceau de verre qui me permettrait d'ouvrir l'oreiller"));
             else if(interaction.hasCheckedPillow)
-                StartCoroutine(NarrativeWaiter("Je devrais faire attention à ne pas le casser"));
+                StartCoroutine(NarrativeWaiter("Je devrais faire attention à ne pas le briser"));
             mirroirNarrativeBeforeInteraction.enabled = false;
         }
         else if(gameObject.name == "N-Oreiller")
