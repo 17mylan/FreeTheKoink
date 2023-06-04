@@ -694,7 +694,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 1ed43da5b9764544e8755d9c15930abe, type: 3}
+  - {fileID: 2100000, guid: e45123abc42f5844f98c5fa0f63e8cb1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -749,6 +749,9 @@ MonoBehaviour:
   doorAnimator: {fileID: 0}
   cageDoorAnimator: {fileID: 0}
   isDoorOpen: 0
+  CameraCollider: {fileID: 0}
+  mirroirNarrativeBeforeInteraction: {fileID: 0}
+  pillowNarrativeBeforeInteraction: {fileID: 0}
 --- !u!114 &9073133005252978331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5314,7 +5317,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 1ed43da5b9764544e8755d9c15930abe, type: 3}
+  - {fileID: 2100000, guid: cf774b4c734b1d04e9fbf6d71e964591, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5537,7 +5540,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 1ed43da5b9764544e8755d9c15930abe, type: 3}
+  - {fileID: 2100000, guid: e45123abc42f5844f98c5fa0f63e8cb1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

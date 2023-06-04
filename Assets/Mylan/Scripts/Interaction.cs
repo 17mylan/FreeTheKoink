@@ -209,7 +209,7 @@ public class Interaction : MonoBehaviour
                 else if (objectName.StartsWith("Disjoncteur"))
                 {
                     if(!hasCameraKey)
-                        nameText.text = "Le disjoncteur est cadenassé ! La clé ne devrait pas être loin";
+                        nameText.text = "Le disjoncteur nécessite une clé qui ne devrait pas être loin";
                     else if(hasCameraKey)
                         nameText.text = "Appuyer sur [E] pour eteindre la caméra";
                         if (Input.GetKeyDown(KeyCode.E))
@@ -307,7 +307,7 @@ public class Interaction : MonoBehaviour
                             }   
                         }
                     if(hasFireCaqueteFireTwo)
-                        nameText.text = "La clé à été récupérée";
+                        nameText.text = "Une clé de mission à été récupérée";
                     if(hasStartedFire)
                         if(isWaitingForIceInFire)
                             nameText.text = "Le glacon est en train fondre";
@@ -374,7 +374,7 @@ public class Interaction : MonoBehaviour
                 else if(objectName.StartsWith("Oreiller"))
                 {
                     if(hasBedroomKey)
-                        nameText.text = "Une clé a été récupérée";
+                        nameText.text = "Une clé de mission a été récupérée";
                     else if(hasCrackedMirror)
                     {
                         nameText.text = "Appuyer sur [E] pour couper l'oreiller";
@@ -460,7 +460,7 @@ public class Interaction : MonoBehaviour
                 {
                     if(!hasTakenMirrorGlasses)
                         nameText.text = "Les bouts de verre doivent être jetés dans cette poubelle";
-                    else if(hasTakenMirrorGlasses && !hasThrowGlassesInBin)
+                    else if(hasTakenMirrorGlasses && !hasThrowGlassesInBin && hasCrackedPillow)
                     {
                         nameText.text = "Appuyer sur [E] pour jeter les bouts dans la poubelle";
                         if(Input.GetKeyDown(KeyCode.E))
@@ -469,6 +469,8 @@ public class Interaction : MonoBehaviour
                             audioSource.PlayOneShot(binSound);
                         }
                     }
+                    else if(hasTakenMirrorGlasses && !hasThrowGlassesInBin && !hasCrackedPillow)
+                        nameText.text = "Les bouts de verre doivent servir avant de le jeter";
                     else if(hasThrowGlassesInBin && hasTakenMirrorGlasses)
                         nameText.text = "Les bouts de verre ont été jetés dans la poubelle";
                 }
@@ -517,6 +519,10 @@ public class Interaction : MonoBehaviour
                             audioSource.PlayOneShot(doorSound);
                         }
                     }
+                }
+                else if(objectName.StartsWith("MaitrePiece"))
+                {
+                    nameText.text = "Je pense que je ne devrais pas ouvrir cette porte";
                 }
                 lastInteractedObject = hitInfo.collider.gameObject;
             }

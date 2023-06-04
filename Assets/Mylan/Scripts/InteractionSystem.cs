@@ -13,6 +13,10 @@ public class InteractionSystem : MonoBehaviour, IInteractable
     public string NarrationText;
     public Animator doorAnimator;
     public Animator cageDoorAnimator;
+    public Animator disjoncteurAnimator;
+    public Animator frigoPortePrincipale;
+    public Animator frigoPorteGlacon;
+    public ParticleSystem ElectricitySystem;
     public bool isDoorOpen = false;
     public GameObject CameraCollider;
     private Interaction interaction;
@@ -71,6 +75,8 @@ public class InteractionSystem : MonoBehaviour, IInteractable
                 interaction.hasCageDisjoncteurOpen = true;
                 interaction.imageKeyDisjoncteur.SetActive(false);
                 interaction.narrativeText.text = "Aide - Vous pouvez faire des sauts propulsé en maintenant CTRL + Espace pour atteindre des espaces plus haut"; 
+                disjoncteurAnimator.SetBool("open", true);
+                ElectricitySystem.Stop();
             }
         }
         else if(gameObject.name == "Pass Porte")
@@ -101,14 +107,16 @@ public class InteractionSystem : MonoBehaviour, IInteractable
         }
         else if(gameObject.name == "FrigoPortePrincipale")
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
             // faire animation d'ouverture de la porte
+            frigoPortePrincipale.SetBool("open", true);
 
         }
         else if(gameObject.name == "PorteBacAGlacon")
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
             // faire animation d'ouverture de la porte
+            frigoPorteGlacon.SetBool("open", true);
 
         }
         else if(gameObject.name == "Glacon")
