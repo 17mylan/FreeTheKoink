@@ -102,7 +102,7 @@ public class Interaction : MonoBehaviour
     private void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
-        narrativeText.text = "Je dois trouver un moyen de m'échapper d'ici ! Je pense que le propriétaire a laissé la clé de la cage sur les cartons à côté.";
+        narrativeText.text = "Je dois trouver un moyen de m'échapper d'ici ! Il faut que je trouve de quoi ouvrir la porte de la cage";
         narrativeTextObject.SetActive(true);
         narrativeText.color = Color.white;
     }
@@ -209,7 +209,7 @@ public class Interaction : MonoBehaviour
                 else if (objectName.StartsWith("Disjoncteur"))
                 {
                     if(!hasCameraKey)
-                        nameText.text = "Le disjoncteur requiert une clé qui ne devrait pas être loin.";
+                        nameText.text = "Le disjoncteur requiert une clé";
                     else if(hasCameraKey)
                         nameText.text = "Appuyer sur [E] pour eteindre la caméra";
                         if (Input.GetKeyDown(KeyCode.E))
@@ -231,7 +231,7 @@ public class Interaction : MonoBehaviour
                 }
                 else if(objectName.StartsWith("TirroirBloqué"))
                 {
-                    nameText.text = "La porte est verrouillée, il est possible que le propriétaire ait caché la clé quelque part dans la maison, peut-être même dans cette pièce";
+                    nameText.text = "La porte est verrouillée, il est possible que le propriétaire ait caché la clé quelque part dans la maison";
                 }
                 else if(objectName.StartsWith("DetecteurCavePorte"))
                 {
@@ -402,7 +402,7 @@ public class Interaction : MonoBehaviour
                 }
                 else if(objectName.StartsWith("TracesDePas"))
                 {
-                    nameText.text = "Veuillez appuyer sur [E] pour effacer les traces afin de ne pas être repéré";
+                    nameText.text = "Veuillez appuyer sur [E] pour effacer les traces de pas";
                     if(Input.GetKeyDown(KeyCode.E))
                     {
                         interactObj.Interact();

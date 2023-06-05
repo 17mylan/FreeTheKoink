@@ -48,7 +48,7 @@ public class InteractionSystem : MonoBehaviour, IInteractable
                 cageDoorAnimator.SetBool("doorCageAnimationOpen", true);
                 interaction.imageKeyCageAsset.SetActive(false);
                 interaction.narrativeText.color = Color.green;
-                interaction.narrativeText.text = "Aide - Maintenant, je dois désactiver les caméras de surveillance de la maison afin de sortir discrètement. Je pense que le disjoncteur est situé sur le mur près du bureau";           
+                interaction.narrativeText.text = "Aide - Maintenant, je dois désactiver les caméras de surveillance de la maison afin de sortir discrètement.";           
             }
         }
         else if(gameObject.name == "CartonCage")
@@ -251,7 +251,7 @@ public class InteractionSystem : MonoBehaviour, IInteractable
         else if(gameObject.name == "N-Miroir")
         {
             if(!interaction.hasCheckedPillow)
-                StartCoroutine(NarrativeWaiter("Je devrais faire attention à ne pas le briser. En revanche, je pourrais envisager de briser ce miroir afin d'obtenir un morceau de verre qui me permettrait d'ouvrir l'oreiller"));
+                StartCoroutine(NarrativeWaiter("Je devrais faire attention à ne pas le briser mais je pourrais obtenir des morceaux de verre tranchant."));
             else if(interaction.hasCheckedPillow)
                 StartCoroutine(NarrativeWaiter("Je devrais faire attention à ne pas le briser"));
             mirroirNarrativeBeforeInteraction.enabled = false;

@@ -3462,8 +3462,8 @@ MonoBehaviour:
     occasion, vous a d\xE9plac\xE9. \xC9chappez-vous de la maison avant de ne plus
     avoir de plumes de billet."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6d2c8f42fde9b71418c3e8beeb2a44f5, type: 2}
-  m_sharedMaterial: {fileID: -281915490435231850, guid: 6d2c8f42fde9b71418c3e8beeb2a44f5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fea796351e397da4b94fab0a8c6685a5, type: 2}
+  m_sharedMaterial: {fileID: 6479931100975728232, guid: fea796351e397da4b94fab0a8c6685a5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6630,7 +6630,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &216742464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59815,7 +59815,7 @@ PrefabInstance:
     - target: {fileID: 1792187418722789754, guid: 9e4c3099db8ea5548bdfa7e7b8aada6c, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: df755b439db70b343b687c2482978c2d, type: 2}
+      objectReference: {fileID: 11400000, guid: fea796351e397da4b94fab0a8c6685a5, type: 2}
     - target: {fileID: 1792187418722789754, guid: 9e4c3099db8ea5548bdfa7e7b8aada6c, type: 3}
       propertyPath: m_fontStyle
       value: 0
@@ -59826,7 +59826,7 @@ PrefabInstance:
       objectReference: {fileID: -1177509341869786523, guid: df755b439db70b343b687c2482978c2d, type: 2}
     - target: {fileID: 1792187418722789754, guid: 9e4c3099db8ea5548bdfa7e7b8aada6c, type: 3}
       propertyPath: m_hasFontAssetChanged
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1853233860022403053, guid: 9e4c3099db8ea5548bdfa7e7b8aada6c, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -60119,14 +60119,14 @@ PrefabInstance:
     - target: {fileID: 5913387815442760237, guid: 9e4c3099db8ea5548bdfa7e7b8aada6c, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: df755b439db70b343b687c2482978c2d, type: 2}
+      objectReference: {fileID: 11400000, guid: fea796351e397da4b94fab0a8c6685a5, type: 2}
     - target: {fileID: 5913387815442760237, guid: 9e4c3099db8ea5548bdfa7e7b8aada6c, type: 3}
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: -1177509341869786523, guid: df755b439db70b343b687c2482978c2d, type: 2}
     - target: {fileID: 5913387815442760237, guid: 9e4c3099db8ea5548bdfa7e7b8aada6c, type: 3}
       propertyPath: m_hasFontAssetChanged
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5913387815442760274, guid: 9e4c3099db8ea5548bdfa7e7b8aada6c, type: 3}
       propertyPath: m_AnchorMax.x
@@ -69269,8 +69269,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: FREE THE KOINK
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6d2c8f42fde9b71418c3e8beeb2a44f5, type: 2}
-  m_sharedMaterial: {fileID: -281915490435231850, guid: 6d2c8f42fde9b71418c3e8beeb2a44f5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a3074f8919519804094eba19a1a94675, type: 2}
+  m_sharedMaterial: {fileID: -6959961896429402558, guid: a3074f8919519804094eba19a1a94675, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
