@@ -16,6 +16,7 @@ public class InteractionSystem : MonoBehaviour, IInteractable
     public Animator disjoncteurAnimator;
     public Animator frigoPortePrincipale;
     public Animator frigoPorteGlacon;
+    public Animator plancheOpen;
     public ParticleSystem ElectricitySystem;
     public bool isDoorOpen = false;
     public GameObject CameraCollider;
@@ -232,6 +233,12 @@ public class InteractionSystem : MonoBehaviour, IInteractable
             }
             else
                 DoorOpen();
+        }
+        else if(gameObject.name == "PlanchePivot")
+        {
+            plancheOpen.SetBool("open", true);
+            interaction.plancheBoxCollider.enabled = false;
+            //Destroy(gameObject);
         }
 
         // NARRATIVE 

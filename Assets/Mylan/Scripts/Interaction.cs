@@ -87,6 +87,9 @@ public class Interaction : MonoBehaviour
     public bool hasThrowGlassesInBin = false;
     public bool hasFinishShooterMission = false;
     
+    [Header("Mission Fin Shooter")]
+    public BoxCollider plancheBoxCollider;
+    
     [Header("Other")]
     public GameObject GlaconPrefab;
     public GameObject KeyPrefab;
@@ -523,6 +526,14 @@ public class Interaction : MonoBehaviour
                 else if(objectName.StartsWith("MaitrePiece"))
                 {
                     nameText.text = "Je pense que je ne devrais pas ouvrir cette porte";
+                }
+                else if(objectName.StartsWith("PlanchePivot"))
+                {
+                    nameText.text = "Appuyer sur [A] pour détacher les planches";
+                    if(Input.GetKeyDown(KeyCode.A))
+                    {
+                        interactObj.Interact();
+                    }
                 }
                 lastInteractedObject = hitInfo.collider.gameObject;
             }
