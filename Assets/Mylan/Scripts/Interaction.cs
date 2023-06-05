@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 interface IInteractable
 {
@@ -19,6 +20,7 @@ public class Interaction : MonoBehaviour
     public TextMeshProUGUI nameText;
     private GameObject lastInteractedObject;
     private InteractionSystem interactionSystem;
+    private FinalEvent finalEvent;
     public AudioSource audioSource;
     public AudioClip doorSound;
     public AudioClip cageDoorSound;
@@ -100,10 +102,14 @@ public class Interaction : MonoBehaviour
     public GameObject ReveilPrefab;
     public GameObject ReveilPrefabUI;
     public GameObject ShotgunAmmoUI;
+    public GameObject UIbedroomKey;
+    public GameObject UIofficeKey;
     public GameObject narrativeTextObject;
+    public GameObject fadeToBlackEndGame;
     public TextMeshProUGUI narrativeText;
     private void Start()
     {
+        finalEvent = FindObjectOfType<FinalEvent>();
         gameManager = FindObjectOfType<GameManager>();
         narrativeText.text = "Je dois trouver un moyen de m'échapper d'ici ! Il faut que je trouve de quoi ouvrir la porte de la cage";
         narrativeTextObject.SetActive(true);
@@ -394,9 +400,28 @@ public class Interaction : MonoBehaviour
                 }
                 else if(objectName.StartsWith("PivotPortePrincipale"))
                 {
-                    if(hasCameraKey && hasBedroomKey && hasCaveKey)
+                    if(hasKitchenKey && hasBedroomKey && hasCaveKey)
                     {
                         nameText.text = "Appuyer sur [E] pour tenter de vous échapper";
+                        if(Input.GetKeyDown(KeyCode.E))
+                        {
+                            if(hasFinishChopperMission && hasFinishShooterMission)
+                            {
+                                StartCoroutine(endPlayerWin());
+                            }
+                            else if(!hasFinishChopperMission && hasFinishShooterMission)
+                            {
+                                StartCoroutine(endPlayerChopper());
+                            }
+                            else if(hasFinishChopperMission && !hasFinishShooterMission)
+                            {
+                                StartCoroutine(endPlayerShooter());
+                            }
+                            else if(!hasFinishShooterMission && !hasFinishChopperMission)
+                            {
+                                StartCoroutine(endPlayerNoMission());
+                            }
+                        }
                     }
                     else
                     {
@@ -484,6 +509,7 @@ public class Interaction : MonoBehaviour
                     {
                         interactObj.Interact();
                         audioSource.PlayOneShot(zipSound);
+                        UIbedroomKey.SetActive(true);
                     }
                 }
                 else if(objectName.StartsWith("PivotPorteChambre"))
@@ -497,6 +523,7 @@ public class Interaction : MonoBehaviour
                         {
                             interactObj.Interact();
                             audioSource.PlayOneShot(doorSound);
+                            UIbedroomKey.SetActive(false);
                         }
                     }
                 }
@@ -507,6 +534,7 @@ public class Interaction : MonoBehaviour
                     {
                         interactObj.Interact();
                         audioSource.PlayOneShot(zipSound);
+                        UIofficeKey.SetActive(true);
                     }
                 }
                 else if(objectName.StartsWith("PivotPorteBureau"))
@@ -520,6 +548,7 @@ public class Interaction : MonoBehaviour
                         {
                             interactObj.Interact();
                             audioSource.PlayOneShot(doorSound);
+                            UIofficeKey.SetActive(false);
                         }
                     }
                 }
@@ -533,6 +562,16 @@ public class Interaction : MonoBehaviour
                     if(Input.GetKeyDown(KeyCode.A))
                     {
                         interactObj.Interact();
+                        audioSource.PlayOneShot(doorSound);
+                    }
+                }
+                else if(objectName.StartsWith("Clé Cuisine"))
+                {
+                    nameText.text = "Appuyer sur [E] pour récuperer la clé de mission";
+                    if(Input.GetKeyDown(KeyCode.E))
+                    {
+                        interactObj.Interact();
+                        audioSource.PlayOneShot(zipSound);
                     }
                 }
                 lastInteractedObject = hitInfo.collider.gameObject;
@@ -549,7 +588,31 @@ public class Interaction : MonoBehaviour
             DisableOutline(lastInteractedObject);
         }
     }
-
+    IEnumerator endPlayerWin()
+    {
+        fadeToBlackEndGame.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene("End - Win");
+    }
+    IEnumerator endPlayerChopper()
+    {
+        fadeToBlackEndGame.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene("End - Chopper");
+    }
+    
+    IEnumerator endPlayerShooter()
+    {
+        fadeToBlackEndGame.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene("End - Shooter");
+    }
+    IEnumerator endPlayerNoMission()
+    {
+        fadeToBlackEndGame.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene("End - NoMission");
+    }
     void DisableOutline(GameObject obj)
     {
         if (obj != null)

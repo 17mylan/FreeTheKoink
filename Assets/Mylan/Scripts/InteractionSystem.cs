@@ -21,6 +21,8 @@ public class InteractionSystem : MonoBehaviour, IInteractable
     public bool isDoorOpen = false;
     public GameObject CameraCollider;
     private Interaction interaction;
+    public GameObject keyInPillowPrefab;
+    public ParticleSystem pillowCut;
     public BoxCollider mirroirNarrativeBeforeInteraction;
     public BoxCollider pillowNarrativeBeforeInteraction;
     private GameManager gameManager;
@@ -93,10 +95,10 @@ public class InteractionSystem : MonoBehaviour, IInteractable
             interaction.narrativeTextObject.SetActive(true);
             interaction.narrativeText.text = "Il manque la reconnaissance vocale, je réalise que mon cri puissant peut briser des objets. Je pourrais l'utiliser pour perturber les systèmes de sécurité.";
             interaction.narrativeText.color = Color.white;    
+            interaction.imagePassDoor.SetActive(false);
         }
         else if(gameObject.name == "CaveDoorClose" && interaction.hasPassCaveDoor && interaction.hasGivePassDoor && interaction.hasCaqueteToOpenDoor)
         {
-            interaction.imagePassDoor.SetActive(false);
             interaction.hasOpenCaveDoor = true;
             interaction.narrativeTextObject.SetActive(false);
             if (isDoorOpen)
@@ -159,6 +161,8 @@ public class InteractionSystem : MonoBehaviour, IInteractable
         else if(gameObject.name == "Oreiller")
         {
             interaction.hasCrackedPillow = true;
+            Destroy(keyInPillowPrefab);
+            pillowCut.Play();
             if(!interaction.hasBedroomKey)
             {
                 interaction.hasBedroomKey = true;
@@ -240,6 +244,28 @@ public class InteractionSystem : MonoBehaviour, IInteractable
             interaction.plancheBoxCollider.enabled = false;
             //Destroy(gameObject);
         }
+        else if(gameObject.name == "Clé Cuisine")
+        {
+            Destroy(gameObject);
+            interaction.hasCaveKey = true;
+            gameManager.numberOfKey = gameManager.numberOfKey + 1;
+            gameManager.UpdateKeyNumberInUI();
+        }
+        /*else if(gameObject.name == "PivotPortePrincipale")
+        {
+            if(interaction.hasFinishChopperMission && interaction.hasFinishShooterMission)
+            {
+                print("Tu as gagné");
+            }
+            else if(!interaction.hasFinishChopperMission && interaction.hasFinishShooterMission)
+            {
+                print("Tu t'es fait chopper");
+            }
+            else if(interaction.hasFinishChopperMission && !interaction.hasFinishShooterMission)
+            {
+                print("tu t'es fait shooter");
+            }
+        }*/
 
         // NARRATIVE 
         StopCoroutine(NarrativeWaiter(NarrationText));

@@ -14,4 +14,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GO-Camera.unity
     guid: a607a904bcfabfa49be7d28eca6b0ee3
+  - enabled: 1
+    path: Assets/Scenes/End - Win.unity
+    guid: 7768bd9ca30d9814586393b97956b5f7
+  - enabled: 1
+    path: Assets/Scenes/End - Chopper.unity
+    guid: fb5298c83d03d234f91d03b2d496b0b2
+  - enabled: 1
+    path: Assets/Scenes/End - Shooter.unity
+    guid: cad1ef649b61ec246a886ba073aeeebc
+  - enabled: 1
+    path: Assets/Scenes/End - NoMission.unity
+    guid: d7abaedf0e47bec419bfe9cc9d7f2624
+  - enabled: 1
+    path: Assets/Scenes/End - NoMoreRuns.unity
+    guid: c0ce2a245bb9dd348ac7477ad08fc726
   m_configObjects: {}

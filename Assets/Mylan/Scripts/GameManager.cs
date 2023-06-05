@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
         if(CurrentIndexOfRun > maxRun) // pour pouvoir jouer la derniere
         {
             print("Game has finished!");
+            SceneManager.LoadScene("End - NoMoreRuns");
         }
         else
         {
