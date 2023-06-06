@@ -107,6 +107,7 @@ public class Interaction : MonoBehaviour
     public GameObject UIbedroomKey;
     public GameObject UIofficeKey;
     public GameObject UIfeather;
+    public GameObject secondKeyInCheminee;
     public GameObject narrativeTextObject;
     public GameObject fadeToBlackEndGame;
     public TextMeshProUGUI narrativeText;
@@ -286,7 +287,15 @@ public class Interaction : MonoBehaviour
                 }
                 else if(objectName.StartsWith("Four"))
                 {
-                    if(hasIcedGlace)
+                    nameText.text = "Appuyer sur [E] pour lancer le feu";
+                    if(Input.GetKeyDown(KeyCode.E))
+                    {
+                        interactObj.Interact();
+                    }
+                    else if(hasStartedFire)
+                        nameText.text = "Le feu est allumé";
+
+                    /*if(hasIcedGlace)
                         nameText.text = "Appuyer sur [E] pour lancer le feu";
                         if(Input.GetKeyDown(KeyCode.E))
                         {
@@ -295,7 +304,16 @@ public class Interaction : MonoBehaviour
                     else if(!hasIcedGlace)
                         nameText.text = "Il faut trouver un glaçon";
                     else if(hasStartedFire)
-                        nameText.text = "Le feu est allumé";
+                        nameText.text = "Le feu est allumé";*/
+                }
+                else if(objectName.StartsWith("SecondKeyInCheminee"))
+                {
+                    nameText.text = "Appuyer sur [E] pour récuperer la clé de mission";
+                    if(Input.GetKeyDown(KeyCode.E))
+                    {
+                        interactObj.Interact();
+                        audioSource.PlayOneShot(zipSound);
+                    }
                 }
                 else if(objectName.StartsWith("Cheminée"))
                 {
@@ -303,27 +321,27 @@ public class Interaction : MonoBehaviour
                         nameText.text = "Il est nécessaire d'allumer le feu préalablement";
                     if(hasFireCaqueteFireOne)
                         {
-                            nameText.text = "Appuyer sur [A] pour refroidir la clé et la prendre";
+                            nameText.text = "Appuyer sur [A] pour refroidir la clé";
                             if(Input.GetKeyDown(KeyCode.A))
                             {
                                 hasFireCaqueteFireTwo = true;
                                 if(!hasKitchenKey)
                                 {
-                                    hasKitchenKey = true;
-                                    gameManager.numberOfKey = gameManager.numberOfKey + 1;
-                                    audioSource.PlayOneShot(zipSound);
-                                    gameManager.UpdateKeyNumberInUI();
-                                    KeyPrefab.SetActive(false);
-                                    TracesDePasObject.SetActive(true);
+                                    secondKeyInCheminee.SetActive(true);
                                 }
                             }   
                         }
                     if(hasFireCaqueteFireTwo)
                         nameText.text = "Une clé de mission à été récupérée";
                     if(hasStartedFire)
-                        if(isWaitingForIceInFire)
+                    {
+                        if(!isWaitingForIceInFire && !hasIcedFinishFired && !hasIcedGlace)
+                        {
+                            nameText.text = "Un glacon devrait être mit dans ce feu";
+                        }
+                        else if(isWaitingForIceInFire)
                             nameText.text = "Le glacon est en train fondre";
-                        else if(!isWaitingForIceInFire && !hasIcedFinishFired)
+                        else if(!isWaitingForIceInFire && !hasIcedFinishFired && hasIcedGlace)
                         {
                             nameText.text = "Appuyer sur [E] pour mettre le glacon";
                             if(Input.GetKeyDown(KeyCode.E))
@@ -331,7 +349,7 @@ public class Interaction : MonoBehaviour
                                 interactObj.Interact();
                             }
                         }
-                        else if(!isWaitingForIceInFire && hasIcedFinishFired)
+                        else if(!isWaitingForIceInFire && hasIcedFinishFired && hasIcedGlace)
                         {
                             nameText.text = "Appuyer sur [A] pour caqueter et arreter le feu";
                             if(Input.GetKeyDown(KeyCode.A))
@@ -342,6 +360,7 @@ public class Interaction : MonoBehaviour
                                 hasFireCaqueteFireOne = true;
                             }
                         }
+                    }
                 }
                 else if(objectName.StartsWith("N-Miroir"))
                 {

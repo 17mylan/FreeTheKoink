@@ -133,7 +133,7 @@ public class InteractionSystem : MonoBehaviour, IInteractable
         }
         else if(gameObject.name == "Four")
         {
-            if(interaction.hasIcedGlace && !interaction.hasStartedFire)
+            if(!interaction.hasStartedFire) //&& interaction.hasIcedGlace
             {
                 interaction.hasStartedFire = true;
                 interaction.FXFirePrefab.SetActive(true);
@@ -142,7 +142,7 @@ public class InteractionSystem : MonoBehaviour, IInteractable
         }
         else if(gameObject.name == "Cheminée")
         {
-            if(interaction.hasStartedFire && !interaction.hasFireCaqueteFireOne && !interaction.hasFireCaqueteFireTwo)
+            if(interaction.hasStartedFire && !interaction.hasFireCaqueteFireOne && !interaction.hasFireCaqueteFireTwo && interaction.hasIcedGlace)
             {
                 if(!interaction.hasStartedIcedInFireForFirstTime)
                 {
@@ -276,21 +276,16 @@ public class InteractionSystem : MonoBehaviour, IInteractable
             gameManager.numberOfKey = gameManager.numberOfKey + 1;
             gameManager.UpdateKeyNumberInUI();
         }
-        /*else if(gameObject.name == "PivotPortePrincipale")
+        else if(gameObject.name == "SecondKeyInCheminee")
         {
-            if(interaction.hasFinishChopperMission && interaction.hasFinishShooterMission)
-            {
-                print("Tu as gagné");
-            }
-            else if(!interaction.hasFinishChopperMission && interaction.hasFinishShooterMission)
-            {
-                print("Tu t'es fait chopper");
-            }
-            else if(interaction.hasFinishChopperMission && !interaction.hasFinishShooterMission)
-            {
-                print("tu t'es fait shooter");
-            }
-        }*/
+            interaction.hasKitchenKey = true;
+            gameManager.numberOfKey = gameManager.numberOfKey + 1;
+            gameManager.UpdateKeyNumberInUI();
+            interaction.KeyPrefab.SetActive(false);
+            interaction.TracesDePasObject.SetActive(true);
+            Destroy(gameObject);
+        }
+
 
         // NARRATIVE 
         StopCoroutine(NarrativeWaiter(NarrationText));
