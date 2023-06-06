@@ -22,6 +22,9 @@ public class InteractionSystem : MonoBehaviour, IInteractable
     public GameObject CameraCollider;
     private Interaction interaction;
     public GameObject keyInPillowPrefab;
+    public GameObject plumeInPillow;
+    public GameObject plumeInStatue;
+    public GameObject keyPlumeStatue;
     public ParticleSystem pillowCut;
     public BoxCollider mirroirNarrativeBeforeInteraction;
     public BoxCollider pillowNarrativeBeforeInteraction;
@@ -160,15 +163,37 @@ public class InteractionSystem : MonoBehaviour, IInteractable
         }
         else if(gameObject.name == "Oreiller")
         {
-            interaction.hasCrackedPillow = true;
-            Destroy(keyInPillowPrefab);
             pillowCut.Play();
+            interaction.hasCrackedPillow = true;
+            plumeInPillow.SetActive(true);
+            MeshRenderer meshRenderer = gameObject.GetComponent<MeshRenderer>();
+            meshRenderer.enabled = false;
+            BoxCollider boxCollider = gameObject.GetComponent<BoxCollider>();
+            boxCollider.enabled = false;
+        }
+        else if(gameObject.name == "PlumeDansLoreiller")
+        {
+            interaction.hasKeepUpPlume = true;
+            interaction.UIfeather.SetActive(true);
+            print("jai recuperer la plume");
+            Destroy(gameObject);
+        }
+        else if(gameObject.name == "StatueCanard")
+        {
+            interaction.hasPutPlumeInStatue = true;
+            interaction.UIfeather.SetActive(false);
+            plumeInStatue.SetActive(true);
+            keyPlumeStatue.SetActive(true);
+        }
+        else if(gameObject.name == "Clé Canard")
+        {
             if(!interaction.hasBedroomKey)
             {
                 interaction.hasBedroomKey = true;
                 gameManager.numberOfKey = gameManager.numberOfKey + 1;
                 gameManager.UpdateKeyNumberInUI();
             }
+            Destroy(gameObject);
         }
         else if(gameObject.name == "TracesDePas")
         {

@@ -75,6 +75,8 @@ public class Interaction : MonoBehaviour
     public bool hasCrackedMirror = false;
     public bool hasKeepUpCrackedMirror = false;
     public bool hasCrackedPillow = false;
+    public bool hasKeepUpPlume = false;
+    public bool hasPutPlumeInStatue = false;
 
     [Header("Mission Fin Chopper")]
     public bool hasCleanTraces = false;
@@ -104,6 +106,7 @@ public class Interaction : MonoBehaviour
     public GameObject ShotgunAmmoUI;
     public GameObject UIbedroomKey;
     public GameObject UIofficeKey;
+    public GameObject UIfeather;
     public GameObject narrativeTextObject;
     public GameObject fadeToBlackEndGame;
     public TextMeshProUGUI narrativeText;
@@ -382,9 +385,9 @@ public class Interaction : MonoBehaviour
                 }
                 else if(objectName.StartsWith("Oreiller"))
                 {
-                    if(hasBedroomKey)
-                        nameText.text = "Une clé de mission a été récupérée";
-                    else if(hasCrackedMirror)
+                    /*if(hasBedroomKey)
+                        nameText.text = "Une clé de mission a été récupérée";*/
+                    if(hasCrackedMirror)
                     {
                         nameText.text = "Appuyer sur [E] pour couper l'oreiller";
                         if(Input.GetKeyDown(KeyCode.E))
@@ -566,6 +569,41 @@ public class Interaction : MonoBehaviour
                     }
                 }
                 else if(objectName.StartsWith("Clé Cuisine"))
+                {
+                    nameText.text = "Appuyer sur [E] pour récuperer la clé de mission";
+                    if(Input.GetKeyDown(KeyCode.E))
+                    {
+                        interactObj.Interact();
+                        audioSource.PlayOneShot(zipSound);
+                    }
+                }
+                else if(objectName.StartsWith("PlumeDansLoreiller"))
+                {
+                    nameText.text = "Appuyer sur [E] pour récuperer la plume";
+                    if(Input.GetKeyDown(KeyCode.E))
+                    {
+                        interactObj.Interact();
+                        audioSource.PlayOneShot(zipSound);
+                    }
+                }
+                else if(objectName.StartsWith("StatueCanard"))
+                {
+                    if(!hasKeepUpPlume && !hasPutPlumeInStatue)
+                        nameText.text = "Une plume devrait etre posée sur ce socle";
+                    else if(hasKeepUpPlume && !hasPutPlumeInStatue)
+                    {
+                        nameText.text = "Appuyer sur [E] pour poser la plume";
+                        if(Input.GetKeyDown(KeyCode.E))
+                        {
+                            interactObj.Interact();
+                        }
+                    }
+                    else if(hasPutPlumeInStatue && hasKeepUpPlume)
+                    {
+                        nameText.text = "La plume à été correctement posée";
+                    }
+                }
+                else if(objectName.StartsWith("Clé Canard"))
                 {
                     nameText.text = "Appuyer sur [E] pour récuperer la clé de mission";
                     if(Input.GetKeyDown(KeyCode.E))
