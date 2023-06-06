@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class OtherPlayerScript : MonoBehaviour
 {
     public AudioSource audioSource;
-    public AudioClip caqueteSound;
+    public AudioClip caqueteSound, jumpSound;
     public Animator animator;
 
     void Update()
@@ -15,6 +15,10 @@ public class OtherPlayerScript : MonoBehaviour
         {
             audioSource.PlayOneShot(caqueteSound);
             StartCoroutine(WaitCaquete());
+        }
+        else if(Input.GetKeyDown(KeyCode.Space))
+        {
+            audioSource.PlayOneShot(jumpSound);
         }
     }
     IEnumerator WaitCaquete()

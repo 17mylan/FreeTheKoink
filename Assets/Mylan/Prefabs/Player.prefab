@@ -503,6 +503,8 @@ MonoBehaviour:
   breakSound: {fileID: 8300000, guid: 1ec163df8ceb8074d96e94f73645eab8, type: 3}
   binSound: {fileID: 8300000, guid: ec96f268a6218a84486670cd8af670de, type: 3}
   toiletSound: {fileID: 8300000, guid: 1a2541bbf4d70424aa7b3a129d9b41c6, type: 3}
+  survolObjectSound: {fileID: 8300000, guid: b90a382366ec7404e9a10f5f39e6229c, type: 3}
+  interactObjectSound: {fileID: 8300000, guid: 6936db4735cfaad4a93f0c188300db68, type: 3}
   fireSound: {fileID: 0}
   imageKeyCageAsset: {fileID: 9187753791938501015}
   imageKeyDisjoncteur: {fileID: 6288688804604711597}
@@ -557,6 +559,8 @@ MonoBehaviour:
   ShotgunAmmoUI: {fileID: 0}
   UIbedroomKey: {fileID: 0}
   UIofficeKey: {fileID: 0}
+  UIfeather: {fileID: 0}
+  secondKeyInCheminee: {fileID: 0}
   narrativeTextObject: {fileID: 0}
   fadeToBlackEndGame: {fileID: 0}
   narrativeText: {fileID: 0}
@@ -591,6 +595,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 9161988963130931916}
   caqueteSound: {fileID: 8300000, guid: 6d60d645116b1964f874ad5fc7edd32e, type: 3}
+  jumpSound: {fileID: 8300000, guid: 454727dd5eade4743a9dff9b486b83c0, type: 3}
   animator: {fileID: 6178689913090870626}
 --- !u!82 &9161988963130931916
 AudioSource:

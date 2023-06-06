@@ -31,6 +31,8 @@ public class Interaction : MonoBehaviour
     public AudioClip breakSound;
     public AudioClip binSound;
     public AudioClip toiletSound;
+    public AudioClip survolObjectSound;
+    public AudioClip interactObjectSound;
     public AudioSource fireSound;
     public GameObject imageKeyCageAsset, imageKeyDisjoncteur, imagePassDoor, FXFirePrefab;
     public ParticleSystem FXFire;
@@ -131,6 +133,7 @@ public class Interaction : MonoBehaviour
             {
                 string objectName = hitInfo.collider.gameObject.name;
                 InteractionText.SetActive(true);
+                //audioSource.PlayOneShot(survolObjectSound);
                 Outline outlineComponent = hitInfo.collider.gameObject.GetComponent<Outline>();
                 if (outlineComponent != null)
                     outlineComponent.enabled = true;
@@ -139,13 +142,19 @@ public class Interaction : MonoBehaviour
                 {
                     nameText.text = "Appuyer sur [E] pour inspecter";
                     if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        audioSource.PlayOneShot(interactObjectSound);
                         interactObj.Interact();
+                    }
                 }
                 else if (objectName.StartsWith("Interactive-"))
                 {
                     nameText.text = "Appuyer sur [E] pour intéragir";
                     if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        audioSource.PlayOneShot(interactObjectSound);
                         interactObj.Interact();
+                    }
                 }
                 else if (objectName.StartsWith("CaveDoorClose"))
                 {
@@ -199,6 +208,7 @@ public class Interaction : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.E))
                     {
                         interactObj.Interact();
+                        audioSource.PlayOneShot(interactObjectSound);
                     }
                 }
                 else if (objectName.StartsWith("Clé Cage"))
@@ -266,6 +276,7 @@ public class Interaction : MonoBehaviour
                     if(Input.GetKeyDown(KeyCode.E))
                     {
                         interactObj.Interact();
+                        audioSource.PlayOneShot(doorSound);
                     }
                 }
                 else if(objectName.StartsWith("PorteBacAGlacon"))
@@ -274,6 +285,7 @@ public class Interaction : MonoBehaviour
                     if(Input.GetKeyDown(KeyCode.E))
                     {
                         interactObj.Interact();
+                        audioSource.PlayOneShot(doorSound);
                     }
                 }
                 else if(objectName.StartsWith("Glacon"))
@@ -291,6 +303,7 @@ public class Interaction : MonoBehaviour
                     if(Input.GetKeyDown(KeyCode.E))
                     {
                         interactObj.Interact();
+                        audioSource.PlayOneShot(interactObjectSound);
                     }
                     else if(hasStartedFire)
                         nameText.text = "Le feu est allumé";
@@ -368,6 +381,7 @@ public class Interaction : MonoBehaviour
                     if(Input.GetKeyDown(KeyCode.E))
                     {
                         interactObj.Interact();
+                        audioSource.PlayOneShot(interactObjectSound);
                     }
                 }
                 else if(objectName.StartsWith("Miroir"))
@@ -400,6 +414,7 @@ public class Interaction : MonoBehaviour
                     if(Input.GetKeyDown(KeyCode.E))
                     {
                         interactObj.Interact();
+                        audioSource.PlayOneShot(interactObjectSound);
                     }
                 }
                 else if(objectName.StartsWith("Oreiller"))
@@ -456,6 +471,7 @@ public class Interaction : MonoBehaviour
                     if(Input.GetKeyDown(KeyCode.E))
                     {
                         interactObj.Interact();
+                        audioSource.PlayOneShot(interactObjectSound);
                     }
                 }
                 else if(objectName.StartsWith("PoubelleChambre"))

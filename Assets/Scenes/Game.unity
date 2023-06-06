@@ -1668,7 +1668,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: b2c7ede60263da5418e527179ac4267e, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 4954b0a9368bd2d49ada201da6840cf5, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.175
   m_Pitch: 1
@@ -6878,7 +6878,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &216742464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86166,31 +86166,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2faf2b43a4a7dd042b4c479b0872ccf9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.291
+      value: -4.636
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2faf2b43a4a7dd042b4c479b0872ccf9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.345
+      value: 3.673
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2faf2b43a4a7dd042b4c479b0872ccf9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -11.429
+      value: -11.333
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2faf2b43a4a7dd042b4c479b0872ccf9, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: -0.009750865
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2faf2b43a4a7dd042b4c479b0872ccf9, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2faf2b43a4a7dd042b4c479b0872ccf9, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.7071068
+      value: 0.9999525
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2faf2b43a4a7dd042b4c479b0872ccf9, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2faf2b43a4a7dd042b4c479b0872ccf9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -86198,7 +86198,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2faf2b43a4a7dd042b4c479b0872ccf9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
+      value: 181.117
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2faf2b43a4a7dd042b4c479b0872ccf9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -86282,8 +86282,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.21381688, y: 0.28228837, z: 0.10663687}
-  m_Center: {x: -0.106392674, y: 0.12565327, z: -0.00013789813}
+  m_Size: {x: 0.21381688, y: 0.28228837, z: 0.18331045}
+  m_Center: {x: -0.1063927, y: 0.12565327, z: 0.038198844}
 --- !u!1 &1881133308
 GameObject:
   m_ObjectHideFlags: 0
