@@ -592,7 +592,12 @@ public class Interaction : MonoBehaviour
                 }
                 else if(objectName.StartsWith("MaitrePiece"))
                 {
-                    nameText.text = "Je pense que je ne devrais pas ouvrir cette porte";
+                    nameText.text = "Appuyer sur [E] pour inspecter";
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        audioSource.PlayOneShot(interactObjectSound);
+                        interactObj.Interact();
+                    }
                 }
                 else if(objectName.StartsWith("PlanchePivot"))
                 {
@@ -645,6 +650,42 @@ public class Interaction : MonoBehaviour
                     {
                         interactObj.Interact();
                         audioSource.PlayOneShot(zipSound);
+                    }
+                }
+                else if(objectName.StartsWith("CouteauSurCuisine"))
+                {
+                    nameText.text = "Appuyer sur [E] pour inspecter";
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        audioSource.PlayOneShot(interactObjectSound);
+                        interactObj.Interact();
+                    }
+                }
+                else if(objectName.StartsWith("Board"))
+                {
+                    nameText.text = "Appuyer sur [E] pour inspecter";
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        audioSource.PlayOneShot(interactObjectSound);
+                        interactObj.Interact();
+                    }
+                }
+                else if(objectName.StartsWith("TableauCheminee"))
+                {
+                    nameText.text = "Appuyer sur [E] pour inspecter";
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        audioSource.PlayOneShot(interactObjectSound);
+                        interactObj.Interact();
+                    }
+                }
+                else if(objectName.StartsWith("Fusil"))
+                {
+                    nameText.text = "Appuyer sur [E] pour inspecter";
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        audioSource.PlayOneShot(interactObjectSound);
+                        interactObj.Interact();
                     }
                 }
                 lastInteractedObject = hitInfo.collider.gameObject;

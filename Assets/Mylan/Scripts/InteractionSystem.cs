@@ -289,6 +289,26 @@ public class InteractionSystem : MonoBehaviour, IInteractable
 
         // NARRATIVE 
         StopCoroutine(NarrativeWaiter(NarrationText));
+        if (gameObject.name == "CouteauSurCuisine")
+        {
+            StartCoroutine(NarrativeWaiter(NarrationText));
+        }
+        if (gameObject.name == "MaitrePiece")
+        {
+            StartCoroutine(NarrativeWaiter(NarrationText));
+        }
+        if (gameObject.name == "Board")
+        {
+            StartCoroutine(NarrativeWaiter(NarrationText));
+        }
+        if (gameObject.name == "TableauCheminee")
+        {
+            StartCoroutine(NarrativeWaiter(NarrationText));
+        }
+        if (gameObject.name == "Fusil")
+        {
+            StartCoroutine(NarrativeWaiter(NarrationText));
+        }
         if (gameObject.name == "Narrative-Chaise")
         {
             StartCoroutine(NarrativeWaiter(NarrationText));
